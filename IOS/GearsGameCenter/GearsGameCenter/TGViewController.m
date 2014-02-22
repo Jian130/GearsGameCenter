@@ -40,7 +40,7 @@
     NSString *ip = [self getIPAddress];
     NSLog(@"ipaddress: %@", ip);
 
-    NSString *fullURL = @"http://192.168.16.14/Games/Maze/index.html";
+    NSString *fullURL = @"http://192.168.16.17/Games/Maze/index.html";
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [_webView loadRequest:requestObj];
@@ -93,7 +93,7 @@
         return;
     }
     
-    NSString *gameLink = @"http://192.168.16.14/Games/Maze/index.html";
+    NSString *gameLink = @"http://192.168.16.17/Games/Maze/index.html";
     NSString *message = [@"Please join the Maze game: " stringByAppendingString:gameLink];
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];

@@ -11,11 +11,16 @@
 
 @interface TGBroadcastingServer()
 
+@property (nonatomic) int seq;
+
 @end
 
 @implementation TGBroadcastingServer
 
+@synthesize seq = _seq;
+
 - (void)start {
+    
 	[[BLWebSocketsServer sharedInstance] startListeningOnPort:81 withProtocolName:NULL andCompletionBlock:^(NSError *error) {
         if (!error) {
             NSLog(@"Server started");
@@ -25,12 +30,16 @@
         }
     }];
     
+    self.seq = 0;
     
     [[BLWebSocketsServer sharedInstance] setHandleRequestBlock:^NSData *(NSData *requestData) {
         NSLog(@"request recived: %@", [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding]);
        
-        [[BLWebSocketsServer sharedInstance] pushToAll:requestData];
+    	NSString *mesg = [NSString stringWithFormat:@"message from server  %i", self.seq];
+        NSData *data = [mesg dataUsingEncoding:NSUTF8StringEncoding];
+        [[BLWebSocketsServer sharedInstance] pushToAll:data];
         
+        self.seq ++;
         return NULL;
     }];
 }
