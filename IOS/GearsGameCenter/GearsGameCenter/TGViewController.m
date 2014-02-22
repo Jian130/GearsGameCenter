@@ -44,7 +44,8 @@
 
     NSString *gameName = @"Maze";
     
-    NSString *fullURL = [[[[@"http://" stringByAppendingString:ip ] stringByAppendingString:@"/Games/"] stringByAppendingString:gameName] stringByAppendingString:@"/network-test.html"];
+    NSString *fullURL = [[[[@"http://" stringByAppendingString:ip ] stringByAppendingString:@"/Games/"] stringByAppendingString:gameName] stringByAppendingString:@"/index.html"];
+    
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [_webView loadRequest:requestObj];
@@ -68,7 +69,7 @@
     
     NSString *gameName = @"Maze";
     
-    NSString *gameLink = [[[[@"http://" stringByAppendingString:[Util getIPAddress]] stringByAppendingString:@"/Games/"] stringByAppendingString:gameName] stringByAppendingString:@"/network-test.html"];
+    NSString *gameLink = [[[[@"http://" stringByAppendingString:[Util getIPAddress]] stringByAppendingString:@"/Games/"] stringByAppendingString:gameName] stringByAppendingString:@"/index.html"];
     
     NSString *message = [@"Please join the Maze game: " stringByAppendingString:gameLink];
     
