@@ -55,6 +55,7 @@
 		//convert JSON
 		console.log(input);
 		recievedObject = JSON.parse(input.data);
+		document.getElementById("#test").innerHTML = input;
 		console.log(recievedObject);
 		//other data handling here
 	}
