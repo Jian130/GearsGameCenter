@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "85C72AE6218F4D60BB0DFCA2"
+               BlueprintIdentifier = "217DD7EFF3E54FB2A031A4BB"
                BuildableName = "libPods-BLWebSocketsServer.a"
                BlueprintName = "Pods-BLWebSocketsServer"
                ReferencedContainer = "container:Pods.xcodeproj">
