@@ -1,0 +1,9 @@
+<DOCTYPE !HTML>
+<html>
+	<head>
+		<script src="client-network.js" />
+	</head>
+	<body>
+		<div> testing</div>
+	</body>
+</html>
