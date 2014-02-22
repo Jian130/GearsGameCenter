@@ -28,8 +28,10 @@
     
     [[BLWebSocketsServer sharedInstance] setHandleRequestBlock:^NSData *(NSData *requestData) {
         NSLog(@"request recived: %@", [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding]);
+       
+        [[BLWebSocketsServer sharedInstance] pushToAll:requestData];
         
-        return requestData;
+        return NULL;
     }];
 }
 
