@@ -37,7 +37,7 @@
     // Override point for customization after application launch.
     self.ipAddress = [self getIPAddress];
     
-//    [self.webServer start];
+    [self.webServer start];
     [self.broadcasetingServer start];
     
     NSLog(@"server ip address: %@", self.ipAddress);

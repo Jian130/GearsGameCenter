@@ -11,6 +11,15 @@
 #include <arpa/inet.h>
 #import <MessageUI/MessageUI.h>
 
+#include <CoreFoundation/CoreFoundation.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+
+#include <sys/types.h>
+#include <net/if.h>
+#include <netdb.h>
+
+
 
 @interface TGViewController () <MFMessageComposeViewControllerDelegate>
 
@@ -74,6 +83,7 @@
     // Free memory
     freeifaddrs(interfaces);
     return address;
+    
 }
 
 - (IBAction)shareTapped:(id)sender {
