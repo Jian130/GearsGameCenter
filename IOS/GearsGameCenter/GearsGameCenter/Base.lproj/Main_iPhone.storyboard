@@ -20,17 +20,25 @@
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem systemItem="action" id="4CE-E7-0CY"/>
+                                    <barButtonItem systemItem="action" id="4CE-E7-0CY">
+                                        <connections>
+                                            <action selector="shareTapped:" destination="vXZ-lx-hvc" id="Mfb-ko-NEb"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="upY-TN-CEw">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="shareButton" destination="4CE-E7-0CY" id="vs7-Qv-TZX"/>
+                        <outlet property="webView" destination="upY-TN-CEw" id="Knh-VS-14c"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
