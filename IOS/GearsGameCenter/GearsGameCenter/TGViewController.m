@@ -74,7 +74,8 @@
     // Free memory
     freeifaddrs(interfaces);
     return address;
-    
+}
+
 - (IBAction)shareTapped:(id)sender {
     if(![MFMessageComposeViewController canSendText]) {
         UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
