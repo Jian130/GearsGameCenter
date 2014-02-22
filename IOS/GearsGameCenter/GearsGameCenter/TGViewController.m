@@ -19,6 +19,7 @@
 #include <net/if.h>
 #include <netdb.h>
 
+#include "gBroadcastServer.h"
 
 
 @interface TGViewController () <MFMessageComposeViewControllerDelegate>
@@ -37,7 +38,9 @@
     
     //start web server
     
-    NSString *ip = [self getIPAddress];
+    gBroadcastServer* ss = [[gBroadcastServer alloc] init];
+    NSString *ip = [ss getIPAddress];
+
     NSLog(@"ipaddress: %@", ip);
 
     NSString *fullURL = @"http://192.168.16.17/Games/Maze/index.html";
@@ -52,37 +55,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
     
-    
-}
-
-- (NSString *)getIPAddress {
-    
-    NSString *address = @"error";
-    struct ifaddrs *interfaces = NULL;
-    struct ifaddrs *temp_addr = NULL;
-    int success = 0;
-    // retrieve the current interfaces - returns 0 on success
-    success = getifaddrs(&interfaces);
-    if (success == 0) {
-        // Loop through linked list of interfaces
-        temp_addr = interfaces;
-        while(temp_addr != NULL) {
-            if(temp_addr->ifa_addr->sa_family == AF_INET) {
-                // Check if interface is en0 which is the wifi connection on the iPhone
-                if([[NSString stringWithUTF8String:temp_addr->ifa_name] isEqualToString:@"en0"]) {
-                    // Get NSString from C String
-                    address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
-                    
-                }
-                
-            }
-            
-            temp_addr = temp_addr->ifa_next;
-        }
-    }
-    // Free memory
-    freeifaddrs(interfaces);
-    return address;
     
 }
 
