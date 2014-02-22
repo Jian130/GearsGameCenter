@@ -10,9 +10,22 @@
 
 @implementation TGAppDelegate
 
+@synthesize broadcasetingServer = _broadcasetingServer;
+
+- (TGBroadcastingServer *)broadcasetingServer {
+	if (!_broadcasetingServer) {
+        _broadcasetingServer = [[TGBroadcastingServer alloc] init];
+    }
+    
+    return _broadcasetingServer;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    [self.broadcasetingServer start];
+    
     return YES;
 }
 							
@@ -41,6 +54,8 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
+    [self.broadcasetingServer stop];
 }
 
 @end

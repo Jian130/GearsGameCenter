@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TGBroadcastingServer.h"
 
 @interface TGAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) TGBroadcastingServer *broadcasetingServer;
 
 @end

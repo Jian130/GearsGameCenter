@@ -10,4 +10,7 @@
 
 @interface TGBroadcastingServer : NSObject
 
+- (void)start;
+- (void)stop;
+
 @end
