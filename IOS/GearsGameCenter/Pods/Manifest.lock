@@ -1,0 +1,10 @@
+PODS:
+  - BLWebSocketsServer (0.1.0)
+
+DEPENDENCIES:
+  - BLWebSocketsServer (~> 0.1.0)
+
+SPEC CHECKSUMS:
+  BLWebSocketsServer: 5ddfeb5df590a5a8ac1d44bde51d7839f961e55a
+
+COCOAPODS: 0.29.0
