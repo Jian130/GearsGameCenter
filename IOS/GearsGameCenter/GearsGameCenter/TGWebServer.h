@@ -10,4 +10,6 @@
 
 @interface TGWebServer : NSObject
 
+- (void)start;
+
 @end
