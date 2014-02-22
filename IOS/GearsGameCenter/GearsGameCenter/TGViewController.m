@@ -19,7 +19,7 @@
 #include <net/if.h>
 #include <netdb.h>
 
-#include "gBroadcastServer.h"
+#include "util.h"
 
 
 @interface TGViewController () <MFMessageComposeViewControllerDelegate>
@@ -38,12 +38,13 @@
     
     //start web server
     
-    gBroadcastServer* ss = [[gBroadcastServer alloc] init];
-    NSString *ip = [ss getIPAddress];
+    NSString *ip = [Util getIPAddress];
 
     NSLog(@"ipaddress: %@", ip);
 
-    NSString *fullURL = @"http://192.168.16.17/Games/Maze/index.html";
+    NSString *gameName = @"Maze";
+    
+    NSString *fullURL = [[[[@"http://" stringByAppendingString:ip ] stringByAppendingString:@"/Games/"] stringByAppendingString:gameName] stringByAppendingString:@"/network-test.html"];
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [_webView loadRequest:requestObj];
@@ -65,7 +66,10 @@
         return;
     }
     
-    NSString *gameLink = @"http://192.168.16.17/Games/Maze/index.html";
+    NSString *gameName = @"Maze";
+    
+    NSString *gameLink = [[[[@"http://" stringByAppendingString:[Util getIPAddress]] stringByAppendingString:@"/Games/"] stringByAppendingString:gameName] stringByAppendingString:@"/network-test.html"];
+    
     NSString *message = [@"Please join the Maze game: " stringByAppendingString:gameLink];
     
     MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];

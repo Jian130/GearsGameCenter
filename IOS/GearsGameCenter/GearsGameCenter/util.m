@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Peter Rau. All rights reserved.
 //
 
-#import "gBroadcastServer.h"
+#import "util.h"
 #include <CoreFoundation/CoreFoundation.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -20,14 +20,9 @@
 #include <unistd.h>
 
 
-@implementation gBroadcastServer
+@implementation Util : NSObject
 
--(id) init {
-    return self;
-}
-
-
-- (NSString *)getIPAddress {
++ (NSString *)getIPAddress {
     
     NSString *address = @"error";
     struct ifaddrs *interfaces;

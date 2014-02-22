@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		40B3E01FB8BA476EB5624566 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 912CEF8CAF2346FDA093E02F /* libPods.a */; };
-		52493DF118B94B0000E0B215 /* gBroadcastServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 52493DEF18B94B0000E0B215 /* gBroadcastServer.m */; };
+		52493DF118B94B0000E0B215 /* util.m in Sources */ = {isa = PBXBuildFile; fileRef = 52493DEF18B94B0000E0B215 /* util.m */; };
 		525256D618B9251300E30880 /* Games in Resources */ = {isa = PBXBuildFile; fileRef = 525256D518B9251300E30880 /* Games */; };
 		8E625DD018B9243400BB9BF9 /* TGWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E625DCF18B9243400BB9BF9 /* TGWebServer.m */; };
 		8E625DD318B9245400BB9BF9 /* TGBroadcastingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E625DD218B9245400BB9BF9 /* TGBroadcastingServer.m */; };
@@ -40,8 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		52493DEF18B94B0000E0B215 /* gBroadcastServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = gBroadcastServer.m; sourceTree = "<group>"; };
-		52493DF018B94B0000E0B215 /* gBroadcastServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gBroadcastServer.h; sourceTree = "<group>"; };
+		52493DEF18B94B0000E0B215 /* util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = util.m; sourceTree = "<group>"; };
+		52493DF018B94B0000E0B215 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
 		525256D518B9251300E30880 /* Games */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Games; sourceTree = "<group>"; };
 		772CA5695AF9428994AF8C49 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		8E625DCE18B9243400BB9BF9 /* TGWebServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGWebServer.h; sourceTree = "<group>"; };
@@ -131,8 +131,8 @@
 		8EF262E318B91A8000AEE044 /* GearsGameCenter */ = {
 			isa = PBXGroup;
 			children = (
-				52493DEF18B94B0000E0B215 /* gBroadcastServer.m */,
-				52493DF018B94B0000E0B215 /* gBroadcastServer.h */,
+				52493DEF18B94B0000E0B215 /* util.m */,
+				52493DF018B94B0000E0B215 /* util.h */,
 				525256D518B9251300E30880 /* Games */,
 				8EF262EC18B91A8000AEE044 /* TGAppDelegate.h */,
 				8EF262ED18B91A8000AEE044 /* TGAppDelegate.m */,
@@ -316,7 +316,7 @@
 			files = (
 				8E625DD018B9243400BB9BF9 /* TGWebServer.m in Sources */,
 				8EF262F718B91A8000AEE044 /* TGViewController.m in Sources */,
-				52493DF118B94B0000E0B215 /* gBroadcastServer.m in Sources */,
+				52493DF118B94B0000E0B215 /* util.m in Sources */,
 				8EF262EA18B91A8000AEE044 /* main.m in Sources */,
 				8EF262EE18B91A8000AEE044 /* TGAppDelegate.m in Sources */,
 				8E625DD318B9245400BB9BF9 /* TGBroadcastingServer.m in Sources */,
