@@ -30,7 +30,7 @@
 
 		connection.onopen = function(event) { onConnection() };
 		connection.onerror = function(error) { connectionError(error) };
-		connection.onmessage = function(object) { recieveObject(object)};
+		connection.onmessage = function(object) { recieveObject(object) };
 		connection.onclose = function(event) { onCloseEvent() };
 	}
 
@@ -54,8 +54,13 @@
 	function recieveObject(input) {
 		//convert JSON
 		console.log(input);
-		recievedObject = JSON.parse(input.data);
-		document.getElementById("#test").innerHTML = input;
+		try {
+			recievedObject = JSON.parse(input.data);
+		} catch(error) {
+			console.log('message is not a JSON object');
+		}
+		//recievedObject = JSON.parse(input.data);
+		document.getElementById('test').innerHTML = input.data;
 		console.log(recievedObject);
 		//other data handling here
 	}
@@ -67,5 +72,6 @@
 		} else {
 			console.log("connection not ready!");
 		}
+		console.log("SENT");
 	}
 
