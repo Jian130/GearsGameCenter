@@ -36,8 +36,9 @@
         NSLog(@"request recived: %@", [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding]);
        
     	NSString *mesg = [NSString stringWithFormat:@"message from server  %i", self.seq];
-        NSData *data = [mesg dataUsingEncoding:NSUTF8StringEncoding];
-        [[BLWebSocketsServer sharedInstance] pushToAll:requestData];
+        NSMutableData *data = [NSMutableData dataWithData:[mesg dataUsingEncoding:NSUTF8StringEncoding]];
+        [data appendData:requestData];
+        [[BLWebSocketsServer sharedInstance] pushToAll:data];
         
         self.seq ++;
         return NULL;
