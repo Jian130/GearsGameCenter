@@ -11,5 +11,6 @@
 @interface Util : NSObject
 
 + (NSString *)getIPAddress;
++ (NSString *)getlocalIPAddress;
 
 @end

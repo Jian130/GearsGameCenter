@@ -53,4 +53,43 @@
     
 }
 
++ (NSArray *)getlocalIPAddress
+{
+    NSMutableArray *ipAddresses = [NSMutableArray array] ;
+    
+    struct ifaddrs *allInterfaces;
+    
+    // Get list of all interfaces on the local machine:
+    if (getifaddrs(&allInterfaces) == 0) {
+        struct ifaddrs *interface;
+        
+        // For each interface ...
+        for (interface = allInterfaces; interface != NULL; interface = interface->ifa_next) {
+            unsigned int flags = interface->ifa_flags;
+            struct sockaddr *addr = interface->ifa_addr;
+            
+            // Check for running IPv4, IPv6 interfaces. Skip the loopback interface.
+            if ((flags & (IFF_UP|IFF_RUNNING|IFF_LOOPBACK)) == (IFF_UP|IFF_RUNNING)) {
+                if (addr->sa_family == AF_INET ){//|| addr->sa_family == AF_INET6) {
+                    
+                    // Convert interface address to a human readable string:
+                    char host[NI_MAXHOST];
+                    getnameinfo(addr, addr->sa_len, host, sizeof(host), NULL, 0, NI_NUMERICHOST);
+                    
+                    [ipAddresses addObject:[[NSString alloc] initWithUTF8String:host]];
+                } else if (addr->sa_family == AF_INET6) {
+                    // Convert interface address to a human readable string:
+                    char host[NI_MAXHOST];
+                    getnameinfo(addr, addr->sa_len, host, sizeof(host), NULL, 0, NI_NUMERICHOST);
+                    
+                    [ipAddresses addObject:[[NSString alloc] initWithUTF8String:host]];
+                }
+            }
+        }
+        
+        freeifaddrs(allInterfaces);
+    }
+    return ipAddresses;
+}
+
 @end

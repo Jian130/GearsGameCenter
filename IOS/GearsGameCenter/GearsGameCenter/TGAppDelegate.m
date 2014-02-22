@@ -7,6 +7,7 @@
 //
 
 #import "TGAppDelegate.h"
+#import "Util.h"
 
 @implementation TGAppDelegate
 
@@ -33,6 +34,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    self.ipAddress = [Util getlocalIPAddress];
     
     [self.webServer start];
     [self.broadcasetingServer start];
