@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		40B3E01FB8BA476EB5624566 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 912CEF8CAF2346FDA093E02F /* libPods.a */; };
+		525256D618B9251300E30880 /* Games in Resources */ = {isa = PBXBuildFile; fileRef = 525256D518B9251300E30880 /* Games */; };
 		8E625DD018B9243400BB9BF9 /* TGWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E625DCF18B9243400BB9BF9 /* TGWebServer.m */; };
 		8E625DD318B9245400BB9BF9 /* TGBroadcastingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E625DD218B9245400BB9BF9 /* TGBroadcastingServer.m */; };
 		8EF262DE18B91A8000AEE044 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF262DD18B91A8000AEE044 /* Foundation.framework */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		525256D518B9251300E30880 /* Games */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Games; sourceTree = "<group>"; };
 		772CA5695AF9428994AF8C49 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		8E625DCE18B9243400BB9BF9 /* TGWebServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGWebServer.h; sourceTree = "<group>"; };
 		8E625DCF18B9243400BB9BF9 /* TGWebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGWebServer.m; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 		8EF262E318B91A8000AEE044 /* GearsGameCenter */ = {
 			isa = PBXGroup;
 			children = (
+				525256D518B9251300E30880 /* Games */,
 				8EF262EC18B91A8000AEE044 /* TGAppDelegate.h */,
 				8EF262ED18B91A8000AEE044 /* TGAppDelegate.m */,
 				8EF262EF18B91A8000AEE044 /* Main_iPhone.storyboard */,
@@ -250,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				525256D618B9251300E30880 /* Games in Resources */,
 				8EF262F418B91A8000AEE044 /* Main_iPad.storyboard in Resources */,
 				8EF262F918B91A8000AEE044 /* Images.xcassets in Resources */,
 				8EF262F118B91A8000AEE044 /* Main_iPhone.storyboard in Resources */,
