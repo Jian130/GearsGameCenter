@@ -38,16 +38,19 @@
 	function connectionError(error) {
 		console.log("connection error: " + error);
 		alert(error);
-		document.getElementById("#yolo").innerHTML = error;
+		document.getElementById("#test").innerHTML = error;
 	}
+
 	//initial connection sequence
 	function onConnection() {
 		console.log("connected");
 		sendOut(gameStateObject);
 	}
+
 	function onCloseEvent() {
 		console.log("closing");
 	}
+
 	function recieveObject(input) {
 		//convert JSON
 		console.log(input);
@@ -55,6 +58,7 @@
 		console.log(recievedObject);
 		//other data handling here
 	}
+
 	function sendOut(object) {
 		if(connection.readyState == 1)
 		{
