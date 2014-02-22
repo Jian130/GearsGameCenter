@@ -12,6 +12,7 @@
 		525256D618B9251300E30880 /* Games in Resources */ = {isa = PBXBuildFile; fileRef = 525256D518B9251300E30880 /* Games */; };
 		8E625DD018B9243400BB9BF9 /* TGWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E625DCF18B9243400BB9BF9 /* TGWebServer.m */; };
 		8E625DD318B9245400BB9BF9 /* TGBroadcastingServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E625DD218B9245400BB9BF9 /* TGBroadcastingServer.m */; };
+		8E85EA5318B959BD0068DB5D /* TGMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E85EA5218B959BD0068DB5D /* TGMainViewController.m */; };
 		8EF262DE18B91A8000AEE044 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF262DD18B91A8000AEE044 /* Foundation.framework */; };
 		8EF262E018B91A8000AEE044 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF262DF18B91A8000AEE044 /* CoreGraphics.framework */; };
 		8EF262E218B91A8000AEE044 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF262E118B91A8000AEE044 /* UIKit.framework */; };
@@ -48,6 +49,8 @@
 		8E625DCF18B9243400BB9BF9 /* TGWebServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGWebServer.m; sourceTree = "<group>"; };
 		8E625DD118B9245400BB9BF9 /* TGBroadcastingServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGBroadcastingServer.h; sourceTree = "<group>"; };
 		8E625DD218B9245400BB9BF9 /* TGBroadcastingServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGBroadcastingServer.m; sourceTree = "<group>"; };
+		8E85EA5118B959BD0068DB5D /* TGMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGMainViewController.h; sourceTree = "<group>"; };
+		8E85EA5218B959BD0068DB5D /* TGMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGMainViewController.m; sourceTree = "<group>"; };
 		8EF262DA18B91A8000AEE044 /* GearsGameCenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GearsGameCenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EF262DD18B91A8000AEE044 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8EF262DF18B91A8000AEE044 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -146,6 +149,8 @@
 				8E625DCF18B9243400BB9BF9 /* TGWebServer.m */,
 				8E625DD118B9245400BB9BF9 /* TGBroadcastingServer.h */,
 				8E625DD218B9245400BB9BF9 /* TGBroadcastingServer.m */,
+				8E85EA5118B959BD0068DB5D /* TGMainViewController.h */,
+				8E85EA5218B959BD0068DB5D /* TGMainViewController.m */,
 			);
 			path = GearsGameCenter;
 			sourceTree = "<group>";
@@ -314,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E85EA5318B959BD0068DB5D /* TGMainViewController.m in Sources */,
 				8E625DD018B9243400BB9BF9 /* TGWebServer.m in Sources */,
 				8EF262F718B91A8000AEE044 /* TGViewController.m in Sources */,
 				52493DF118B94B0000E0B215 /* util.m in Sources */,
