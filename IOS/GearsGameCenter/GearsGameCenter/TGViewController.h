@@ -11,4 +11,6 @@
 
 @interface TGViewController : UIViewController
 
+@property (strong, nonatomic) NSString* gameName;
+
 @end

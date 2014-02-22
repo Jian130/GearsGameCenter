@@ -81,6 +81,10 @@
     [self presentViewController:messageController animated:YES completion:nil];
 }
 
+- (IBAction)doneTapped:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
 {
     switch (result) {
