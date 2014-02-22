@@ -2,19 +2,16 @@
 //client network layer
 
 //can send data in binary
-	//json object
+	//init objects
 
-	var gameStateObject;
-	var recievedObject;
+	var gameStateObject;  //json object to tx
+	var recievedObject;	  // recieved json object
 	var wsPort;
 
-	//init connection
 	var connection;
-	//sendOut(gameStateObject);
 	//to close connection connection.close();
 	window.onload = function() {
 		console.log("loading!");
-		//window.alert("loading!");
 		//check preconditions for web socket support
 		if (window.MozWebSocket)
 	    {
@@ -24,20 +21,17 @@
 	    else if (!window.WebSocket)
 	    {
 	        console.log('browser does not support websockets!');
+	        alert('browser does not support websockets!');
 	        return;
 	    }
 		gameStateObject = {message1: "test", message2:"test2"};
-		wsPort = (window.location.port.toString() === "" ? "" : ":"+window.location.port);
-		/*if (wsUri.value === "") {
-        	wsUri.value = "ws://" + window.location.hostname.replace("www", "echo") + wsPort;
-    	}*/
-		connection = new WebSocket('ws://echo.websocket.org');//,soap, xmpp);
+		wsPort = "81";
+		connection = new WebSocket('ws://192.168.16.17:81');
+
 		connection.onopen = function(event) { onConnection() };
-		connection.onerror = function(errror) { connectionError(error) };
+		connection.onerror = function(error) { connectionError(error) };
 		connection.onmessage = function(object) { recieveObject(object)};
 		connection.onclose = function(event) { onCloseEvent() };
-
-		//sendOut(gameStateObject);		
 	}
 
 	//connection error handling
@@ -70,4 +64,3 @@
 		}
 	}
 
-	//window.addEventListener("load", echoHandlePageLoad, false);
