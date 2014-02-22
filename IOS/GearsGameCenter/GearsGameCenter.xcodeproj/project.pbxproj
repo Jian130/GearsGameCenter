@@ -134,23 +134,23 @@
 		8EF262E318B91A8000AEE044 /* GearsGameCenter */ = {
 			isa = PBXGroup;
 			children = (
-				52493DEF18B94B0000E0B215 /* util.m */,
-				52493DF018B94B0000E0B215 /* util.h */,
 				525256D518B9251300E30880 /* Games */,
+				8EF262F818B91A8000AEE044 /* Images.xcassets */,
+				8EF262F218B91A8000AEE044 /* Main_iPad.storyboard */,
+				8EF262EF18B91A8000AEE044 /* Main_iPhone.storyboard */,
+				8EF262E418B91A8000AEE044 /* Supporting Files */,
 				8EF262EC18B91A8000AEE044 /* TGAppDelegate.h */,
 				8EF262ED18B91A8000AEE044 /* TGAppDelegate.m */,
-				8EF262EF18B91A8000AEE044 /* Main_iPhone.storyboard */,
-				8EF262F218B91A8000AEE044 /* Main_iPad.storyboard */,
-				8EF262F518B91A8000AEE044 /* TGViewController.h */,
-				8EF262F618B91A8000AEE044 /* TGViewController.m */,
-				8EF262F818B91A8000AEE044 /* Images.xcassets */,
-				8EF262E418B91A8000AEE044 /* Supporting Files */,
-				8E625DCE18B9243400BB9BF9 /* TGWebServer.h */,
-				8E625DCF18B9243400BB9BF9 /* TGWebServer.m */,
 				8E625DD118B9245400BB9BF9 /* TGBroadcastingServer.h */,
 				8E625DD218B9245400BB9BF9 /* TGBroadcastingServer.m */,
 				8E85EA5118B959BD0068DB5D /* TGMainViewController.h */,
 				8E85EA5218B959BD0068DB5D /* TGMainViewController.m */,
+				8EF262F518B91A8000AEE044 /* TGViewController.h */,
+				8EF262F618B91A8000AEE044 /* TGViewController.m */,
+				8E625DCE18B9243400BB9BF9 /* TGWebServer.h */,
+				8E625DCF18B9243400BB9BF9 /* TGWebServer.m */,
+				52493DF018B94B0000E0B215 /* util.h */,
+				52493DEF18B94B0000E0B215 /* util.m */,
 			);
 			path = GearsGameCenter;
 			sourceTree = "<group>";

@@ -37,7 +37,7 @@
        
     	NSString *mesg = [NSString stringWithFormat:@"message from server  %i", self.seq];
         NSData *data = [mesg dataUsingEncoding:NSUTF8StringEncoding];
-        [[BLWebSocketsServer sharedInstance] pushToAll:data];
+        [[BLWebSocketsServer sharedInstance] pushToAll:requestData];
         
         self.seq ++;
         return NULL;
