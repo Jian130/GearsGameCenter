@@ -15,17 +15,8 @@
 
 @implementation TGBroadcastingServer
 
-//- (id)init {
-//	self = [super init];
-//    if (self) {
-//    	[self initBroadcastingServer];
-//    }
-//    
-//    return self;
-//}
-
 - (void)start {
-	[[BLWebSocketsServer sharedInstance] startListeningOnPort:8080 withProtocolName:@"TCP" andCompletionBlock:^(NSError *error) {
+	[[BLWebSocketsServer sharedInstance] startListeningOnPort:81 withProtocolName:@"TCP" andCompletionBlock:^(NSError *error) {
         if (!error) {
             NSLog(@"Server started");
         }
