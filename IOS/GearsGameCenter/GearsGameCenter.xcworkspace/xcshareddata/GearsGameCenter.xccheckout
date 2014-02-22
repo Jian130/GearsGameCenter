@@ -5,7 +5,11 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
+<<<<<<< HEAD
 	<string>E823C839-AA4B-4A74-B060-1DAC458200F2</string>
+=======
+	<string>63D4D6B4-A18B-4EA1-B3C4-22F8697C6D5F</string>
+>>>>>>> 1110a5aaf5df6cb514ad3a5fc8aa739a234cfd26
 	<key>IDESourceControlProjectName</key>
 	<string>GearsGameCenter</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
