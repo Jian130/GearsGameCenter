@@ -175,7 +175,12 @@
 			for (var i = data.length - 1; i >= 0; i--) {
 				for (var j = data[i].length - 1; j >= 0; j--) {
 					data[i][j].Disp.position.x=data[i][j].Disp.position.x-direction[0]*speed;
+
 				}
+			}
+			for(var i=0;i<otherUser.length;i++){
+				otherUser[i].Disp.position.x=data[otherUser[i].location.x][otherUser[i].location.y].Disp.position.x;
+
 			}
 			diffx=diffx-speed;
 		}
@@ -184,6 +189,11 @@
 				for (var j = data[i].length - 1; j >= 0; j--) {
 					data[i][j].Disp.position.y=data[i][j].Disp.position.y-direction[1]*speed;
 				}
+			}
+			for(var i=0;i<otherUser.length;i++){
+				otherUser[i].Disp.position.y=data[otherUser[i].location.x][otherUser[i].location.y].Disp.position.y;
+					console.log(otherUser[i].Disp.position.y);
+
 			}
 			diffy=diffy-speed;
 		}
@@ -305,19 +315,34 @@
 				return;
 
 			for(var i=0; i<otherUser.length; i++){ // if it is already in the lists, delete it
+				/*
 
 					otherUser[i].Disp.position.x=(object.location.x+5)*blockSize;
-					otherUser[i].Disp.position.y=(object.location.y+5)*blockSize;
+					otherUser[i].Disp.position.y=(object.location.y)*blockSize;*/
+					if(otherUser[i].userid==object.userid){
+					otherUser[i].Disp.position.x=mazerenderData[object.location.x][object.location.y].Disp.position.x;
+
+					otherUser[i].Disp.position.y=mazerenderData[object.location.x][object.location.y].Disp.position.y;
+					otherUser[i].location.x=object.location.x;
+					otherUser[i].location.y=object.location.y;
+
+
 					return;
+				}
 				
 			}
 
-					console.log(object.location);
+					//console.log(object.location);
 
 					object.Disp = new PIXI.Sprite(charTexture)
-
+/*
 					object.Disp.position.x=(object.location.x+5)*blockSize;
-					object.Disp.position.y=(object.location.y+5)*blockSize;
+					object.Disp.position.y=(object.location.y)*blockSize;*/
+					object.Disp.position.x=mazerenderData[object.location.x][object.location.y].Disp.position.x;
+					object.Disp.position.y=mazerenderData[object.location.x][object.location.y].Disp.position.y;
+
+object.location.x=object.location.x;
+					object.location.y=object.location.y;
 					container.addChild(object.Disp);
 
 					otherUser.push(object);
