@@ -1,0 +1,370 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>JS Maze</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #b2cac9;
+		}
+
+		#help{
+			position: absolute;
+			z-index: 20;
+			color: black;
+			top: 20px;
+			left: 120px;
+		}
+	</style>
+	<script src="seedrandom.js"></script>
+	<script src="client-network.js"></script>
+	<script src="test.js"></script>
+	<script src="pixi.js"></script>
+</head>
+<body>
+	<script>
+
+	var fps = 10;
+	var now;
+	var then = Date.now();
+	var interval = 1000/fps;
+	var delta;
+	var mazeWidth=31;
+	var mazeHeight=31;
+	var viewWidth=11;
+	var viewHeight=11;
+	var mazedata;
+	var blockSize=15;
+	var container= new PIXI.DisplayObjectContainer();
+	container.position.x=15;
+	container.position.y=15;
+
+
+	function to2DArray(array,width,height){
+		var first=new Array(height);
+		for(var i=0;i<height;i++){
+			first[i]=new Array(width);
+			for(var j=0;j<height;j++){
+				first[i][j]=array[width*j+i];
+			}
+		}
+		return first;
+	}
+	// create an new instance of a pixi stage
+	// the second parameter is interactivity...
+	var interactive = true;
+	var stage = new PIXI.Stage(0xb2cac9, interactive);
+	stage.addChild(container);
+
+	function MazeLocation(inx,iny){
+		this.x=inx;
+		this.y=iny;
+	};
+	/*
+	function ComputeShift(x,y){
+		this.shiftx=5*blockSize;
+		this.shifty=5*blockSize;
+	}*/
+	var Mylocation = new MazeLocation(0,5);
+	var LocationShift={shiftx:5*blockSize-Mylocation.x*blockSize,shifty:5*blockSize-Mylocation.y*blockSize};
+
+	// create a renderer instance.
+	var renderer = PIXI.autoDetectRenderer(180, 180);
+	
+
+	
+	maze1d=generateMaze(mazeWidth,mazeHeight,"123");
+	var grid=returnFrame2(Mylocation.x,Mylocation.y,mazeWidth,mazeHeight,maze1d);
+	mazedata = to2DArray(maze1d,mazeWidth,mazeHeight);
+
+	//console.log(grid.toString());
+	console.log(mazedata);
+
+	var block1Texture=PIXI.Texture.fromImage("block1.png");
+	var block2Texture=PIXI.Texture.fromImage("block2.png");
+	var empty3Texture=PIXI.Texture.fromImage("block3.png");
+	var empty4Texture=PIXI.Texture.fromImage("block4.png");
+	var empty5Texture=PIXI.Texture.fromImage("block5.png");
+	var empty6Texture=PIXI.Texture.fromImage("block6.png");
+	var charTexture=PIXI.Texture.fromImage("character1.png");
+	
+	
+	function GridBlock(x,y)
+    {
+        this.Disp = new PIXI.Sprite(empty6Texture);
+        this.Disp.anchor.x = 0;
+        this.Disp.anchor.y = 0;
+        this.Disp.position.x = x*blockSize+LocationShift.shiftx;
+        this.Disp.position.y = y*blockSize+LocationShift.shifty;
+
+    }
+    function CharBlock(x,y)
+    {
+        this.Disp = new PIXI.Sprite(charTexture);
+        this.Disp.anchor.x = 0;
+        this.Disp.anchor.y = 0;
+        this.Disp.position.x = 5*blockSize;
+        this.Disp.position.y = 5*blockSize;
+
+    }
+	function ParseMazeData(mazeData){
+		var mazeGrids=new Array(mazeWidth);
+		for(var i=0;i<mazeWidth;i++){
+			mazeGrids[i]=new Array(mazeHeight);
+		}
+		console.log(mazeGrids);
+		for(var i=0;i<mazeData.length;i++){
+			for(var j=0;j<mazeData[i].length;j++){
+				var g= new GridBlock(i,j);
+				
+
+				if(mazeData[i][j]==0){
+
+					if(j>0 && mazeData[i][j-1]==0 && i<mazeData[i].length-1 && mazeData[i+1][j]==1)
+						g.Disp.setTexture(empty3Texture);
+					else if(j>0 && mazeData[i][j-1]==1 && i<mazeData[i].length-1 && mazeData[i+1][j]==1)
+						g.Disp.setTexture(empty4Texture);
+					else if(j>0 && mazeData[i][j-1]==1 && i<mazeData[i].length-1 && mazeData[i+1][j]==0)
+						g.Disp.setTexture(empty5Texture);
+				}else{
+					if(j<mazeData.length-1 && mazeData[i][j+1]==1)
+						g.Disp.setTexture(block1Texture);
+					else
+						g.Disp.setTexture(block2Texture);
+				}
+			
+				mazeGrids[i][j]=g;
+			}
+		}
+		return mazeGrids;
+	}
+	function MazeSetup(mazegrid){
+
+		for(var i=0;i<mazeWidth;i++){
+			for(var j=0;j<mazeHeight;j++){
+				container.addChild(mazegrid[i][j].Disp);
+			}
+		}
+	}
+
+
+
+
+
+	var diffx=0;
+	var diffy=0;
+	function MazeUpdate(direction,data){
+		if(diffx==0 && diffy==0 &&CurrentPath!=undefined){
+			if (CurrentPath.length>0) {
+				diffx=blockSize;
+				diffy=blockSize;
+				Mylocation.x=Mylocation.x+ CurrentPath[0][0];
+				Mylocation.y=Mylocation.y + CurrentPath[0][1];
+				CurrentPath.shift();
+
+				var dataobject={type:"updateLocation",userid:myid,location:Mylocation ,userid:ID};
+        		sendOut(dataobject);
+				
+			}else{
+				OnPath=false;
+			}
+			return;
+		}
+		if(diffx!=0){
+			for (var i = data.length - 1; i >= 0; i--) {
+				for (var j = data[i].length - 1; j >= 0; j--) {
+					data[i][j].Disp.position.x=data[i][j].Disp.position.x-direction[0]*speed;
+
+				}
+			}
+			for(var i=0;i<otherUser.length;i++){
+				otherUser[i].Disp.position.x=data[otherUser[i].location.x][otherUser[i].location.y].Disp.position.x;
+
+			}
+			diffx=diffx-speed;
+		}
+		if(diffy!=0){
+			for (var i = data.length - 1; i >= 0; i--) {
+				for (var j = data[i].length - 1; j >= 0; j--) {
+					data[i][j].Disp.position.y=data[i][j].Disp.position.y-direction[1]*speed;
+				}
+			}
+			for(var i=0;i<otherUser.length;i++){
+				otherUser[i].Disp.position.y=data[otherUser[i].location.x][otherUser[i].location.y].Disp.position.y;
+					console.log(otherUser[i].Disp.position.y);
+
+			}
+			diffy=diffy-speed;
+		}
+		
+		
+
+
+	}
+
+
+
+	var mazerenderData=ParseMazeData(mazedata);
+	console.log(mazerenderData);
+	MazeSetup(mazerenderData);
+
+	// create a background..
+	var background = PIXI.Sprite.fromImage("frame.png");
+		
+
+	// add background to stage..
+	//container.addChild(background);
+	var CharDisplay=new CharBlock(105,105); 
+
+	
+	container.addChild(CharDisplay.Disp);
+
+
+	// add the renderer view element to the DOM
+	document.body.appendChild(renderer.view);
+
+	requestAnimFrame( animate );
+
+
+	var speed=5;
+
+	var OnPath=false;
+    var CurrentPath=new Array();
+    
+	stage.click  = function()
+    {
+    	mp = stage.getMousePosition(); 
+
+    	var inputx=Math.floor(mp.x/blockSize)-1;
+    	var inputy=Math.floor(mp.y/blockSize)-1;
+
+        
+        //new 
+
+
+     	
+        distX = inputx - Mylocation.x;
+        distY = inputy - Mylocation.y;
+        
+        if(CurrentPath.length!=0){
+        	return;
+        }
+        	
+        var grid=returnFrame2(Mylocation.x,Mylocation.y,mazeWidth,mazeHeight,maze1d);
+        CurrentPath = pathFinder(5,5,inputx,inputy,grid);
+
+       
+
+        if (CurrentPath.length==0) {
+        	OnPath=false;
+        }else{
+        	OnPath=true;
+        	diffx=15;
+        	diffy=15;
+        	//console.log(CurrentPath);
+
+
+        }
+
+        //var dataobject={type:"updateLocation",userid:myid,location:Mylocation};
+        //var dataobject={type:"restart",id:12345};
+        //sendOut(dataobject);
+        
+
+
+    }
+   
+
+   
+
+	function animate() {
+		
+	    requestAnimFrame( animate );
+	    // render the stage
+
+	    // do a test..
+	    now = Date.now();
+		delta = now - then;
+	    if (delta > interval){
+
+			then = now - (delta % interval);
+			//stage.pivot.y++;
+			//console.log(stage.position.y);
+			if(OnPath){
+				if(CurrentPath.length>0){
+					MazeUpdate(CurrentPath[0],mazerenderData);
+				}
+				
+				//console.log(CurrentPath[0]);
+			}
+			
+			renderer.render(stage);
+			//do update here
+	    }
+	}
+	var otherUser=new Array();
+	var OthersPlayer=new Array();
+	var myid=ID;
+	var mymazeid=mazeID;
+
+	function recievedCallBack(object){
+		//var dataobject={type:"updateLocation",userid:myid,location:Mylocation,time:null,actions:realTimeActions(CurrentPath)};
+		if(object.type == "updateLocation"){
+			if(object.userid==ID)
+				return;
+
+			for(var i=0; i<otherUser.length; i++){ // if it is already in the lists, delete it
+				/*
+
+					otherUser[i].Disp.position.x=(object.location.x+5)*blockSize;
+					otherUser[i].Disp.position.y=(object.location.y)*blockSize;*/
+					if(otherUser[i].userid==object.userid){
+					otherUser[i].Disp.position.x=mazerenderData[object.location.x][object.location.y].Disp.position.x;
+
+					otherUser[i].Disp.position.y=mazerenderData[object.location.x][object.location.y].Disp.position.y;
+					otherUser[i].location.x=object.location.x;
+					otherUser[i].location.y=object.location.y;
+
+
+					return;
+				}
+				
+			}
+
+					//console.log(object.location);
+
+					object.Disp = new PIXI.Sprite(charTexture)
+/*
+					object.Disp.position.x=(object.location.x+5)*blockSize;
+					object.Disp.position.y=(object.location.y)*blockSize;*/
+					object.Disp.position.x=mazerenderData[object.location.x][object.location.y].Disp.position.x;
+					object.Disp.position.y=mazerenderData[object.location.x][object.location.y].Disp.position.y;
+
+object.location.x=object.location.x;
+					object.location.y=object.location.y;
+					container.addChild(object.Disp);
+
+					otherUser.push(object);
+					console.log(object.Disp.position.x);
+
+			//otherActions.push([object.userid, object.location, object.time, object.actions]);
+
+		}
+	}
+
+
+	
+	//user Itergratino
+/*
+	var OthersPlayer=new Array();
+	var myid=ID;
+	var mymazeid=mazeID;
+	function recieveCallBack(object){
+
+	}
+*/	
+	</script>
+
+	</body>
+</html>
