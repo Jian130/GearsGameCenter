@@ -89,7 +89,12 @@
         
         freeifaddrs(allInterfaces);
     }
+    
+    
+    
     return ipAddresses;
+    
+    
 }
 
 @end
