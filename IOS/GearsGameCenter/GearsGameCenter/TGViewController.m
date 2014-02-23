@@ -33,9 +33,15 @@
 
 @implementation TGViewController
 
+@synthesize webView = _webView;
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _webView.scalesPageToFit = YES;
+    
+    
 	// Do any additional setup after loading the view, typically from a nib.
     
     //start web server
