@@ -17,9 +17,9 @@
 			left: 120px;
 		}
 	</style>
-
+	<script src="seedrandom.js"></script>
+	<script src="client-network.js"></script>
 	<script src="test.js"></script>
-
 	<script src="pixi.js"></script>
 </head>
 <body>
@@ -30,18 +30,23 @@
 	var then = Date.now();
 	var interval = 1000/fps;
 	var delta;
-	var mazeWidth=11;
-	var mazeHeight=11;
+	var mazeWidth=31;
+	var mazeHeight=31;
 	var viewWidth=11;
 	var viewHeight=11;
 	var mazedata;
 	var blockSize=15;
+	var container= new PIXI.DisplayObjectContainer();
+	container.position.x=15;
+	container.position.y=15;
+
+
 	function to2DArray(array,width,height){
 		var first=new Array(height);
 		for(var i=0;i<height;i++){
 			first[i]=new Array(width);
 			for(var j=0;j<height;j++){
-				first[i][j]=array[i*width+j];
+				first[i][j]=array[width*j+i];
 			}
 		}
 		return first;
@@ -50,24 +55,27 @@
 	// the second parameter is interactivity...
 	var interactive = true;
 	var stage = new PIXI.Stage(0xb2cac9, interactive);
+	stage.addChild(container);
+
 	function MazeLocation(inx,iny){
 		this.x=inx;
 		this.y=iny;
 	}
+	/*
 	function ComputeShift(x,y){
-		this.shiftx=x*blockSize;
-		this.shifty=y*blockSize;
-	}
-	var Mylocation = new MazeLocation(2,2);
-	var LocationShift= new ComputeShift(Mylocation.x,Mylocation.y);
+		this.shiftx=5*blockSize;
+		this.shifty=5*blockSize;
+	}*/
+	var Mylocation = new MazeLocation(0,5);
+	var LocationShift={shiftx:5*blockSize-Mylocation.x*blockSize,shifty:5*blockSize-Mylocation.y*blockSize};
 
 	// create a renderer instance.
-	var renderer = PIXI.autoDetectRenderer(195, 195);
+	var renderer = PIXI.autoDetectRenderer(180, 180);
 	
 
 	
-	maze1d=generateMaze(mazeWidth,mazeHeight);
-	var grid=returnFrame2(2,2,mazeWidth,mazeHeight,maze1d);
+	maze1d=generateMaze(mazeWidth,mazeHeight,"123");
+	var grid=returnFrame2(Mylocation.x,Mylocation.y,mazeWidth,mazeHeight,maze1d);
 	mazedata = to2DArray(maze1d,mazeWidth,mazeHeight);
 
 	//console.log(grid.toString());
@@ -87,8 +95,8 @@
         this.Disp = new PIXI.Sprite(empty6Texture);
         this.Disp.anchor.x = 0;
         this.Disp.anchor.y = 0;
-        this.Disp.position.x = x*blockSize-LocationShift.shiftx+blockSize;
-        this.Disp.position.y = y*blockSize-LocationShift.shifty+blockSize;
+        this.Disp.position.x = x*blockSize+LocationShift.shiftx;
+        this.Disp.position.y = y*blockSize+LocationShift.shifty;
 
     }
     function CharBlock(x,y)
@@ -96,22 +104,23 @@
         this.Disp = new PIXI.Sprite(charTexture);
         this.Disp.anchor.x = 0;
         this.Disp.anchor.y = 0;
-        this.Disp.position.x = x;
-        this.Disp.position.y = y;
+        this.Disp.position.x = 5*blockSize;
+        this.Disp.position.y = 5*blockSize;
 
     }
-	//function moveBlock(x,y);
 	function ParseMazeData(mazeData){
 		var mazeGrids=new Array(mazeWidth);
 		for(var i=0;i<mazeWidth;i++){
 			mazeGrids[i]=new Array(mazeHeight);
-
 		}
 		console.log(mazeGrids);
 		for(var i=0;i<mazeData.length;i++){
 			for(var j=0;j<mazeData[i].length;j++){
 				var g= new GridBlock(i,j);
+				
+
 				if(mazeData[i][j]==0){
+
 					if(j>0 && mazeData[i][j-1]==0 && i<mazeData[i].length-1 && mazeData[i+1][j]==1)
 						g.Disp.setTexture(empty3Texture);
 					else if(j>0 && mazeData[i][j-1]==1 && i<mazeData[i].length-1 && mazeData[i+1][j]==1)
@@ -124,6 +133,7 @@
 					else
 						g.Disp.setTexture(block2Texture);
 				}
+			
 				mazeGrids[i][j]=g;
 			}
 		}
@@ -133,9 +143,7 @@
 		//sconsole.log(mazegrid);
 		for(var i=0;i<mazeWidth;i++){
 			for(var j=0;j<mazeHeight;j++){
-				//console.log(mazegrid[i][j].Disp.x);
-				stage.addChild(mazegrid[i][j].Disp);
-				console.log(mazegrid[i][j].Disp.position.x)
+				container.addChild(mazegrid[i][j].Disp);
 			}
 		}
 	}
@@ -151,7 +159,7 @@
 		if(diffx!=0){
 			for (var i = data.length - 1; i >= 0; i--) {
 				for (var j = data[i].length - 1; j >= 0; j--) {
-					data[i][j].Disp.position.x=data[i][j].Disp.position.x+direction[0]*speed;
+					data[i][j].Disp.position.x=data[i][j].Disp.position.x-direction[1]*speed;
 				}
 			}
 			diffx=diffx-speed;
@@ -159,7 +167,7 @@
 		if(diffy!=0){
 			for (var i = data.length - 1; i >= 0; i--) {
 				for (var j = data[i].length - 1; j >= 0; j--) {
-					data[i][j].Disp.position.y=data[i][j].Disp.position.y+direction[1]*speed;
+					data[i][j].Disp.position.y=data[i][j].Disp.position.y-direction[0]*speed;
 				}
 			}
 			diffy=diffy-speed;
@@ -169,7 +177,10 @@
 			if (CurrentPath.length>0) {
 				diffx=blockSize;
 				diffy=blockSize;
+				Mylocation.x=Mylocation.x+ CurrentPath[0];
+				Mylocation.y=Mylocation.y + CurrentPath[1];
 				CurrentPath.shift();
+				
 			}else{
 				OnPath=false;
 			}
@@ -189,11 +200,11 @@
 		
 
 	// add background to stage..
-	stage.addChild(background);
+	//container.addChild(background);
 	var CharDisplay=new CharBlock(105,105); 
 
 	
-	stage.addChild(CharDisplay.Disp);
+	container.addChild(CharDisplay.Disp);
 
 
 	// add the renderer view element to the DOM
@@ -203,37 +214,33 @@
 
 
 	var speed=5;
-	function move(gridx,gridy){
 
-	}
-	function walkPath(path){
-
-	}
 	var OnPath=false;
     var CurrentPath=new Array();
     
 	stage.click  = function()
     {
-        mp = stage.getMousePosition(); 
-       // waitingmx = mp.x;
-       // waitingmy = mp.y; 
-        //inputx=Mylocation.x - (Math.floor(mp.x/blockSize)-7);
-//        inputy=Mylocation.y - (Math.floor(mp.y/blockSize)-7);
+    	mp = stage.getMousePosition(); 
 
-        inputx=14-(Math.floor(mp.x/blockSize))-2;
-        inputy=14-(Math.floor(mp.y/blockSize))-2;
+    	var inputx=Math.floor(mp.x/blockSize)-1;
+    	var inputy=Math.floor(mp.y/blockSize)-1;
+
         
-
-        //console.log(inputy);
-        //console.log(inputx);
         //new 
+
+
+     	
         distX = inputx - Mylocation.x;
         distY = inputy - Mylocation.y;
         
-        if(CurrentPath.length!=0)
+        if(CurrentPath.length!=0){
         	return;
+        }
+        	
         var grid=returnFrame2(Mylocation.x,Mylocation.y,mazeWidth,mazeHeight,maze1d);
-        CurrentPath= pathFinder(5,5,inputx,inputy,grid);
+        CurrentPath = pathFinder(5,5,inputx,inputy,grid);
+        var dataobject={type:"updateLocation",userid:myid,location:Mylocation,time:new Date().getTime()/1000,actions:realTimeActions(CurrentPath)};
+        sendOut(dataobject);
         if (CurrentPath.length==0) {
         	OnPath=false;
         }else{
@@ -241,7 +248,13 @@
         	diffx=15;
         	diffy=15;
         	console.log(CurrentPath);
+
+
         }
+
+        //var dataobject={type:"updateLocation",userid:myid,location:Mylocation};
+        //var dataobject={type:"restart",id:12345};
+        //sendOut(dataobject);
         
 
 
@@ -264,7 +277,7 @@
 			//stage.pivot.y++;
 			//console.log(stage.position.y);
 			if(OnPath){
-				MazeUpdate(CurrentPath[0],mazerenderData);
+				//MazeUpdate(CurrentPath[0],mazerenderData);
 				//console.log(CurrentPath[0]);
 			}
 			
@@ -272,22 +285,32 @@
 			//do update here
 	    }
 	}
-
-
-	// add a logo!
-	//var pixiLogo = PIXI.Sprite.fromImage("pixi.png");
-	//stage.addChild(pixiLogo);
-
-	//pixiLogo.position.x = 620 - 56;
-	//pixiLogo.position.y = 400- 32;
-
-	//pixiLogo.setInteractive(true);
-
-	//pixiLogo.click = pixiLogo.tap = function(){
-
-	//	var win=window.open("https://github.com/GoodBoyDigital/pixi.js", '_blank');
+	var otherActions;
+	var OthersPlayer=new Array();
+	var myid=ID;
+	var mymazeid=mazeID;
+	function recieveCallBack(object){
+		//var dataobject={type:"updateLocation",userid:myid,location:Mylocation,time:null,actions:realTimeActions(CurrentPath)};
+		if(object.type == "updateLocation"){
+			for(var i=0; i<otherActions; i++){ // if it is already in the lists, delete it
+				if (otherActions[i][0]=object.userid){
+					otherActions.splice(i, 1);
+				}
+			}
+			otherActions.push([object.userid, object.location, object.time, object.actions]);
+		}
+	}
 
 	
+	//user Itergratino
+/*
+	var OthersPlayer=new Array();
+	var myid=ID;
+	var mymazeid=mazeID;
+	function recieveCallBack(object){
+
+	}
+*/	
 	</script>
 
 	</body>

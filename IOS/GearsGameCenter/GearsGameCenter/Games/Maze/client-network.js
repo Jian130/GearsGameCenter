@@ -60,7 +60,7 @@
 			console.log('message is not a JSON object');
 		}
 		//recievedObject = JSON.parse(input.data);
-		document.getElementById('test').innerHTML = input.data;
+		//document.getElementById('test').innerHTML = input.data;
 		console.log(recievedObject);
 		//other data handling here
 	}
