@@ -34,8 +34,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    
-    self.ipAddress = [Util getlocalIPAddress];
+    self.ipAddress = [Util getIPAddress];
     
     [self.webServer start];
     [self.broadcasetingServer start];

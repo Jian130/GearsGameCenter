@@ -49,11 +49,16 @@
     }
     // Free memory
     freeifaddrs(interfaces);
+    
+    
+    if ([address isEqualToString:@"error"]) {
+        address = [self getlocalIPAddress];
+    }
     return address;
     
 }
 
-+ (NSArray *)getlocalIPAddress
++ (NSString *)getlocalIPAddress
 {
     NSMutableArray *ipAddresses = [NSMutableArray array] ;
     
@@ -89,7 +94,15 @@
         
         freeifaddrs(allInterfaces);
     }
-    return ipAddresses;
+    
+    NSString *ipAddress;
+    
+    for (NSString *ip in ipAddresses) {
+        if ([ip rangeOfString:@"172"].location != NSNotFound) {
+            ipAddress = ip;
+        }
+    }
+    return ipAddress;
 }
 
 @end
