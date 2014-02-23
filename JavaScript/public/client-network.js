@@ -27,7 +27,7 @@
 	    }
 		gameStateObject = {message1: "test", message2:"test2"};
 		wsPort = "81";
-		connection = new WebSocket('ws://192.168.16.17:81');
+		connection = new WebSocket('ws://192.168.16.21:81');
 
 		connection.onopen = function(event) { onConnection() };
 		connection.onerror = function(error) { connectionError(error) };
