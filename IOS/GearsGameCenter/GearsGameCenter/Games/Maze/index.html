@@ -163,7 +163,7 @@
 				Mylocation.y=Mylocation.y + CurrentPath[0][1];
 				CurrentPath.shift();
 
-				var dataobject={type:"updateLocation",userid:myid,location:{x:Mylocation.x,y:Mylocation.y} ,userid:ID};
+				var dataobject={type:"updateLocation",userid:myid,location:Mylocation ,userid:ID};
         		sendOut(dataobject);
 				
 			}else{
