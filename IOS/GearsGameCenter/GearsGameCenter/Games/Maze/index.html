@@ -306,8 +306,8 @@
 
 			for(var i=0; i<otherUser.length; i++){ // if it is already in the lists, delete it
 
-					otherUser[i].Disp.position.x=object.location.x;
-					otherUser[i].Disp.position.y=object.location.y;
+					otherUser[i].Disp.position.x=(object.location.x+5)*blockSize;
+					otherUser[i].Disp.position.y=(object.location.y+5)*blockSize;
 					return;
 				
 			}
@@ -316,8 +316,8 @@
 
 					object.Disp = new PIXI.Sprite(charTexture)
 
-					object.Disp.position.x=object.location.x;
-					object.Disp.position.y=object.location.y;
+					object.Disp.position.x=(object.location.x+5)*blockSize;
+					object.Disp.position.y=(object.location.y+5)*blockSize;
 					container.addChild(object.Disp);
 
 					otherUser.push(object);
