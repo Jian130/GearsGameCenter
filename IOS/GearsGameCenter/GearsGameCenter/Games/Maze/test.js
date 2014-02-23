@@ -179,19 +179,19 @@ function pathFinder(sourceX, sourceY, targetX, targetY, frame){
 		console.log(currentX);
 		if(currentX>0 && path[currentX-1][currentY]==step){
 			currentX = currentX - 1;
-			actions.unshift([0,1]);
+			actions.unshift([1,0]);
 		}
 		else if(currentX<frameSize-1 && path[currentX+1][currentY]==step){
 			currentX = currentX + 1;
-			actions.unshift([0,-1]);
+			actions.unshift([-1,0]);
 		}
 		else if(currentY>0 && path[currentX][currentY-1]==step){
 			currentY = currentY - 1;
-			actions.unshift([1,0]);
+			actions.unshift([0,1]);
 		}
 		else if(currentY<frameSize-1 && path[currentX][currentY+1]==step){
 			currentY = currentY + 1;
-			actions.unshift([-1,0]);
+			actions.unshift([0,-1]);
 		}
 	}
 	
@@ -199,11 +199,14 @@ function pathFinder(sourceX, sourceY, targetX, targetY, frame){
 }
 
 function realTimeActions(actions){
+	var actions1 = new Array();
+	actions1.push(actions[0]);
 	for(var i=1; i<actions.length; i++){
-		actions[i][0] += actions[i-1][0];
-		actions[i][1] += actions[i-1][1];
+		actions1.push(actions[i]);
+		actions1[i][0] += actions[i-1][0];
+		actions1[i][1] += actions[i-1][1];
 	}
-	return actions;
+	return actions1;
 }
 
 //test

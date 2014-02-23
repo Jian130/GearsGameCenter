@@ -159,7 +159,7 @@
 		if(diffx!=0){
 			for (var i = data.length - 1; i >= 0; i--) {
 				for (var j = data[i].length - 1; j >= 0; j--) {
-					data[i][j].Disp.position.x=data[i][j].Disp.position.x-direction[1]*speed;
+					data[i][j].Disp.position.x=data[i][j].Disp.position.x-direction[0]*speed;
 				}
 			}
 			diffx=diffx-speed;
@@ -167,7 +167,7 @@
 		if(diffy!=0){
 			for (var i = data.length - 1; i >= 0; i--) {
 				for (var j = data[i].length - 1; j >= 0; j--) {
-					data[i][j].Disp.position.y=data[i][j].Disp.position.y-direction[0]*speed;
+					data[i][j].Disp.position.y=data[i][j].Disp.position.y-direction[1]*speed;
 				}
 			}
 			diffy=diffy-speed;
@@ -180,6 +180,9 @@
 				Mylocation.x=Mylocation.x+ CurrentPath[0];
 				Mylocation.y=Mylocation.y + CurrentPath[1];
 				CurrentPath.shift();
+
+				var dataobject={type:"updateLocation",userid:myid,location:Mylocation,userid:ID};
+        		sendOut(dataobject);
 				
 			}else{
 				OnPath=false;
@@ -239,8 +242,9 @@
         	
         var grid=returnFrame2(Mylocation.x,Mylocation.y,mazeWidth,mazeHeight,maze1d);
         CurrentPath = pathFinder(5,5,inputx,inputy,grid);
-        var dataobject={type:"updateLocation",userid:myid,location:Mylocation,time:new Date().getTime()/1000,actions:realTimeActions(CurrentPath)};
-        sendOut(dataobject);
+
+       
+
         if (CurrentPath.length==0) {
         	OnPath=false;
         }else{
@@ -259,7 +263,7 @@
 
 
     }
-    
+   
 
    
 
@@ -277,7 +281,7 @@
 			//stage.pivot.y++;
 			//console.log(stage.position.y);
 			if(OnPath){
-				//MazeUpdate(CurrentPath[0],mazerenderData);
+				MazeUpdate(CurrentPath[0],mazerenderData);
 				//console.log(CurrentPath[0]);
 			}
 			
@@ -285,21 +289,38 @@
 			//do update here
 	    }
 	}
-	var otherActions;
+	var otherUser=new Array();
 	var OthersPlayer=new Array();
 	var myid=ID;
 	var mymazeid=mazeID;
-	function recieveCallBack(object){
+
+	function recievedCallBack(object){
 		//var dataobject={type:"updateLocation",userid:myid,location:Mylocation,time:null,actions:realTimeActions(CurrentPath)};
 		if(object.type == "updateLocation"){
-			for(var i=0; i<otherActions; i++){ // if it is already in the lists, delete it
-				if (otherActions[i][0]=object.userid){
-					otherActions.splice(i, 1);
-				}
+			if(object.userid==ID)
+				return;
+
+			for(var i=0; i<otherUser.length; i++){ // if it is already in the lists, delete it
+
+					otherUser[i].Disp.position.x=object.location.x;
+					otherUser[i].Disp.position.y=object.location.y;
+					return;
+				
 			}
-			otherActions.push([object.userid, object.location, object.time, object.actions]);
+
+					console.log(object.location);
+
+					object.Disp = new PIXI.Sprite(charTexture)
+
+					object.Disp.position.x=object.location.x;
+					object.Disp.position.y=object.location.y;
+					container.addChild(object.Disp);
+					otherUser.push(object);
+			//otherActions.push([object.userid, object.location, object.time, object.actions]);
+
 		}
 	}
+
 
 	
 	//user Itergratino
