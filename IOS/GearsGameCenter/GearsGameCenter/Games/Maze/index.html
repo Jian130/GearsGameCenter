@@ -60,7 +60,7 @@
 	function MazeLocation(inx,iny){
 		this.x=inx;
 		this.y=iny;
-	}
+	};
 	/*
 	function ComputeShift(x,y){
 		this.shiftx=5*blockSize;
@@ -140,7 +140,7 @@
 		return mazeGrids;
 	}
 	function MazeSetup(mazegrid){
-		//sconsole.log(mazegrid);
+
 		for(var i=0;i<mazeWidth;i++){
 			for(var j=0;j<mazeHeight;j++){
 				container.addChild(mazegrid[i][j].Disp);
@@ -155,7 +155,22 @@
 	var diffx=0;
 	var diffy=0;
 	function MazeUpdate(direction,data){
-		console.log(data);
+		if(diffx==0 && diffy==0 &&CurrentPath!=undefined){
+			if (CurrentPath.length>0) {
+				diffx=blockSize;
+				diffy=blockSize;
+				Mylocation.x=Mylocation.x+ CurrentPath[0][0];
+				Mylocation.y=Mylocation.y + CurrentPath[0][1];
+				CurrentPath.shift();
+
+				var dataobject={type:"updateLocation",userid:myid,location:{x:Mylocation.x,y:Mylocation.y} ,userid:ID};
+        		sendOut(dataobject);
+				
+			}else{
+				OnPath=false;
+			}
+			return;
+		}
 		if(diffx!=0){
 			for (var i = data.length - 1; i >= 0; i--) {
 				for (var j = data[i].length - 1; j >= 0; j--) {
@@ -173,21 +188,7 @@
 			diffy=diffy-speed;
 		}
 		
-		if(diffx==0 && diffy==0 &&CurrentPath!=undefined){
-			if (CurrentPath.length>0) {
-				diffx=blockSize;
-				diffy=blockSize;
-				Mylocation.x=Mylocation.x+ CurrentPath[0];
-				Mylocation.y=Mylocation.y + CurrentPath[1];
-				CurrentPath.shift();
-
-				var dataobject={type:"updateLocation",userid:myid,location:Mylocation,userid:ID};
-        		sendOut(dataobject);
-				
-			}else{
-				OnPath=false;
-			}
-		}
+		
 
 
 	}
@@ -251,7 +252,7 @@
         	OnPath=true;
         	diffx=15;
         	diffy=15;
-        	console.log(CurrentPath);
+        	//console.log(CurrentPath);
 
 
         }
@@ -281,7 +282,10 @@
 			//stage.pivot.y++;
 			//console.log(stage.position.y);
 			if(OnPath){
-				MazeUpdate(CurrentPath[0],mazerenderData);
+				if(CurrentPath.length>0){
+					MazeUpdate(CurrentPath[0],mazerenderData);
+				}
+				
 				//console.log(CurrentPath[0]);
 			}
 			
@@ -315,7 +319,10 @@
 					object.Disp.position.x=object.location.x;
 					object.Disp.position.y=object.location.y;
 					container.addChild(object.Disp);
+
 					otherUser.push(object);
+					console.log(object.Disp.position.x);
+
 			//otherActions.push([object.userid, object.location, object.time, object.actions]);
 
 		}
