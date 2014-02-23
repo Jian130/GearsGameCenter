@@ -180,6 +180,7 @@
 				Mylocation.x=Mylocation.x+ CurrentPath[0];
 				Mylocation.y=Mylocation.y + CurrentPath[1];
 				CurrentPath.shift();
+
 				var dataobject={type:"updateLocation",userid:myid,location:Mylocation,userid:ID};
         		sendOut(dataobject);
 				
@@ -296,6 +297,8 @@
 	function recievedCallBack(object){
 		//var dataobject={type:"updateLocation",userid:myid,location:Mylocation,time:null,actions:realTimeActions(CurrentPath)};
 		if(object.type == "updateLocation"){
+			if(object.userid==ID)
+				return;
 
 			for(var i=0; i<otherUser.length; i++){ // if it is already in the lists, delete it
 
@@ -305,7 +308,7 @@
 				
 			}
 
-					
+					console.log(object.location);
 
 					object.Disp = new PIXI.Sprite(charTexture)
 
