@@ -57,12 +57,12 @@
         	newUser = NO;
         }
         
-//        [[BLWebSocketsServer sharedInstance] pushToAll:requestData];
-        
 		NSData *response = NULL;
         if (newUser) {
             response = [[NSString stringWithFormat:@"{\"user_id\":\"%@\", \"maze_id\":\"%@\"}", sessionID, self.mazeID] dataUsingEncoding:NSUTF8StringEncoding];
         }
+        
+        [[BLWebSocketsServer sharedInstance] pushToAll:requestData];
         
         return response;
     }];
