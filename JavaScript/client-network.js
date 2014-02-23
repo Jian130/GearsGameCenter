@@ -3,11 +3,12 @@
 
 //can send data in binary
 	//init objects
-
 	var gameStateObject;  //json object to tx
 	var recievedObject;	  // recieved json object
 	var wsPort;
 
+	var ID;
+	var mazeID;
 	var connection;
 	//to close connection connection.close();
 	window.onload = function() {
@@ -38,7 +39,7 @@
 	function connectionError(error) {
 		console.log("connection error: " + error);
 		alert(error);
-		document.getElementById("#test").innerHTML = error;
+		document.getElementById('test').innerHTML = error;
 	}
 
 	//initial connection sequence
@@ -56,15 +57,24 @@
 		console.log(input);
 		try {
 			recievedObject = JSON.parse(input.data);
+			//it is a initiali ID packet
+			if(recievedObject.user_id != null)
+			{
+				ID = recievedObject.user_id;
+				mazeID = recievedObject.maze_id;
+				return;
+			}
 		} catch(error) {
 			console.log('message is not a JSON object');
+			receivedObject = input;
 		}
 		//recievedObject = JSON.parse(input.data);
-		document.getElementById('test').innerHTML = input.data;
+		//document.getElementById('test').innerHTML = recievedObject;
 		console.log(recievedObject);
 		//other data handling here
-	}
 
+		recievedCallBack(recievedObject);
+	}
 	function sendOut(object) {
 		if(connection.readyState == 1)
 		{
@@ -73,5 +83,11 @@
 			console.log("connection not ready!");
 		}
 		console.log("SENT");
+	}
+	function getSessionID() {
+		return ID;
+	}
+	function getMazeID() {
+		return mazeID;
 	}
 
