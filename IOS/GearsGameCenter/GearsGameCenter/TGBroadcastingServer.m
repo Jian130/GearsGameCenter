@@ -11,13 +11,22 @@
 
 @interface TGBroadcastingServer()
 
-@property (nonatomic) int seq;
-
+@property (strong, nonatomic) NSMutableDictionary *clients;
+@property (strong, nonatomic) NSString *mazeID;
 @end
 
 @implementation TGBroadcastingServer
 
-@synthesize seq = _seq;
+@synthesize clients = _clients;
+@synthesize mazeID = _mazeID;
+
+- (NSMutableDictionary *)clients {
+	if (!_clients) {
+        _clients = [[NSMutableDictionary alloc] init];
+    }
+    
+    return _clients;
+}
 
 - (void)start {
     
@@ -30,18 +39,32 @@
         }
     }];
     
-    self.seq = 0;
+    self.mazeID = [NSString stringWithFormat:@"%d", (arc4random() % 100)];
     
-    [[BLWebSocketsServer sharedInstance] setHandleRequestBlock:^NSData *(NSData *requestData) {
-        NSLog(@"request recived: %@", [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding]);
+    [[BLWebSocketsServer sharedInstance] setHandleRequestBlock:^NSData *(NSData *requestData, NSString *sessionID) {
+//        NSLog(@"request recived: %@", [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding]);
        
-    	NSString *mesg = [NSString stringWithFormat:@"message from server  %i", self.seq];
-        NSMutableData *data = [NSMutableData dataWithData:[mesg dataUsingEncoding:NSUTF8StringEncoding]];
-        [data appendData:requestData];
-        [[BLWebSocketsServer sharedInstance] pushToAll:data];
+//    	NSString *mesg = [NSString stringWithFormat:@"message from server  %i", self.seq];
+//        NSMutableData *data = [NSMutableData dataWithData:[mesg dataUsingEncoding:NSUTF8StringEncoding]];
+//        [data appendData:requestData];
+//        [[BLWebSocketsServer sharedInstance] pushToAll:data];
         
-        self.seq ++;
-        return NULL;
+//        self.seq ++;
+        BOOL newUser = YES;
+        if (![self.clients objectForKey:sessionID]) {
+            [self.clients setObject:[NSNumber numberWithBool:newUser] forKey:sessionID];
+        } else {
+        	newUser = NO;
+        }
+        
+//        [[BLWebSocketsServer sharedInstance] pushToAll:requestData];
+        
+		NSData *response = NULL;
+        if (newUser) {
+            response = [[NSString stringWithFormat:@"{\"user_id\":\"%@\", \"maze_id\":\"%@\"}", sessionID, self.mazeID] dataUsingEncoding:NSUTF8StringEncoding];
+        }
+        
+        return response;
     }];
 }
 

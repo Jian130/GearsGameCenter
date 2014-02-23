@@ -21,6 +21,8 @@
 
 #include "util.h"
 
+#import "TGAppDelegate.h"
+
 
 @interface TGViewController () <MFMessageComposeViewControllerDelegate>
 
@@ -82,6 +84,9 @@
 }
 
 - (IBAction)doneTapped:(id)sender {
+    
+    TGAppDelegate *delegate = (TGAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [delegate.broadcasetingServer stop];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

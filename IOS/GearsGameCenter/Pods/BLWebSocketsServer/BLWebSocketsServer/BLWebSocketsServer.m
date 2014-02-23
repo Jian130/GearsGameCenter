@@ -189,7 +189,7 @@ static int callback_websockets(struct libwebsocket_context * this,
             NSData *data = [NSData dataWithBytes:(const void *)in length:len];
             NSData *response = nil;
             if (sharedInstance.handleRequestBlock) {
-                response = sharedInstance.handleRequestBlock(data);
+                response = sharedInstance.handleRequestBlock(data, [NSString stringWithFormat:@"%d", *session_id]);
             }
             write_data_websockets(response, wsi);
             break;

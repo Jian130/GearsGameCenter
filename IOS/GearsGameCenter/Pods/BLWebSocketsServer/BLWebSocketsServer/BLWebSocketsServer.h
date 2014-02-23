@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NSData *(^BLWebSocketsHandleRequestBlock)(NSData * requestData);
+typedef NSData *(^BLWebSocketsHandleRequestBlock)(NSData * requestData, NSString *sessionID);
 
 @interface BLWebSocketsServer : NSObject
 

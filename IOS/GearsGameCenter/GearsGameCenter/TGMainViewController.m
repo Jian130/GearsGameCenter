@@ -8,6 +8,7 @@
 
 #import "TGMainViewController.h"
 #import "TGViewController.h"
+#import "TGAppDelegate.h"
 
 @interface TGMainViewController ()
 
@@ -31,6 +32,10 @@
 - (IBAction)mazeStartTapped:(id)sender {
 //    TGViewController *viewController = [[TGViewController alloc] init];
 //    viewController.gameName = @"Maze";
+    
+    TGAppDelegate *delegate = (TGAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [delegate.broadcasetingServer start];
+    
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     TGViewController *vc = [sb instantiateViewControllerWithIdentifier:@"TGViewController"];
     vc.gameName = @"Maze";
@@ -38,6 +43,11 @@
 }
 
 - (IBAction)pongStartTapped:(id)sender {
+    
+    TGAppDelegate *delegate = (TGAppDelegate*)[[UIApplication sharedApplication] delegate];
+    [delegate.broadcasetingServer start];
+    
+    
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     TGViewController *vc = [sb instantiateViewControllerWithIdentifier:@"TGViewController"];
     vc.gameName = @"Pong";

@@ -37,7 +37,7 @@
     self.ipAddress = [Util getIPAddress];
     
     [self.webServer start];
-    [self.broadcasetingServer start];
+//    [self.broadcasetingServer start];
     
     NSLog(@"server ip address: %@", self.ipAddress);
     return YES;
