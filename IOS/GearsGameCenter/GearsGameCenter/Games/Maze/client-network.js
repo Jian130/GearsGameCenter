@@ -27,8 +27,14 @@
 	    }
 		gameStateObject = {message1: "test", message2:"test2"};
 		wsPort = "81";
-		connection = new WebSocket('ws://192.168.16.17:81');
-
+        
+        var matches = document.URL.match(/http:\/\/([\d.]+)\/.*/);
+        var ip = matches[1];
+        
+        console.log("IP: " + ip);
+        
+		connection = new WebSocket("ws://" + ip + ":" + wsPort);
+        
 		connection.onopen = function(event) { onConnection() };
 		connection.onerror = function(error) { connectionError(error) };
 		connection.onmessage = function(object) { recieveObject(object) };
