@@ -8,13 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "TGWebServer.h"
-#import "TGBroadcastingServer.h"
+#import "TGCommunicationServer.h"
 
 @interface TGAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) NSString *ipAddress;
-@property (strong, nonatomic) TGWebServer *webServer;
-@property (strong, nonatomic) TGBroadcastingServer *broadcasetingServer;
+@property (strong, nonatomic) NSMutableArray *gameList;
 
 @end

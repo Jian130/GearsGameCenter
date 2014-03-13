@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TGBroadcastingServer : NSObject
+@interface TGCommunicationServer : NSObject
 
-- (void)start;
-- (void)stop;
++ (id)sharedManager;
+
+- (void)startCommunicationServer;
+- (void)stopCommunicationServer;
 
 @end

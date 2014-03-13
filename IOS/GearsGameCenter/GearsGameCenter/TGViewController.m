@@ -41,14 +41,8 @@
     
     _webView.scalesPageToFit = YES;
     
-    
-	// Do any additional setup after loading the view, typically from a nib.
-    
-    //start web server
-    
     NSString *ip = [Util getIPAddress];
 
-    NSLog(@"ipaddress: %@", ip);
 
     NSString *gameName = @"Maze";
     
@@ -92,7 +86,7 @@
 - (IBAction)doneTapped:(id)sender {
     
     TGAppDelegate *delegate = (TGAppDelegate*)[[UIApplication sharedApplication] delegate];
-    [delegate.broadcasetingServer stop];
+//    [delegate.broadcasetingServer stop];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

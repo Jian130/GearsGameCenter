@@ -3,8 +3,12 @@ PODS:
   - GCDWebServer (1.2.2)
 
 DEPENDENCIES:
-  - BLWebSocketsServer (~> 0.1.0)
+  - BLWebSocketsServer (from `https://github.com/Jian130/BLWebSocketsServer`)
   - GCDWebServer (~> 1.2.2)
+
+EXTERNAL SOURCES:
+  BLWebSocketsServer:
+    :git: https://github.com/Jian130/BLWebSocketsServer
 
 SPEC CHECKSUMS:
   BLWebSocketsServer: 5ddfeb5df590a5a8ac1d44bde51d7839f961e55a

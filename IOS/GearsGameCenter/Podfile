@@ -1,2 +1,3 @@
-pod 'BLWebSocketsServer', '~> 0.1.0'
+#pod 'BLWebSocketsServer', '~> 0.1.0'
 pod 'GCDWebServer', '~> 1.2.2'
+pod 'BLWebSocketsServer', :git => 'https://github.com/Jian130/BLWebSocketsServer' 

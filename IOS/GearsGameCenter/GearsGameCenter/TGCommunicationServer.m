@@ -6,19 +6,28 @@
 //  Copyright (c) 2014 Gears. All rights reserved.
 //
 
-#import "TGBroadcastingServer.h"
+#import "TGCommunicationServer.h"
 #import "BLWebSocketsServer.h"
+#import "GCDSingleton.h"
 
-@interface TGBroadcastingServer()
+@interface TGCommunicationServer()
 
 @property (strong, nonatomic) NSMutableDictionary *clients;
 @property (strong, nonatomic) NSString *mazeID;
 @end
 
-@implementation TGBroadcastingServer
+@implementation TGCommunicationServer
 
 @synthesize clients = _clients;
 @synthesize mazeID = _mazeID;
+
+#pragma mark - shared instance
+
++ (id)sharedManager {
+    DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
+        return [[self alloc] init];
+    });
+}
 
 - (NSMutableDictionary *)clients {
 	if (!_clients) {
@@ -28,7 +37,7 @@
     return _clients;
 }
 
-- (void)start {
+- (void)startCommunicationServer {
     
 	[[BLWebSocketsServer sharedInstance] startListeningOnPort:81 withProtocolName:NULL andCompletionBlock:^(NSError *error) {
         if (!error) {
@@ -42,7 +51,7 @@
     self.mazeID = [NSString stringWithFormat:@"%d", (arc4random() % 100)];
     
     [[BLWebSocketsServer sharedInstance] setHandleRequestBlock:^NSData *(NSData *requestData, NSString *sessionID) {
-//        NSLog(@"request recived: %@", [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding]);
+        NSLog(@"request recived: %@", [[NSString alloc] initWithData:requestData encoding:NSUTF8StringEncoding]);
        
 //    	NSString *mesg = [NSString stringWithFormat:@"message from server  %i", self.seq];
 //        NSMutableData *data = [NSMutableData dataWithData:[mesg dataUsingEncoding:NSUTF8StringEncoding]];
@@ -68,7 +77,7 @@
     }];
 }
 
-- (void)stop {
+- (void)stopCommunicationServer {
 	[[BLWebSocketsServer sharedInstance] stopWithCompletionBlock:^{
         NSLog(@"Server stopped");
     }];

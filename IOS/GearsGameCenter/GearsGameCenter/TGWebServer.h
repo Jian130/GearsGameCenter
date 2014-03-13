@@ -10,6 +10,10 @@
 
 @interface TGWebServer : NSObject
 
-- (void)start;
++ (id)sharedManager;
+
+- (void)startWebServer;
+
+- (void)stopWebServer;
 
 @end
