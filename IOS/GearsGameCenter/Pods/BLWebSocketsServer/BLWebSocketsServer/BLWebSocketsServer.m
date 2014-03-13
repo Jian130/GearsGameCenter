@@ -12,8 +12,8 @@
 #import "BLAsyncMessageQueue.h"
 
 static int pollingInterval = 20000;
-static NSString * http_only_protocol = @"http-only";
-const char * queueIdentifier = "com.blwebsocketsserver.network";
+static char * http_only_protocol = "http-only";
+
 /* Error constants */
 static NSString *errorDomain = @"com.blwebsocketsserver";
 
@@ -33,9 +33,9 @@ static BLWebSocketsServer *sharedInstance = nil;
 
 @interface BLWebSocketsServer()
 
-@property (nonatomic, assign, readwrite) BOOL isRunning;
-@property (nonatomic, assign) dispatch_source_t timer;
-@property (nonatomic, assign) dispatch_queue_t networkQueue;
+/* Using atomic in our case is sufficient to ensure thread safety */
+@property (atomic, assign, readwrite) BOOL isRunning;
+@property (atomic, assign) BOOL stopServer;
 /* Context representing the server */
 @property (nonatomic, assign) struct libwebsocket_context *context;
 @property (nonatomic, strong) BLAsyncMessageQueue *asyncMessageQueue;
@@ -62,54 +62,6 @@ static BLWebSocketsServer *sharedInstance = nil;
     return sharedInstance;
 }
 
-#pragma mark - Initialization/Teardown
-- (id)init {
-    self = [super init];
-    if (self) {
-        self.networkQueue = dispatch_queue_create(queueIdentifier, DISPATCH_QUEUE_SERIAL);
-    }
-    return self;
-}
-
-#pragma mark - Context management
-- (struct libwebsocket_context *)createContextWithProtocolName:(NSString *)protocolName callbackFunction:(callback_function)callback andPort:(int)port {
-    struct libwebsocket_protocols * protocols = (struct libwebsocket_protocols *) calloc(3, sizeof(struct libwebsocket_protocols));
-    
-    /* first protocol must always be HTTP handler */
-    [self createProtocol:protocols withName:http_only_protocol callback:callback_http andSessionDataSize:0];
-    [self createProtocol:protocols+1 withName:protocolName callback:callback_websockets andSessionDataSize:sizeof(int)];
-    [self createProtocol:protocols+2 withName:NULL callback:NULL andSessionDataSize:0];
-    
-    return libwebsocket_create_context(port, NULL, protocols,
-                                       libwebsocket_internal_extensions,
-                                       NULL, NULL, NULL, -1, -1, 0, NULL);
-}
-
-- (void)createProtocol:(struct libwebsocket_protocols *)protocol withName:(NSString *)name callback:(callback_function)callback andSessionDataSize:(int)sessionDataSize {
-    
-    if (name != NULL) {
-        protocol->name = calloc(1 + name.length, sizeof(char));
-        [name getCString:(char *)protocol->name maxLength:(1 + name.length) encoding:NSASCIIStringEncoding];
-    }
-    else {
-        protocol->name = NULL;
-    }
-    
-    protocol->callback = callback;
-    protocol->per_session_data_size = sessionDataSize;
-}
-
-- (void)destroyProtocol:(struct libwebsocket_protocols *)protocol {
-    free((char *)protocol->name);
-}
-
-- (void)destroyContext:(struct libwebsocket_context *)context {
-    for (int i=0; i<3; i++) {
-        [self destroyProtocol:context->protocols+i];
-    }
-    libwebsocket_context_destroy(context);
-}
-
 #pragma mark - Server management
 - (void)startListeningOnPort:(int)port withProtocolName:(NSString *)protocolName andCompletionBlock:(void(^)(NSError *error))completionBlock {
     
@@ -117,65 +69,90 @@ static BLWebSocketsServer *sharedInstance = nil;
         return;
     }
     
-    self.isRunning = YES;
-    
-    self.context = [self createContextWithProtocolName:protocolName callbackFunction:callback_websockets andPort:port];
-    NSError *error = nil;
-    if (self.context == NULL) {
-        error = [NSError errorWithDomain:errorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Couldn't create the libwebsockets context.", @"")}];
-    }
-    
-    self.timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, self.networkQueue);
-    
-    dispatch_source_set_timer(self.timer,DISPATCH_TIME_NOW, pollingInterval*NSEC_PER_USEC, (pollingInterval/2)*NSEC_PER_USEC);
-    
-    dispatch_source_set_event_handler(self.timer, ^{
-        @autoreleasepool {
-            libwebsocket_service(self.context, 0);
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+        
+    dispatch_async(queue, ^{
+        
+        /* Context creation */
+        struct libwebsocket_protocols protocols[] = {
+            /* first protocol must always be HTTP handler */
+            {
+                http_only_protocol,
+                callback_http,
+                0
+            },
+            {
+                [protocolName cStringUsingEncoding:NSASCIIStringEncoding],
+                callback_websockets,   // callback
+                sizeof(int)            // the session is identified by an id
+                
+            },
+            {
+                NULL, NULL, 0   /* End of list */
+            }
+        };
+        self.context = libwebsocket_create_context(port, NULL, protocols,
+                                              libwebsocket_internal_extensions,
+                                              NULL, NULL, NULL, -1, -1, 0, NULL);
+        NSError *error = nil;
+        if (self.context == NULL) {
+            error = [NSError errorWithDomain:errorDomain code:0 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Couldn't create the libwebsockets context.", @"")}];
         }
-    });
-    
-    dispatch_source_set_cancel_handler(self.timer, ^{
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.isRunning = NO;
-            [self cleanup];
-            self.serverStoppedCompletionBlock();
+            completionBlock(error);
         });
+        
+        if (!error) {
+            self.isRunning = YES;
+            
+            /* For now infinite loop which proceses events and wait for n ms. */
+            while (!self.stopServer) {
+                @autoreleasepool {
+                    libwebsocket_service(self.context, 0);
+                    if (self.asyncMessageQueue.messagesCount > 0) {
+                        libwebsocket_callback_on_writable_all_protocol(&(self.context->protocols[1]));
+                    }
+                }
+                usleep(pollingInterval);
+            }
+            
+            self.isRunning = NO;
+            
+            [self cleanup];
+        
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.serverStoppedCompletionBlock();
+                self.serverStoppedCompletionBlock = nil;
+            });
+        }
+        
     });
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        completionBlock(error);
-    });
-    
-    dispatch_resume(self.timer);
 }
 
 - (void)stopWithCompletionBlock:(void (^)())completionBlock {
     
     self.serverStoppedCompletionBlock = completionBlock;
-
+    
     if (!self.isRunning) {
-        self.serverStoppedCompletionBlock();
         return;
     }
     else {
-        dispatch_source_cancel(self.timer);
+        self.stopServer = YES;
     }
 }
 
 - (void)cleanup {
-    dispatch_release(self.timer);
-    [self destroyContext:self.context];
+    libwebsocket_context_destroy(self.context);
     self.context = NULL;
+    self.stopServer = NO;
     [self.asyncMessageQueue reset];
 }
 
 #pragma mark - Async messaging
 - (void)pushToAll:(NSData *)data {
     [self.asyncMessageQueue enqueueMessageForAllUsers:data];
-    dispatch_async(self.networkQueue, ^{
-        libwebsocket_callback_on_writable_all_protocol(&(self.context->protocols[1]));
-    });
 }
 
 
@@ -212,7 +189,7 @@ static int callback_websockets(struct libwebsocket_context * this,
             NSData *data = [NSData dataWithBytes:(const void *)in length:len];
             NSData *response = nil;
             if (sharedInstance.handleRequestBlock) {
-                response = sharedInstance.handleRequestBlock(data);
+                response = sharedInstance.handleRequestBlock(data, [NSString stringWithFormat:@"%d", *session_id]);
             }
             write_data_websockets(response, wsi);
             break;
