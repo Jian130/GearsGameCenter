@@ -10,4 +10,19 @@
 
 @implementation TGMessage
 
++ (TGMessage *)messageFromJsonData:(NSData *)jsonData {
+	
+    NSError* error = nil;
+    NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    TGMessage *newMessage = [[TGMessage alloc] initWithString:jsonString error:&error];
+    
+    return newMessage;
+}
+
++ (NSData *)jsonDataFromMessage:(TGMessage *)message {
+	NSString* jsonString = [message toJSONString];
+    NSData* jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+	return jsonData;
+}
+
 @end

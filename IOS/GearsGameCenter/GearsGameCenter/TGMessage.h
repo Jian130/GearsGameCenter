@@ -7,10 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JSONModel.h"
 
-@interface TGMessage : NSObject
+@interface TGMessage : JSONModel
 
 @property (nonatomic, strong) NSString *action;
-@property (nonatomic, strong)
+@property (nonatomic, strong) NSString *userID;
+@property (nonatomic, strong) NSDate *timeStamp;
+@property (nonatomic) BOOL *isBroadcasting;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *body;
+
++ (TGMessage*)messageFromJsonData:(NSData *)jsonData;
++ (NSData *)jsonDataFromMessage:(TGMessage *)message;
 
 @end
