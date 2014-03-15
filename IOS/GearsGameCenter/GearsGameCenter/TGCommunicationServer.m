@@ -9,6 +9,7 @@
 #import "TGCommunicationServer.h"
 #import "BLWebSocketsServer.h"
 #import "GCDSingleton.h"
+#import "JSONKit.h"
 
 @interface TGCommunicationServer()
 
@@ -59,6 +60,8 @@
 //        [[BLWebSocketsServer sharedInstance] pushToAll:data];
         
 //        self.seq ++;
+        
+        NSString *msg = [JSONDecoder  o]
         BOOL newUser = YES;
         if (![self.clients objectForKey:sessionID]) {
             [self.clients setObject:[NSNumber numberWithBool:newUser] forKey:sessionID];

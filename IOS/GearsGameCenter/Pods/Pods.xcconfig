@@ -1,5 +1,5 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/BLWebSocketsServer" "${PODS_ROOT}/Headers/GCDWebServer"
-OTHER_CFLAGS = $(inherited) "-isystem${PODS_ROOT}/Headers" "-isystem${PODS_ROOT}/Headers/BLWebSocketsServer" "-isystem${PODS_ROOT}/Headers/GCDWebServer"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/BLWebSocketsServer" "${PODS_ROOT}/Headers/GCDWebServer" "${PODS_ROOT}/Headers/JSONKit"
+OTHER_CFLAGS = $(inherited) "-isystem${PODS_ROOT}/Headers" "-isystem${PODS_ROOT}/Headers/BLWebSocketsServer" "-isystem${PODS_ROOT}/Headers/GCDWebServer" "-isystem${PODS_ROOT}/Headers/JSONKit"
 OTHER_LDFLAGS = -ObjC -lz -framework MobileCoreServices
 PODS_ROOT = ${SRCROOT}/Pods

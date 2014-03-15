@@ -1,10 +1,12 @@
 PODS:
   - BLWebSocketsServer (0.1.0)
   - GCDWebServer (1.2.2)
+  - JSONKit (1.5pre)
 
 DEPENDENCIES:
   - BLWebSocketsServer (from `https://github.com/Jian130/BLWebSocketsServer`)
   - GCDWebServer (~> 1.2.2)
+  - JSONKit (~> 1.5pre)
 
 EXTERNAL SOURCES:
   BLWebSocketsServer:
@@ -13,5 +15,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   BLWebSocketsServer: 5ddfeb5df590a5a8ac1d44bde51d7839f961e55a
   GCDWebServer: d271fd9cf2a229e90416afbb04474c17afa123a7
+  JSONKit: 409734ab3407fce90ef7eaa95d7168f38d9a6601
 
 COCOAPODS: 0.29.0
