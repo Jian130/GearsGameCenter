@@ -80,9 +80,10 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         	newUser = NO;
         }
         
-		TGMessage* newMessage = [TGMessage messageFromJsonData:requestData];
-        newMessage = [self messageHandler:newMessage];
-        return [TGMessage jsonDataFromMessage:newMessage];
+//		TGMessage* newMessage = [TGMessage messageFromJsonData:requestData];
+//        newMessage = [self messageHandler:newMessage];
+//        return [TGMessage jsonDataFromMessage:newMessage];
+        return nil;
     }];
 }
 

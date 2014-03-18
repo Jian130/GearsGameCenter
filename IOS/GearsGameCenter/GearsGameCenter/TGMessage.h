@@ -14,7 +14,7 @@
 @property (nonatomic, strong) NSString *action;
 @property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSDate *timeStamp;
-@property (nonatomic) BOOL *isBroadcasting;
+@property (nonatomic, assign) BOOL *isBroadcasting;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *body;
 
