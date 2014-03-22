@@ -1,0 +1,258 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>JS Maze</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #b2cac9;
+		}
+
+		#help{
+			position: absolute;
+			z-index: 20;
+			color: black;
+			top: 20px;
+			left: 120px;
+		}
+	</style>
+	<script src="seedrandom.js"></script>
+	<script src="client-network.js"></script>
+	<script src="jsmaze.js"></script>
+	<script src="pixi.js"></script>
+	<script type="text/javascript" src="Config.js"></script>
+	<script type="text/javascript" src="Main.js"></script>
+</head>
+<body>
+	<script>
+	PIXI.BaseTexture.SCALE_MODE.DEFAULT = PIXI.BaseTexture.SCALE_MODE.NEAREST;
+
+// used for animation
+	
+	var now;
+	var then = Date.now();
+	var interval = 1000/fps;
+	var delta;
+// end field
+
+
+	var container= new PIXI.DisplayObjectContainer();//container is used to make the render adjustable
+	container.position.x=blockSize;
+	container.position.y=blockSize;
+
+
+	var OnPath=false; //indicate if the user has arrived his clicked point yet.
+    var CurrentPath=new Array(); // used for path finding algorithm, records steup, (0,1) means move one block in y direction
+    //example of currentpath couldbe {(0,1),(1,0),(0,-1)}
+
+
+	var diffx=0;//used for movement, if diffx is not 0, have to move diffx in x direction //used for update charactor location 
+	var diffy=0;
+	
+	// create an new instance of a pixi stage
+	// the second parameter is interactivity...
+	var interactive = true;
+	var stage = new PIXI.Stage(0xb2cac9, interactive);
+
+	var globalScale = 3;
+
+
+	var container= new PIXI.DisplayObjectContainer();//container is used to make the render adjustable
+	// create a renderer instance.
+	var renderer = PIXI.autoDetectRenderer(180, 180);
+
+	container.position.x=blockSize;
+	container.position.y=blockSize;
+
+
+	stage.addChild(container);
+
+	
+	
+	
+	/*
+	function ComputeShift(x,y){
+		this.shiftx=5*blockSize;
+		this.shifty=5*blockSize;
+	}*/
+	var Mylocation = new MazeLocation(0,5);
+	var LocationShift={shiftx:Math.floor(viewWidth/2)*blockSize-Mylocation.x*blockSize,
+		shifty:Math.floor(viewHeight/2)*blockSize-Mylocation.y*blockSize};
+
+	// create a renderer instance.
+	var renderer = PIXI.autoDetectRenderer(180, 180);
+
+	
+	
+	
+	
+	maze1d=generateMaze(mazeWidth,mazeHeight,"123");
+	var grid=returnFrame2(Mylocation.x,Mylocation.y,mazeWidth,mazeHeight,maze1d, viewWidth, viewHeight);
+	mazedata = to2DArray(maze1d,mazeWidth,mazeHeight);
+
+	//console.log(grid.toString());
+	//console.log(mazedata);
+
+ 
+	stage.click  = function()
+    {
+    	mp = stage.getMousePosition(); 
+
+    	var inputx=Math.floor((mp.x-blockSize)/(blockSize*globalScale));
+    	var inputy=Math.floor((mp.y-blockSize)/(blockSize*globalScale));
+
+        
+        //new 
+
+
+     	
+        distX = inputx - Mylocation.x;
+        distY = inputy - Mylocation.y;
+        
+        if(CurrentPath.length!=0){
+        	// if we havn't arrive, you can not point another location.
+        	return;
+        }
+
+        //this gird is used to parse into the path finding algorithm
+        var grid=returnFrame2(Mylocation.x,Mylocation.y,mazeWidth,mazeHeight,maze1d, viewWidth, viewHeight);
+        CurrentPath = pathFinder((viewWidth-1)/2,(viewHeight-1)/2,inputx,inputy,grid, viewWidth, viewHeight);
+       
+
+        if (CurrentPath.length==0) {
+        	OnPath=false;
+        }else{
+        	OnPath=true;
+        	diffx=15;
+        	diffy=15;
+        	//console.log(CurrentPath);
+
+
+        }
+
+        //var dataobject={type:"updateLocation",userid:myid,location:Mylocation};
+        //var dataobject={type:"restart",id:12345};
+        //sendOut(dataobject);
+        
+
+
+    }
+   
+
+   
+
+	function animate() {
+		
+	    requestAnimFrame( animate );
+	    // render the stage
+
+	    now = Date.now();
+		delta = now - then;
+	    if (delta > interval){
+			then = now - (delta % interval);
+			if(OnPath){
+				if(CurrentPath.length>0){
+					MazeUpdate(CurrentPath[0],mazerenderData);
+				}
+			}
+			renderer.render(stage);
+			//do update here
+	    }
+	}
+	var otherUser=new Array();
+	var OthersPlayer=new Array();
+	var myid=ID;
+	var mymazeid=mazeID;
+
+	function recievedCallBack(object){
+		//var dataobject={type:"updateLocation",userid:myid,location:Mylocation,time:null,actions:realTimeActions(CurrentPath)};
+
+		if(object.type == "disconnected"){
+			for(var i in otherUser){
+				if(otherUser[i].userid==object.userid){
+					container.removeChild(otherUser[i].Disp);
+					otherUser.splice(i,1);
+					break;
+				}
+			}
+			return;
+		}
+		if(object.type == "prepare"){
+			return;
+		}
+		if(object.type == "gamestart"){
+			return;
+
+		}
+		if(object.type == "gameover"){
+			return;
+
+		}
+		if(object.type == "updateLocation"){
+			if(object.userid==ID)
+				return;
+
+			for(var i=0; i<otherUser.length; i++){ 
+				// if it is already in the lists, delete it
+					if(otherUser[i].userid==object.userid){
+					otherUser[i].Disp.position.x=mazerenderData[object.location.x][object.location.y].Disp.position.x;
+
+					otherUser[i].Disp.position.y=mazerenderData[object.location.x][object.location.y].Disp.position.y;
+					otherUser[i].location.x=object.location.x;
+					otherUser[i].location.y=object.location.y;
+
+
+					return;
+				}
+				
+			}
+			// run to here means the object is not in our otherUser array, so we will create one rendering object for it.
+
+					object.Disp = new PIXI.Sprite(charTexture)
+
+					object.Disp.position.x=mazerenderData[object.location.x][object.location.y].Disp.position.x;
+					object.Disp.position.y=mazerenderData[object.location.x][object.location.y].Disp.position.y;
+
+					object.location.x=object.location.x;
+					object.location.y=object.location.y;
+					container.addChild(object.Disp);
+
+					otherUser.push(object);
+					console.log(object.Disp.position.x);
+
+			//otherActions.push([object.userid, object.location, object.time, object.actions]);
+
+		}
+	}
+
+
+
+
+
+	var mazerenderData=ParseMazeData(mazedata); 
+	//console.log(mazerenderData);
+	MazeSetup(mazerenderData,mazeWidth,mazeHeight);
+
+	// create a background..
+	var background = PIXI.Sprite.fromImage("frame.png");
+		
+
+	// add background to stage..
+	var CharDisplay=new CharBlock(blockSize*(Math.floor(viewWidth/2)+1),blockSize*(Math.floor(viewHeight/2)+1)); 
+
+	
+	container.addChild(CharDisplay.Disp);
+	container.scale.x = globalScale;
+	container.scale.y = globalScale;
+	renderer.resize((viewWidth+1)*blockSize*globalScale,(viewHeight+1)*blockSize*globalScale);
+
+	//renderer.view.style.border
+	// add the renderer view element to the DOM
+	document.body.appendChild(renderer.view);
+
+	requestAnimFrame( animate );
+	</script>
+
+	</body>
+</html>
