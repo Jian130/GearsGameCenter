@@ -16,7 +16,8 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
 @interface TGCommunicationServer()
 
 @property (strong, nonatomic) NSMutableDictionary *clients;
-@property (nonatomic, strong) NSMutableDictionary *sharedMessages;
+@property (strong, nonatomic) NSMutableDictionary *userList;
+@property (nonatomic, strong) NSMutableDictionary *sharedMemory;
 @property (nonatomic, strong) NSMutableArray *messageQueue;
 
 @end
@@ -24,7 +25,8 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
 @implementation TGCommunicationServer
 
 @synthesize clients = _clients;
-@synthesize sharedMessages = _sharedMessages;
+@synthesize userList = _userList;
+@synthesize sharedMemory = _sharedMemory;
 @synthesize messageQueue = _messageQueue;
 
 #pragma mark - shared instance
@@ -43,12 +45,20 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     return _clients;
 }
 
-- (NSMutableDictionary *)sharedMessages {
-	if (!_sharedMessages) {
-        _sharedMessages = [[NSMutableDictionary alloc] init];
+- (NSMutableDictionary *)userList {
+	if (!_userList) {
+        _userList = [[NSMutableDictionary alloc] init];
     }
     
-    return _sharedMessages;
+    return _userList;
+}
+
+- (NSMutableDictionary *)sharedMemory {
+	if (!_sharedMemory) {
+        _sharedMemory = [[NSMutableDictionary alloc] init];
+    }
+    
+    return _sharedMemory;
 }
 
 - (NSMutableArray *)messageQueue {
@@ -93,11 +103,14 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     
     if ([message.action isEqualToString:@"broadcasting"]) {
         [self broadcastingMessage:message];
-    } else if ([message.action isEqualToString:@"set_shared_message"]) {
+    } else if ([message.action isEqualToString:@"set_shared_memory"]) {
 		[self.messageQueue addObject:message];
-    } else if ([message.action isEqualToString:@"get_shared_message"]) {
-//		[self.messageQueue addObject:message];
-    	returnedMessage = [self getSharedMessage:message];
+    } else if ([message.action isEqualToString:@"get_shared_memory"]) {
+    	returnedMessage = [self getSharedMemory:message];
+    } else if ([message.action isEqualToString:@"set_user"]) {
+        [self.userList setObject:message.name forKey:message.body];
+    } else if ([message.action isEqualToString:@"get_user_list"]) {
+        
     }
     
     return returnedMessage;
@@ -109,24 +122,30 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     [[BLWebSocketsServer sharedInstance] pushToAll:jsonData];
 }
 
-- (void)setSharedMessage:(TGMessage *)message {
-	[self.sharedMessages setObject:message.body forKey:message.name];
-    if (message.isBroadcasting) {
-        message.action = ACTION_SHARED_MESSAGE;
-        [self broadcastingMessage:message];
+- (void)setSharedMemory:(TGMessage *)message {
+    @synchronized(self.sharedMemory)
+    {
+        [self.sharedMemory setObject:message.body forKey:message.name];
+        //if (message.isBroadcasting) {
+            message.action = ACTION_SHARED_MESSAGE;
+            [self broadcastingMessage:message];
+        //}
     }
 }
 
-- (TGMessage*)getSharedMessage:(TGMessage *)message {
-    TGMessage *returnedMessage = nil;
-    if ([self.sharedMessages objectForKey:message.name]) {
-        returnedMessage = [[TGMessage alloc] init];
-        returnedMessage.action = ACTION_SHARED_MESSAGE;
-        returnedMessage.timeStamp = [NSDate date];
-    	returnedMessage.body = [self.sharedMessages objectForKey:message.name];
+- (TGMessage*)getSharedMemory:(TGMessage *)message {
+    @synchronized(self.sharedMemory)
+    {
+        TGMessage *returnedMessage = nil;
+        if ([self.sharedMemory objectForKey:message.name]) {
+            returnedMessage = [[TGMessage alloc] init];
+            returnedMessage.action = ACTION_SHARED_MESSAGE;
+            returnedMessage.timeStamp = [NSDate date];
+            returnedMessage.body = [self.sharedMemory objectForKey:message.name];
+        }
+        
+        return returnedMessage;
     }
-    
-    return returnedMessage;
 }
 
 

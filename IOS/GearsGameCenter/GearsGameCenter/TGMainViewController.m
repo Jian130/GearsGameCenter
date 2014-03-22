@@ -24,9 +24,6 @@
 }
 
 - (IBAction)mazeStartTapped:(id)sender {
-
-    [[TGWebServer sharedManager] startWebServer];
-    [[TGCommunicationServer sharedManager] startCommunicationServer];
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     TGViewController *vc = [sb instantiateViewControllerWithIdentifier:@"TGViewController"];
