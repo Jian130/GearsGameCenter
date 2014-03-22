@@ -11,35 +11,18 @@
 
 @implementation TGAppDelegate
 
-@synthesize ipAddress = _ipAddress;
-@synthesize webServer = _webServer;
-@synthesize broadcasetingServer = _broadcasetingServer;
+@synthesize gameList = _gameList;
 
-- (TGWebServer *)webServer {
-	if (!_webServer) {
-        _webServer = [[TGWebServer alloc] init];
+- (NSMutableArray *)gameList {
+    if (!_gameList) {
+        _gameList = [[NSMutableArray alloc] init];
     }
     
-    return _webServer;
-}
-
-- (TGBroadcastingServer *)broadcasetingServer {
-	if (!_broadcasetingServer) {
-        _broadcasetingServer = [[TGBroadcastingServer alloc] init];
-    }
-    
-    return _broadcasetingServer;
+    return _gameList;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    self.ipAddress = [Util getIPAddress];
-    
-    [self.webServer start];
-//    [self.broadcasetingServer start];
-    
-    NSLog(@"server ip address: %@", self.ipAddress);
     return YES;
 }
 							
@@ -69,7 +52,6 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     
-    [self.broadcasetingServer stop];
 }
 
 

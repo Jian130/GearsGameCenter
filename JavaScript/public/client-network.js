@@ -3,12 +3,11 @@
 
 //can send data in binary
 	//init objects
-	var gameStateObject;  //json object to tx
-	var recievedObject;	  // recieved json object
+	// var recievedObject;	  // recieved json object
 	var wsPort;
 
 	var ID;
-	var mazeID;
+	//var mazeID;
 	var connection;
 	//to close connection connection.close();
 	window.onload = function() {
@@ -25,13 +24,18 @@
 	        alert('browser does not support websockets!');
 	        return;
 	    }
-		gameStateObject = {message1: "test", message2:"test2"};
+
 		wsPort = "81";
-		connection = new WebSocket('ws://192.168.16.17:81');
+		var matches = document.URL.match(/http:\/\/([\d.]+)\/.*/);
+        var ip = matches[1];
+        
+        console.log("IP: " + ip);
+        
+		connection = new WebSocket("ws://" + ip + ":" + wsPort);
 
 		connection.onopen = function(event) { onConnection() };
 		connection.onerror = function(error) { connectionError(error) };
-		connection.onmessage = function(object) { recieveObject(object) };
+		connection.onmessage = function(message) { receiveMessage(message) };
 		connection.onclose = function(event) { onCloseEvent() };
 	}
 
@@ -45,49 +49,84 @@
 	//initial connection sequence
 	function onConnection() {
 		console.log("connected");
-		sendOut(gameStateObject);
+		// sendOut(gameStateObject);
 	}
 
 	function onCloseEvent() {
 		console.log("closing");
 	}
 
-	function recieveObject(input) {
+	function receiveMessage(message) {
 		//convert JSON
-		console.log(input);
+		console.log(message);
+
 		try {
-			recievedObject = JSON.parse(input.data);
-			//it is a initiali ID packet
-			if(recievedObject.user_id != null)
+			var receivedMessage = JSON.parse(message.data);
+			
+
+			if(receivedMessage.user_id != null)
 			{
-				ID = recievedObject.user_id;
-				mazeID = recievedObject.maze_id;
+				ID = receivedObject.user_id;
+				
 				return;
+			} else if (receivedMessage.action = "broadcasting") {
+				recievedCallBack(receivedMessage.body);
+			} else if (receivedMessage.action = "get_shared_memory") {
+				receivedSharedMemory(receivedMessage.name, receivedMessage.body);
+			} else if (receivedMessage.action = "user_list"){
+				receivedUserlist(receiveMessage.body);
+			}else {
+
+				console.log("undefined action: " + receivedMessage.action);
 			}
+
+			console.log(receivedMessage);
+
 		} catch(error) {
 			console.log('message is not a JSON object');
-			receivedObject = input;
 		}
-		//recievedObject = JSON.parse(input.data);
-		//document.getElementById('test').innerHTML = recievedObject;
-		console.log(recievedObject);
-		//other data handling here
-//dsfsdf
-		recievedCallBack(recievedObject);
 	}
-	function sendOut(object) {
+	
+
+	function getSessionID() {
+		return ID;
+	}
+
+	function sendMessage(action, name, body) {
+		var timestamp = new Date();
+
+		var message = {
+			"action": action,
+			"timestamp": timestamp,
+			"name": name,
+			"body": body 
+		}
+
 		if(connection.readyState == 1)
 		{
-			connection.send(JSON.stringify(object));
+			connection.send(JSON.stringify(message));
 		} else {
 			console.log("connection not ready!");
 		}
 		console.log("SENT");
 	}
-	function getSessionID() {
-		return ID;
-	}
-	function getMazeID() {
-		return mazeID;
+
+	function broadcasting(body) {
+		sendMessage("broadcasting", "message", body);
 	}
 
+	function setSharedMemory(name, body) {
+		sendMessage("set_shared_memory", name, body);
+	}
+
+	function getSharedMemory(name) {
+		sendMessage("get_shared_memory", name, null);
+	}
+
+	function setUser(name, property) {
+		sendMessage("set_user", name, property);
+	}
+
+	function getUserList() {
+		sendMessage("get_user_list", null, null);
+	}
