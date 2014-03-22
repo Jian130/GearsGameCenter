@@ -1,6 +1,7 @@
 <html>
 <head>
-	<script type="text/javascript" src=""></script>
+	<script type="text/javascript" src="whois.js"></script>
+	<script type="text/javascript" src="client-network.js"></script>
 </head>
 <body>
 	<div id="GameEnter">
@@ -46,12 +47,16 @@
 	function DisplayQuestion(){
 		//GetUsersList()
 		//{Username:'Greg',Rank:1,Count:3}
+
+		// cleaer View
 		document.getElementById("GameResult").setAttribute("hidden",true);
 		document.getElementById("GameEnter").setAttribute("hidden",true);
 
 		document.getElementById("GameOn").removeAttribute("hidden");
 		document.getElementsByTagName("p")[0].setAttribute("hidden", true);
-		var userList = GetUsersList();
+
+
+		var userList = GetGameUsersList();
 		var Ulist= document.getElementById("UsersList");
 		Ulist.innerHTML='';
 			
@@ -65,10 +70,11 @@
 
 	}
 	function DisplayResult(){
+		//hide previouse view and display new view
 		document.getElementById("GameOn").setAttribute("hidden",true);
-
 		document.getElementById("GameResult").removeAttribute("hidden");
-		var userList = GetUsersList();
+
+		var userList = GetGameUsersList();
 		var Ulist= document.getElementById("UsersRankList");
 			Ulist.innerHTML='';
 		for(var i=0 ;i<userList.length;i++){

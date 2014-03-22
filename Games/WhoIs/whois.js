@@ -38,8 +38,8 @@ function nextState(){
 	return state;
 }
 
-function GetGameUserList(){
-	//object {Userame:"", Rank:1, Count:1}
+function GetGameUsersList(){
+	return [ {Userame:"Greg", Rank:1, Count:1}, {Userame:"Luna", Rank:2, Count:2}];
 }
 
 function startGame(){

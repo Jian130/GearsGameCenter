@@ -84,10 +84,4 @@
 		}
 		console.log("SENT");
 	}
-	function getSessionID() {
-		return ID;
-	}
-	function getMazeID() {
-		return mazeID;
-	}
 
