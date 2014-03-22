@@ -110,13 +110,26 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     } else if ([message.action isEqualToString:@"set_user"]) {
         [self.userList setObject:message.name forKey:message.body];
     } else if ([message.action isEqualToString:@"get_user_list"]) {
+        bool isFirst = YES;
+        NSMutableString * body = [[NSMutableString alloc] init];
+        [body appendString:@"["];
         for (NSString* key in self.userList) {
-            NSMutableString * body = [[NSMutableString alloc] init];
-            
-            [body appendString: @"Hello"];
-            
-            //id value = [self.userList objectForKey:key];
+            if (!isFirst) {
+                [body appendString:@","];
+            }
+            [body appendString:@"{"];
+            [body appendString:key];
+            [body appendString:@":"];
+            [body appendString:[self.userList objectForKey:key]];
+            [body appendString:@"}"];
+            isFirst = NO;
         }
+        [body appendString:@"]"];
+        returnedMessage = [[TGMessage alloc] init];
+        returnedMessage.action = @"user_list";
+        returnedMessage.timeStamp = [NSDate date];
+        returnedMessage.name = @"user_list";
+        returnedMessage.body = body;
     }
     
     return returnedMessage;
