@@ -39,7 +39,7 @@ function nextState(){
 }
 
 function GetGameUsersList(){
-	return [ {Userame:"Greg", Rank:1, Count:1}, {Userame:"Luna", Rank:2, Count:2}];
+	return GameUserList;
 }
 
 function startGame(){
