@@ -44,13 +44,13 @@ function GetGameUsersList(){
 
 function startGame(){
 	// start the game
-	var dataobject={"type":"startGame", "value":null};
+	var dataobject={type:"startGame", value:null};
     sendOut(dataobject);
 }
 
 function answerQuestion(name){
 	//answer question and send it out
-	var dataobject={"type":"answer", "value":name};
+	var dataobject={type:"answer", value:name};
 	sendOut(dataobject);
 	
 	nextState();
@@ -68,6 +68,15 @@ function UserIsReady(name){
 	return state;
 }
 
+//mock up
+mocked_UserList = new Object();
+
+function setUser(name, state){
+	mocked_UserList[name] = state;
+	var dataobject={type:"mocked", value:mocked_UserList};
+	sendOut(dataobject);
+}
+
 function receivedSharedMemory(name, body){
 
 }
@@ -83,7 +92,7 @@ function receivedUserlist(list){
 // receive msg
 function recievedCallBack(object){
 		//var dataobject={type:"updateLocation",userid:myid,location:Mylocation,time:null,actions:realTimeActions(CurrentPath)};
-		if(type=="startGame"){
+		if(object.type=="startGame"){
 			//everyone start the game
 			if(state!=GameReady){
 				return;
@@ -102,7 +111,7 @@ function recievedCallBack(object){
 			
 			nextState();
 		}
-		if(type=="answer"){
+		if(object.type=="answer"){
 			numGameAnswer = numGameAnswer+1;
 			for(var i=0; i<GameUserList.length; i++){
 				if(GameUserList[i]["Username"]==value){
@@ -113,6 +122,10 @@ function recievedCallBack(object){
 				//everyone finish the question
 				nextState();
 			}
+		}
+		//mock up
+		if(object.type == "mocked"){
+			receivedUserlist(object.value)
 		}
 }
 
