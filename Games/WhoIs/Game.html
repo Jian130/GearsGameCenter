@@ -11,6 +11,11 @@
 
 		<button onclick="" hidden>Start</button>
 		<p hidden>Waiting for other players...</p>
+		<div class="UsersListHolder"> 
+			<ul id="UsersReadyList">
+				<li>haha</li>
+			</ul>
+		</div>
 	</div>
 	<div id="GameOn" hidden>
 		<div class="QuestionHolder"> 
@@ -37,6 +42,20 @@
 	</div>
 </body>
 <script type="text/javascript">
+	document.Ready(){
+		var userList = GetGameUsersList();
+		var Ulist= document.getElementById("UsersReadyList");
+		Ulist.innerHTML='';
+			
+		for(var user in userList){
+			Ulist.innerHTML+="<li>"+userList.Username+"</li>";
+
+
+		}
+	}
+	function UpdateGameEnterPage(){
+
+	}
 	function ReadyButtonClick(){
 		
 		document.getElementsByTagName("p")[0].removeAttribute("hidden");
@@ -92,9 +111,13 @@
 
 	}
 	function ListItemClick(name){
-		UserPicked(name);
+		AnswerQuestion(name);
 	}
+
+	//should be implement in whois.hs
+
 	//
+	/*
 	function UserIsReady(name){
 		DisplayQuestion();
 	}
@@ -105,6 +128,7 @@
 		DisplayResult();
 
 	}
+	*/
 
 </script>
 </html>
