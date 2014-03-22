@@ -89,9 +89,9 @@
 
 	}
 	function setUser(name, IS_READY){
-		//UserList.Add({name,IS_READY});
 
+		UserList.push([name,IS_READY]);
 	}
 	function getUserList(){
-		return UserList();
+		return UserList;
 	}
