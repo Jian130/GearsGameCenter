@@ -43,7 +43,7 @@
     
     NSString *ip = [Util getIPAddress];
 
-
+	NSLog(@"IP address is: %@", ip);
     NSString *gameName = @"Maze";
     
     NSString *fullURL = [[[[@"http://" stringByAppendingString:@"127.0.0.1" ] stringByAppendingString:@"/Games/"] stringByAppendingString:gameName] stringByAppendingString:@"/index.html"];
