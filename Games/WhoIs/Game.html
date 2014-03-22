@@ -42,17 +42,7 @@
 	</div>
 </body>
 <script type="text/javascript">
-	document.Ready(){
-		var userList = GetGameUsersList();
-		var Ulist= document.getElementById("UsersReadyList");
-		Ulist.innerHTML='';
-			
-		for(var user in userList){
-			Ulist.innerHTML+="<li>"+userList.Username+"</li>";
-
-
-		}
-	}
+	
 	function UpdateGameEnterPage(){
 
 	}
@@ -112,6 +102,17 @@
 	}
 	function ListItemClick(name){
 		AnswerQuestion(name);
+	}
+	window.onload = function(){
+		var userList = GetGameUsersList();
+		var Ulist= document.getElementById("UsersReadyList");
+		Ulist.innerHTML='';
+			
+		for(var user in userList){
+			Ulist.innerHTML+="<li>"+userList.Username+"</li>";
+
+
+		}
 	}
 
 	//should be implement in whois.hs

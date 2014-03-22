@@ -84,4 +84,14 @@
 		}
 		console.log("SENT");
 	}
+	var UserList=new Array();
+	function getUser(){
 
+	}
+	function setUser(name, IS_READY){
+		//UserList.Add({name,IS_READY});
+
+	}
+	function getUserList(){
+		return UserList();
+	}
