@@ -1,0 +1,105 @@
+<html>
+<head>
+	<script type="text/javascript" src=""></script>
+</head>
+<body>
+	<div id="GameEnter">
+		<label>Name:</label>
+		<input id="Username" type="text"><br>
+		<button onclick="ReadyButtonClick()">Ready</button>
+
+		<button onclick="" hidden>Start</button>
+		<p hidden>Waiting for other players...</p>
+	</div>
+	<div id="GameOn" hidden>
+		<div class="QuestionHolder"> 
+			<h3>Answer it</h3>
+		</div>
+		<div class="UsersListHolder"> 
+			<ul id="UsersList">
+				<li>haha</li>
+			</ul>
+		</div>
+
+	</div>
+	<div id="GameResult" hidden>
+		<div class="QuestionHolder">
+			<h3>Answer it</h3>
+		</div>
+		<div class="UsersListHolder">
+			<ol id="UsersRankList">
+				<li>haha</li>
+			</ol>
+		</div>
+		<button onclick="ReadyButtonClick()">Next</button>
+
+	</div>
+</body>
+<script type="text/javascript">
+	function ReadyButtonClick(){
+		
+		document.getElementsByTagName("p")[0].removeAttribute("hidden");
+		var name=document.getElementById("Username").text;
+		
+		UserIsReady(name);
+	}
+	function DisplayQuestion(){
+		//GetUsersList()
+		//{Username:'Greg',Rank:1,Count:3}
+		document.getElementById("GameResult").setAttribute("hidden",true);
+		document.getElementById("GameEnter").setAttribute("hidden",true);
+
+		document.getElementById("GameOn").removeAttribute("hidden");
+		document.getElementsByTagName("p")[0].setAttribute("hidden", true);
+		var userList = GetUsersList();
+		var Ulist= document.getElementById("UsersList");
+		Ulist.innerHTML='';
+			
+		for(var user in userList){
+			Ulist.innerHTML+="<li><button onclick='"+"ListItemClick("+userList.Username+")"+"'>"+userList.Username+"</button></li>";
+
+
+		}
+
+
+
+	}
+	function DisplayResult(){
+		document.getElementById("GameOn").setAttribute("hidden",true);
+
+		document.getElementById("GameResult").removeAttribute("hidden");
+		var userList = GetUsersList();
+		var Ulist= document.getElementById("UsersRankList");
+			Ulist.innerHTML='';
+		for(var i=0 ;i<userList.length;i++){
+			var user;
+			for(var j=0;j<userList.length;j++){
+				if (userList[j].Rank==i+1) {
+					user=userList[j]
+
+				 };
+			}
+			
+			Ulist.innerHTML+="<li>"+userList.Username+" vote:"+userList.Rank+"</li>";
+
+		}
+
+	}
+	function ListItemClick(name){
+		UserPicked(name);
+	}
+	//
+	function UserIsReady(name){
+		DisplayQuestion();
+	}
+	function GetUsersList(){
+		return [{Username:'greg',Rank:1,Count:1},{Username:'greg',Rank:2,Count:1}];
+	}
+	function UserPicked(name){
+		DisplayResult();
+
+	}
+
+</script>
+</html>
+
