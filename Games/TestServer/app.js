@@ -12,7 +12,7 @@ var WebSocketServer = require('ws').Server
   , wss = new WebSocketServer({port: 8001});
 wss.broadcast = function(data,cws) {
     for(var i in this.clients){
-    	if(this.clients[i]!=cws)
+    	//if(this.clients[i]!=cws)
     		this.clients[i].send(data);
     }
         
