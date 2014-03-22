@@ -6,23 +6,48 @@
 	<dict>
 		<key>Pods-BLWebSocketsServer.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-GCDWebServer.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-JSONModel.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>09D5F0B0DB2A4775ADEBABFE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>217DD7EFF3E54FB2A031A4BB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7F365E7FC91F44A6859AF359</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A5B2FF66EB0341F2A696D7F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C0454079F35C4FE3B78C9729</key>
 		<dict>
 			<key>primary</key>
 			<true/>

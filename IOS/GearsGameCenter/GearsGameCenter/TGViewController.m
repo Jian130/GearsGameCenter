@@ -39,14 +39,15 @@
 {
     [super viewDidLoad];
     
-    _webView.scalesPageToFit = YES;
+    [[TGWebServer sharedManager] startWebServer];
+    [[TGCommunicationServer sharedManager] startCommunicationServer];
     
     NSString *ip = [Util getIPAddress];
 
 	NSLog(@"IP address is: %@", ip);
     NSString *gameName = @"Maze";
     
-    NSString *fullURL = [[[[@"http://" stringByAppendingString:@"127.0.0.1" ] stringByAppendingString:@"/Games/"] stringByAppendingString:gameName] stringByAppendingString:@"/index.html"];
+    NSString *fullURL = [[[[@"http://" stringByAppendingString:@"127.0.0.1"] stringByAppendingString:@"/Games/"] stringByAppendingString:gameName] stringByAppendingString:@"/index.html"];
     
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
@@ -58,11 +59,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    
-    
 }
 
 - (IBAction)shareTapped:(id)sender {
+    @try {
     if(![MFMessageComposeViewController canSendText]) {
         UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [warningAlert show];
@@ -81,12 +81,21 @@
     
     // Present message view controller on screen
     [self presentViewController:messageController animated:YES completion:nil];
+    }
+    @catch (NSException *e) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+            message:@"You must connect to a Wi-Fi network."
+            delegate:nil
+            cancelButtonTitle:@"OK"
+            otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (IBAction)doneTapped:(id)sender {
+    [[TGWebServer sharedManager] stopWebServer];
+    [[TGCommunicationServer sharedManager] stopCommunicationServer];
     
-    TGAppDelegate *delegate = (TGAppDelegate*)[[UIApplication sharedApplication] delegate];
-//    [delegate.broadcasetingServer stop];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
