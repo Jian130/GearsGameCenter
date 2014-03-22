@@ -7,7 +7,7 @@
 	<div id="GameEnter">
 		<label>Name:</label>
 		<input id="Username" type="text"><br>
-		<button onclick="ReadyButtonClick()" hidden>Ready</button>
+		<button onclick="ReadyButtonClick()" >Ready</button>
 
 		<button onclick="StartButtonClick()" >Start</button>
 		<p hidden>Waiting for other players...</p>
@@ -80,8 +80,8 @@
 
 
 
-	}
-	function DisplayResult(){
+	};
+	function DisplayResults(){
 		//hide previouse view and display new view
 		document.getElementById("GameOn").setAttribute("hidden",true);
 		document.getElementById("GameResult").removeAttribute("hidden");

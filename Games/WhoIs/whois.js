@@ -116,13 +116,3 @@ function recievedCallBack(object){
 		}
 }
 
-
-// test
-Output = "</br>TEST nextState:</br>";
-Output += state;
-Output += "</br>"
-for(var i = 0; i<15; i++){
-	Output += nextState();
-    Output += "</br>"
-}
-document.write(Output);
