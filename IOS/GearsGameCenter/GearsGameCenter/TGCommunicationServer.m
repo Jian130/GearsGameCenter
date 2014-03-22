@@ -90,9 +90,9 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         	newUser = NO;
         }
         
-//		TGMessage* newMessage = [TGMessage messageFromJsonData:requestData];
-//        newMessage = [self messageHandler:newMessage];
-//        return [TGMessage jsonDataFromMessage:newMessage];
+		TGMessage* newMessage = [TGMessage messageFromJsonData:requestData];
+        newMessage = [self messageHandler:newMessage];
+        return [TGMessage jsonDataFromMessage:newMessage];
         return nil;
     }];
 }
@@ -110,7 +110,13 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     } else if ([message.action isEqualToString:@"set_user"]) {
         [self.userList setObject:message.name forKey:message.body];
     } else if ([message.action isEqualToString:@"get_user_list"]) {
-        
+        for (NSString* key in self.userList) {
+            NSMutableString * body = [[NSMutableString alloc] init];
+            
+            [body appendString: @"Hello"];
+            
+            //id value = [self.userList objectForKey:key];
+        }
     }
     
     return returnedMessage;
