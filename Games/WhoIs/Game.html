@@ -7,9 +7,9 @@
 	<div id="GameEnter">
 		<label>Name:</label>
 		<input id="Username" type="text"><br>
-		<button onclick="ReadyButtonClick()">Ready</button>
+		<button onclick="ReadyButtonClick()" hidden>Ready</button>
 
-		<button onclick="" hidden>Start</button>
+		<button onclick="StartButtonClick()" >Start</button>
 		<p hidden>Waiting for other players...</p>
 		<div class="UsersListHolder"> 
 			<ul id="UsersReadyList">
@@ -45,6 +45,9 @@
 	
 	function UpdateGameEnterPage(){
 
+	}
+	function StartButtonClick(){
+		startGame();
 	}
 	function ReadyButtonClick(){
 		
