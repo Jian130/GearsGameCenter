@@ -111,7 +111,7 @@
 		console.log("SENT");
 	}
 
-	function Broadcasting(body) {
+	function broadcasting(body) {
 		sendMessage("broadcasting", "message", body);
 	}
 
