@@ -57,13 +57,14 @@
 		var rdyBut = document.getElementById("ReadyButton");
 	
 		rdyBut.setAttribute("disabled",true);
-
-		if(isHost==true){
-			var startBut= document.getElementById("StartButton");
-			startBut.removeAttribute("hidden");
-		}
-		
 		UserIsReady(name);
+		
+		
+		
+	}
+	function EnableStartButton(){
+		var startBut= document.getElementById("StartButton");
+			startBut.removeAttribute("hidden");
 	}
 	function DisplayQuestion(){
 		//GetUsersList()
