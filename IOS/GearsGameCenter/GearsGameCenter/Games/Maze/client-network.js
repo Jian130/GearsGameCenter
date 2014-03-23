@@ -82,7 +82,7 @@
 				console.log("undefined action: " + receivedMessage.action);
 			}
 
-			console.log(receivedMessage);
+			console.log("Recevied Message " + receivedMessage);
 
 		} catch(error) {
 			console.log('message is not a JSON object');

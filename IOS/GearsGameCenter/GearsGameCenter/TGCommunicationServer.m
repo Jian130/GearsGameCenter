@@ -102,10 +102,13 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
 
     TGMessage *returnedMessage = nil;
     
+    NSLog(@"Incoming message action: %@", message.action);
+    
     if ([message.action isEqualToString:@"broadcasting"]) {
         [self broadcastingMessage:message];
     } else if ([message.action isEqualToString:@"set_shared_memory"]) {
 		[self.messageQueue addObject:message];
+        [self setSharedMemory:message];
     } else if ([message.action isEqualToString:@"get_shared_memory"]) {
     	returnedMessage = [self getSharedMemory:message];
     } else if ([message.action isEqualToString:@"set_user"]) {

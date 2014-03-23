@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSDate *timestamp;
 //@property (nonatomic, assign) BOOL *isBroadcasting;
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSMutableDictionary *body;
+@property (nonatomic, strong) NSMutableDictionary<Optional> *body;
 
 + (TGMessage*)messageFromJsonData:(NSData *)jsonData;
 + (NSData *)jsonDataFromMessage:(TGMessage *)message;
