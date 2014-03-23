@@ -85,6 +85,7 @@
 		console.log("SENT");
 	}
 	var UserList=new Array();
+	/*
 	function getUser(){
 
 	}
@@ -94,4 +95,4 @@
 	}
 	function getUserList(){
 		return UserList;
-	}
+	}*/
