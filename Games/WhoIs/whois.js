@@ -85,6 +85,7 @@ function receivedUserlist(list){
 	//the first user is host
 	if(Object.keys(UserList).length == 1){
 		isHost = 1;
+		EnableStartButton();
 	}
 }
 
