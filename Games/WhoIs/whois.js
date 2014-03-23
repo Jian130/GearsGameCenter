@@ -13,7 +13,7 @@ var NOT_READY = 0;
 // on opening page, set state to GAME_ENTER
 var state = GAME_ENTER;
 // only host can start game
-var isHost = false;
+var isHost = 0;
 
 var UserList;
 var GameUserList;
@@ -84,7 +84,7 @@ function receivedUserlist(list){
 	UserList = list;
 	//the first user is host
 	if(Object.keys(UserList).length == 1){
-		isHost = true;
+		isHost = 1;
 	}
 }
 
