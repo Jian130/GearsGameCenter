@@ -71,6 +71,8 @@
 				return;
 			} else if (receivedMessage.action = "broadcasting") {
 				recievedCallBack(receivedMessage.body);
+				console.log(receivedMessage.body);
+				console.log(receivedMessage.body.test);
 			} else if (receivedMessage.action = "get_shared_memory") {
 				receivedSharedMemory(receivedMessage.name, receivedMessage.body);
 			} else if (receivedMessage.action = "user_list"){
@@ -98,6 +100,7 @@
 		var message = {
 			"action": action,
 			"timestamp": timestamp,
+			"userID": null,
 			"name": name,
 			"body": body 
 		}

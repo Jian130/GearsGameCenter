@@ -16,6 +16,10 @@
     NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     TGMessage *newMessage = [[TGMessage alloc] initWithString:jsonString error:&error];
     
+    if (error) {
+        NSLog(@"error: %@", error);
+    }
+    
     return newMessage;
 }
 

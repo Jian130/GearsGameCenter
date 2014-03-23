@@ -54,6 +54,10 @@
     if ([address isEqualToString:@"error"]) {
         address = [self getlocalIPAddress];
     }
+    
+   // NSArray *addresses = [[NSHost ] addresses];
+    
+    
     return address;
     
 }

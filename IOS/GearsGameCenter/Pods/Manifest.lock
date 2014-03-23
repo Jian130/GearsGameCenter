@@ -4,13 +4,9 @@ PODS:
   - JSONModel (0.12.0)
 
 DEPENDENCIES:
-  - BLWebSocketsServer (from `https://github.com/Jian130/BLWebSocketsServer`)
+  - BLWebSocketsServer
   - GCDWebServer (~> 1.2.2)
   - JSONModel
-
-EXTERNAL SOURCES:
-  BLWebSocketsServer:
-    :git: https://github.com/Jian130/BLWebSocketsServer
 
 SPEC CHECKSUMS:
   BLWebSocketsServer: 5ddfeb5df590a5a8ac1d44bde51d7839f961e55a

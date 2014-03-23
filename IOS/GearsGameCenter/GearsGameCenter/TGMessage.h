@@ -12,11 +12,11 @@
 @interface TGMessage : JSONModel
 
 @property (nonatomic, strong) NSString *action;
-@property (nonatomic, strong) NSString *userID;
-@property (nonatomic, strong) NSDate *timeStamp;
+//@property (nonatomic, strong) NSString *userID;
+@property (nonatomic, strong) NSDate *timestamp;
 //@property (nonatomic, assign) BOOL *isBroadcasting;
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSString *body;
+@property (nonatomic, strong) NSMutableDictionary *body;
 
 + (TGMessage*)messageFromJsonData:(NSData *)jsonData;
 + (NSData *)jsonDataFromMessage:(TGMessage *)message;

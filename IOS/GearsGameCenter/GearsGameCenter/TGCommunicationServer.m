@@ -91,6 +91,7 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         }
         
 		TGMessage* newMessage = [TGMessage messageFromJsonData:requestData];
+        
         newMessage = [self messageHandler:newMessage];
         return [TGMessage jsonDataFromMessage:newMessage];
         return nil;
@@ -127,7 +128,7 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         [body appendString:@"]"];
         returnedMessage = [[TGMessage alloc] init];
         returnedMessage.action = @"user_list";
-        returnedMessage.timeStamp = [NSDate date];
+        returnedMessage.timestamp = [NSDate date];
         returnedMessage.name = @"user_list";
         returnedMessage.body = body;
     }
@@ -159,7 +160,7 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         if ([self.sharedMemory objectForKey:message.name]) {
             returnedMessage = [[TGMessage alloc] init];
             returnedMessage.action = ACTION_SHARED_MESSAGE;
-            returnedMessage.timeStamp = [NSDate date];
+            returnedMessage.timestamp = [NSDate date];
             returnedMessage.body = [self.sharedMemory objectForKey:message.name];
         }
         

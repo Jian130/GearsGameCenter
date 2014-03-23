@@ -42,9 +42,9 @@
     [[TGWebServer sharedManager] startWebServer];
     [[TGCommunicationServer sharedManager] startCommunicationServer];
     
-    NSString *ip = [Util getIPAddress];
+   // NSString *ip = [Util getIPAddress];
 
-	NSLog(@"IP address is: %@", ip);
+//	NSLog(@"IP address is: %@", ip);
     NSString *gameName = @"Maze";
     
     NSString *fullURL = [[[[@"http://" stringByAppendingString:@"127.0.0.1"] stringByAppendingString:@"/Games/"] stringByAppendingString:gameName] stringByAppendingString:@"/index.html"];
