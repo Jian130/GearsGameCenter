@@ -73,7 +73,7 @@
 		Ulist.innerHTML='';
 			
 		for(var user in userList){
-			Ulist.innerHTML+="<li><button onclick='"+"ListItemClick("+userList.Username+")"+"'>"+userList.Username+"</button></li>";
+			Ulist.innerHTML+="<li><button onclick='"+"ListItemClick("+user.Username+")"+"'>"+user.Username+"</button></li>";
 
 
 		}
@@ -98,13 +98,13 @@
 				 };
 			}
 			
-			Ulist.innerHTML+="<li>"+userList.Username+" vote:"+userList.Rank+"</li>";
+			Ulist.innerHTML+="<li>"+user.Username+" vote:"+user.Rank+"</li>";
 
 		}
 
 	}
 	function ListItemClick(name){
-		AnswerQuestion(name);
+		answerQuestion(name);
 	}
 	
 
