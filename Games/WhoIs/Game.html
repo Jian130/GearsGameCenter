@@ -7,9 +7,9 @@
 	<div id="GameEnter">
 		<label>Name:</label>
 		<input id="Username" type="text"><br>
-		<button onclick="ReadyButtonClick()" >Ready</button>
+		<button id="ReadyButton" onclick="ReadyButtonClick()" >Ready</button>
 
-		<button onclick="StartButtonClick()" >Start</button>
+		<button id="StartButton" onclick="StartButtonClick()" hidden>Start</button>
 		<p hidden>Waiting for other players...</p>
 
 	</div>
@@ -46,11 +46,22 @@
 	}
 	function StartButtonClick(){
 		startGame();
+		var startBut= document.getElementById("StartButton");
+		startBut.setAttribute("hidden",true);
 	}
 	function ReadyButtonClick(){
 		
 		document.getElementsByTagName("p")[0].removeAttribute("hidden");
 		var name=document.getElementById("Username").value;
+	
+		var rdyBut = document.getElementById("ReadyButton");
+	
+		rdyBut.setAttribute("disabled",true);
+
+		//if(isHost){
+			var startBut= document.getElementById("StartButton");
+			startBut.removeAttribute("hidden");
+		//}
 		
 		UserIsReady(name);
 	}
@@ -61,6 +72,8 @@
 		// cleaer View
 		document.getElementById("GameResult").setAttribute("hidden",true);
 		document.getElementById("GameEnter").setAttribute("hidden",true);
+
+		
 
 		document.getElementById("GameOn").removeAttribute("hidden");
 		document.getElementsByTagName("p")[0].setAttribute("hidden", true);
@@ -85,6 +98,16 @@
 		//hide previouse view and display new view
 		document.getElementById("GameOn").setAttribute("hidden",true);
 		document.getElementById("GameResult").removeAttribute("hidden");
+		document.getElementsByTagName("button").removeAttribute("disabled");
+
+		document.getElementsByTagName("button").setAttribute("disabled",true);
+		var buttons = document.getElementsByTagName("button");
+		for(var index in buttons){
+			console.log(buttons[index]);
+			buttons[index].setAttribute("disabled",true);
+
+
+		}
 
 		var userList = GetGameUsersList();
 		var Ulist= document.getElementById("UsersRankList");
@@ -105,6 +128,13 @@
 	}
 	function ListItemClick(name){
 		answerQuestion(name);
+		document.getElementsByTagName("button").setAttribute("disabled",true);
+		var buttons = document.getElementsByTagName("button");
+		for(var index in buttons){
+			buttons[index].removeAttribute("disabled");
+
+		}
+		
 	}
 	
 
