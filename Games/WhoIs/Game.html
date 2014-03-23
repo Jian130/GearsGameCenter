@@ -7,9 +7,9 @@
 	<div id="GameEnter">
 		<label>Name:</label>
 		<input id="Username" type="text"><br>
-		<button onclick="ReadyButtonClick()">Ready</button>
+		<button onclick="ReadyButtonClick()" >Ready</button>
 
-		<button onclick="" hidden>Start</button>
+		<button onclick="StartButtonClick()" >Start</button>
 		<p hidden>Waiting for other players...</p>
 		<div class="UsersListHolder"> 
 			<ul id="UsersReadyList">
@@ -46,10 +46,13 @@
 	function UpdateGameEnterPage(){
 
 	}
+	function StartButtonClick(){
+		startGame();
+	}
 	function ReadyButtonClick(){
 		
 		document.getElementsByTagName("p")[0].removeAttribute("hidden");
-		var name=document.getElementById("Username").text;
+		var name=document.getElementById("Username").value;
 		
 		UserIsReady(name);
 	}
@@ -70,15 +73,16 @@
 		Ulist.innerHTML='';
 			
 		for(var user in userList){
-			Ulist.innerHTML+="<li><button onclick='"+"ListItemClick("+userList.Username+")"+"'>"+userList.Username+"</button></li>";
+			console.log(user);
+			Ulist.innerHTML+="<li><button onclick='"+"ListItemClick("+user.Username+")"+"'>"+user.Username+"</button></li>";
 
 
 		}
 
 
 
-	}
-	function DisplayResult(){
+	};
+	function DisplayResults(){
 		//hide previouse view and display new view
 		document.getElementById("GameOn").setAttribute("hidden",true);
 		document.getElementById("GameResult").removeAttribute("hidden");
@@ -95,25 +99,15 @@
 				 };
 			}
 			
-			Ulist.innerHTML+="<li>"+userList.Username+" vote:"+userList.Rank+"</li>";
+			Ulist.innerHTML+="<li>"+user.Username+" vote:"+user.Rank+"</li>";
 
 		}
 
 	}
 	function ListItemClick(name){
-		AnswerQuestion(name);
+		answerQuestion(name);
 	}
-	window.onload = function(){
-		var userList = GetGameUsersList();
-		var Ulist= document.getElementById("UsersReadyList");
-		Ulist.innerHTML='';
-			
-		for(var user in userList){
-			Ulist.innerHTML+="<li>"+userList.Username+"</li>";
-
-
-		}
-	}
+	
 
 	//should be implement in whois.hs
 

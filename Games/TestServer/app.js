@@ -12,7 +12,7 @@ var WebSocketServer = require('ws').Server
   , wss = new WebSocketServer({port: 8001});
 wss.broadcast = function(data,cws) {
     for(var i in this.clients){
-    	if(this.clients[i]!=cws)
+    	//if(this.clients[i]!=cws)
     		this.clients[i].send(data);
     }
         
@@ -47,7 +47,7 @@ wss.on('connection', function(ws) {
 	    wss.broadcast(JSON.stringify(msg));
 	});
     ws.on('message', function(message) {
-        //console.log('received: %s', message);
+        console.log('received: %s', message);
         
         wss.broadcast(message,ws);
         

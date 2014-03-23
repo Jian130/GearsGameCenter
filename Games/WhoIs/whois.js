@@ -39,18 +39,18 @@ function nextState(){
 }
 
 function GetGameUsersList(){
-	return [ {Userame:"Greg", Rank:1, Count:1}, {Userame:"Luna", Rank:2, Count:2}];
+	return GameUserList;
 }
 
 function startGame(){
 	// start the game
-	var dataobject={"type":"startGame", "value":null};
+	var dataobject={type:"startGame", value:null};
     sendOut(dataobject);
 }
 
 function answerQuestion(name){
 	//answer question and send it out
-	var dataobject={"type":"answer", "value":name};
+	var dataobject={type:"answer", value:name};
 	sendOut(dataobject);
 	
 	nextState();
@@ -60,12 +60,20 @@ function UserIsReady(name){
 	//send the name to the server
 	setUser(name, IS_READY);
 	
-	// get all users from shared memory
-	getUserList();
-	
 	//move state forward
 	nextState();
 	return state;
+}
+
+//mock up
+mocked_UserList = new Object();
+
+function setUser(name, state){
+	console.log(mocked_UserList)
+	mocked_UserList[name] = state;
+	console.log(mocked_UserList);
+	var dataobject={type:"mocked", value:mocked_UserList};
+	sendOut(dataobject);
 }
 
 function receivedSharedMemory(name, body){
@@ -82,10 +90,11 @@ function receivedUserlist(list){
 
 // receive msg
 function recievedCallBack(object){
+	console.log(object);
 		//var dataobject={type:"updateLocation",userid:myid,location:Mylocation,time:null,actions:realTimeActions(CurrentPath)};
-		if(type=="startGame"){
+		if(object.type=="startGame"){
 			//everyone start the game
-			if(state!=GameReady){
+			if(state!=GAME_READY){
 				return;
 			}
 			//initiate GameUserList
@@ -102,10 +111,10 @@ function recievedCallBack(object){
 			
 			nextState();
 		}
-		if(type=="answer"){
+		if(object.type=="answer"){
 			numGameAnswer = numGameAnswer+1;
 			for(var i=0; i<GameUserList.length; i++){
-				if(GameUserList[i]["Username"]==value){
+				if(GameUserList[i]["Username"]==object.value){
 					GameUserList[i]["Count"] += 1;
 				}
 			}
@@ -114,15 +123,10 @@ function recievedCallBack(object){
 				nextState();
 			}
 		}
+		//mock up
+		if(object.type == "mocked"){
+			mocked_UserList = object.value;
+			receivedUserlist(object.value)
+		}
 }
 
-
-// test
-Output = "</br>TEST nextState:</br>";
-Output += state;
-Output += "</br>"
-for(var i = 0; i<15; i++){
-	Output += nextState();
-    Output += "</br>"
-}
-document.write(Output);
