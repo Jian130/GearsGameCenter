@@ -134,3 +134,6 @@ function recievedCallBack(object){
 		}
 }
 
+function GetQuestion(){
+	return "Who is the most 'gregry' guy among us?";
+}
