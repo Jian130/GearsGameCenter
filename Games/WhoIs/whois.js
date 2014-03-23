@@ -60,9 +60,6 @@ function UserIsReady(name){
 	//send the name to the server
 	setUser(name, IS_READY);
 	
-	// get all users from shared memory
-	getUserList();
-	
 	//move state forward
 	nextState();
 	return state;
@@ -73,6 +70,7 @@ mocked_UserList = new Object();
 
 function setUser(name, state){
 	mocked_UserList[name] = state;
+	console.log("set");
 	var dataobject={type:"mocked", value:mocked_UserList};
 	sendOut(dataobject);
 }
@@ -94,7 +92,7 @@ function recievedCallBack(object){
 		//var dataobject={type:"updateLocation",userid:myid,location:Mylocation,time:null,actions:realTimeActions(CurrentPath)};
 		if(object.type=="startGame"){
 			//everyone start the game
-			if(state!=GameReady){
+			if(state!=GAME_READY){
 				return;
 			}
 			//initiate GameUserList
