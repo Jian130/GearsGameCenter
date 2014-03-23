@@ -88,10 +88,13 @@ function receivedUserlist(list){
 	}
 }
 
+mocked_Rank = 0;
+
 // receive msg
 function recievedCallBack(object){
 	console.log(object);
 		//var dataobject={type:"updateLocation",userid:myid,location:Mylocation,time:null,actions:realTimeActions(CurrentPath)};
+		
 		if(object.type=="startGame"){
 			//everyone start the game
 			if(state!=GAME_READY){
@@ -100,9 +103,10 @@ function recievedCallBack(object){
 			//initiate GameUserList
 			//object {Userame:"", Rank:1, Count:1}
 			GameUserList = [];
+			mocked_Rank+=1;
 			for (var key in UserList){
 				if(UserList[key]==IS_READY){
-					var obj = {"Username":key, "Rank":undefined, "Count":0};
+					var obj = {"Username":key, "Rank":mocked_Rank, "Count":0};
 					GameUserList.push(obj);
 				}
 			}
