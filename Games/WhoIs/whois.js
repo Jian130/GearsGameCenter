@@ -69,8 +69,9 @@ function UserIsReady(name){
 mocked_UserList = new Object();
 
 function setUser(name, state){
+	console.log(mocked_UserList)
 	mocked_UserList[name] = state;
-	console.log("set");
+	console.log(mocked_UserList);
 	var dataobject={type:"mocked", value:mocked_UserList};
 	sendOut(dataobject);
 }
@@ -89,6 +90,7 @@ function receivedUserlist(list){
 
 // receive msg
 function recievedCallBack(object){
+	console.log(object);
 		//var dataobject={type:"updateLocation",userid:myid,location:Mylocation,time:null,actions:realTimeActions(CurrentPath)};
 		if(object.type=="startGame"){
 			//everyone start the game
@@ -123,6 +125,7 @@ function recievedCallBack(object){
 		}
 		//mock up
 		if(object.type == "mocked"){
+			mocked_UserList = object.value;
 			receivedUserlist(object.value)
 		}
 }
