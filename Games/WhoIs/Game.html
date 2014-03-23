@@ -58,10 +58,10 @@
 	
 		rdyBut.setAttribute("disabled",true);
 
-		//if(isHost){
+		if(isHost==true){
 			var startBut= document.getElementById("StartButton");
 			startBut.removeAttribute("hidden");
-		//}
+		}
 		
 		UserIsReady(name);
 	}
@@ -128,7 +128,7 @@
 	}
 	function ListItemClick(name){
 		answerQuestion(name);
-		document.getElementsByTagName("button").setAttribute("disabled",true);
+		//document.getElementsByTagName("button").setAttribute("disabled",true);
 		var buttons = document.getElementsByTagName("button");
 		for(var index in buttons){
 			buttons[index].removeAttribute("disabled");
