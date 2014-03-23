@@ -112,7 +112,7 @@ function recievedCallBack(object){
 		if(object.type=="answer"){
 			numGameAnswer = numGameAnswer+1;
 			for(var i=0; i<GameUserList.length; i++){
-				if(GameUserList[i]["Username"]==value){
+				if(GameUserList[i]["Username"]==object.value){
 					GameUserList[i]["Count"] += 1;
 				}
 			}
