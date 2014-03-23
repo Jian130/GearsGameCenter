@@ -83,7 +83,7 @@ function receivedSharedMemory(name, body){
 function receivedUserlist(list){
 	UserList = list;
 	//the first user is host
-	if(UserList.length == 1){
+	if(Object.keys(UserList).length == 1){
 		isHost = true;
 	}
 }
