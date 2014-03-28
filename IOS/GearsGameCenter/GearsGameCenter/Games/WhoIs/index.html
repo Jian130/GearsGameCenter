@@ -1,0 +1,154 @@
+<html>
+<head>
+	<script type="text/javascript" src="whois.js"></script>
+	<script type="text/javascript" src="client-network.js"></script>
+</head>
+<body>
+	<div id="GameEnter">
+		<label>Name:</label>
+		<input id="Username" type="text"><br>
+		<button id="ReadyButton" onclick="ReadyButtonClick()" >Ready</button>
+
+		<button id="StartButton" onclick="StartButtonClick()" hidden>Start</button>
+		<p hidden>Waiting for other players...</p>
+
+	</div>
+	<div id="GameOn" hidden>
+		<div class="QuestionHolder"> 
+			<h3>Answer it</h3>
+		</div>
+		<div class="UsersListHolder"> 
+			<ul id="UsersList">
+				<li>haha</li>
+			</ul>
+		</div>
+
+	</div>
+	<div id="GameResult" hidden>
+		<div class="QuestionHolder">
+			<h3>Answer it</h3>
+		</div>
+		<div class="UsersListHolder">
+			<ol id="UsersRankList">
+				<li>haha</li>
+			</ol>
+		</div>
+		<button onclick="ReadyButtonClick()" >Ready</button>
+
+		<button onclick="StartButtonClick()" >Start</button>
+
+	</div>
+</body>
+<script type="text/javascript">
+	
+	function UpdateGameEnterPage(){
+
+	}
+	function StartButtonClick(){
+		startGame();
+		var startBut= document.getElementById("StartButton");
+		startBut.setAttribute("hidden",true);
+	}
+	function ReadyButtonClick(){
+		
+		document.getElementsByTagName("p")[0].removeAttribute("hidden");
+		var name=document.getElementById("Username").value;
+	
+		var rdyBut = document.getElementById("ReadyButton");
+	
+		rdyBut.setAttribute("disabled",true);
+		UserIsReady(name);
+		
+		
+		
+	}
+	function EnableStartButton(){
+		var startBut= document.getElementById("StartButton");
+			startBut.removeAttribute("hidden");
+	}
+	function DisplayQuestion(){
+		//GetUsersList()
+		//{Username:'Greg',Rank:1,Count:3}
+
+		// cleaer View
+		document.getElementById("GameResult").setAttribute("hidden",true);
+		document.getElementById("GameEnter").setAttribute("hidden",true);
+
+		
+
+		document.getElementById("GameOn").removeAttribute("hidden");
+		document.getElementsByTagName("p")[0].setAttribute("hidden", true);
+
+
+		var userList = GetGameUsersList();
+		var Ulist= document.getElementById("UsersList");
+		Ulist.innerHTML='';
+			
+		for(var index in userList){
+			var user=userList[index];
+			console.log(user);
+			Ulist.innerHTML+="<li><button onclick='"+"ListItemClick("+user.Username+")"+"'>"+user.Username+"</button></li>";
+
+		}
+	};
+	function DisplayResults(){
+		//hide previouse view and display new view
+		document.getElementById("GameOn").setAttribute("hidden",true);
+		document.getElementById("GameResult").removeAttribute("hidden");
+		document.getElementsByTagName("button").removeAttribute("disabled");
+
+		document.getElementsByTagName("button").setAttribute("disabled",true);
+		var buttons = document.getElementsByTagName("button");
+		for(var index in buttons){
+			console.log(buttons[index]);
+			buttons[index].setAttribute("disabled",true);
+		}
+
+		var userList = GetGameUsersList();
+		var Ulist= document.getElementById("UsersRankList");
+			Ulist.innerHTML='';
+		for(var i=0 ;i<userList.length;i++){
+			var user;
+			for(var j=0;j<userList.length;j++){
+				if (userList[j].Rank==i+1) {
+					user=userList[j];
+
+				 };
+			}
+			
+			Ulist.innerHTML+="<li>"+user.Username+" vote:"+user.Rank+"</li>";
+
+		}
+
+	}
+	function ListItemClick(name){
+		answerQuestion(name);
+		//document.getElementsByTagName("button").setAttribute("disabled",true);
+		var buttons = document.getElementsByTagName("button");
+		for(var index in buttons){
+			buttons[index].removeAttribute("disabled");
+
+		}
+		
+	}
+	
+
+	//should be implement in whois.hs
+
+	//
+	/*
+	function UserIsReady(name){
+		DisplayQuestion();
+	}
+	function GetUsersList(){
+		return [{Username:'greg',Rank:1,Count:1},{Username:'greg',Rank:2,Count:1}];
+	}
+	function UserPicked(name){
+		DisplayResult();
+
+	}
+	*/
+
+</script>
+</html>
+

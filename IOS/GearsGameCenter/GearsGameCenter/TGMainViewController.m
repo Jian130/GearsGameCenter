@@ -10,8 +10,11 @@
 #import "TGViewController.h"
 #import "TGAppDelegate.h"
 #import "TGWebServer.h"
+#import "util.h"
 
 @interface TGMainViewController ()
+
+@property (weak, nonatomic) IBOutlet UILabel *ipAddress;
 
 @end
 
@@ -21,6 +24,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.ipAddress.text = [Util getIPAddress];
 }
 
 - (IBAction)mazeStartTapped:(id)sender {
@@ -33,10 +37,13 @@
 
 - (IBAction)pongStartTapped:(id)sender {
 
+//    TGViewController *vc = [[TGViewController alloc] init];
+//    vc.gameName = @"WhoIs";
+//    [self.navigationController pushViewController:vc animated:YES];
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     TGViewController *vc = [sb instantiateViewControllerWithIdentifier:@"TGViewController"];
-    vc.gameName = @"Pong";
+    vc.gameName = @"WhoIs";
     [self presentViewController:vc animated:YES completion:nil];
 }
 
