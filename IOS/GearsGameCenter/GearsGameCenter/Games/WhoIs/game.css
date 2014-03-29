@@ -17,12 +17,12 @@ body {
 }
 
 input[type="text"] {
+	width: 60%;
     font-size: 0.5em;
 }
 
 button {
-	height: 100px;
-    width: 400px;
-    text-align:center;
-    margin-top: 50px;
+	margin-top: 50px;
+    width: 60%;
+	font-size: 0.5em;
 }
