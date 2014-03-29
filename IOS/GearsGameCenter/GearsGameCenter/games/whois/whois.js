@@ -94,7 +94,7 @@ function UserIsReady(name){
 	//send the name to the server
 	setUser(name, IS_READY);
 	myName= name;
-	GetGameUsersList();
+	//GetGameUsersList();
 	//move state forward
 	nextState();
 	return state;
