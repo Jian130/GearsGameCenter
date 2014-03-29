@@ -48,8 +48,7 @@
 	}
 	function StartButtonClick(){
 		startGame();
-		var startBut= document.getElementById("StartButton");
-		startBut.setAttribute("hidden",true);
+		HideItemById("StartButton");
 		HideItemById("Result-StartButton");
 
 	}
@@ -70,8 +69,9 @@
 		
 	}
 	function EnableStartButton(){
-		var startBut= document.getElementById("StartButton");
-			startBut.removeAttribute("hidden");
+		
+		RevealItemById("StartButton");
+		RevealItemById("Result-StartButton");
 	}
 	function DisplayQuestion(){
 		var questionStr = GetQuestion();
@@ -86,7 +86,7 @@
 
 		document.getElementsByName("waitingMsg")[0].setAttribute("hidden", true);
 		//HideItemById("")
-		Reveal1ItemById("GameOn");
+		RevealItemById("GameOn");
 		//questionText= document.getElementById("GetQuestion");
 		var questiontags = document.getElementsByName("question");
 		for(var i in questiontags){
@@ -185,7 +185,7 @@
 		element.setAttribute("hidden",true);
 
 	}
-	function Reveal1ItemById(id){
+	function RevealItemById(id){
 		var element = document.getElementById(id)
 		element.removeAttribute("hidden");
 	}
