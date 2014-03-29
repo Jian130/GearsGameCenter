@@ -1,0 +1,219 @@
+<html>
+<head>
+	<script type="text/javascript" src="whois.js"></script>
+	<script type="text/javascript" src="gamecenter.js"></script>
+    <link rel="stylesheet" type="text/css" href="game.css">
+</head>
+<body bgcolor='#000000'>
+	<img src="who_is.png" alt="WHO IS?">
+	<div id="GameEnter" class="center">
+		<label>Name:</label>
+		<input id="Username" type="text"><br>
+		<button id="ReadyButton" onclick="ReadyButtonClick()" >Ready</button>
+
+		<button id="StartButton" onclick="StartButtonClick()" hidden>Start</button>
+		<p name="waitingMsg" hidden>Waiting for other players...</p>
+
+	</div>
+	<div id="GameOn" class="center" hidden>
+		<div class="QuestionHolder"> 
+			<h3 name="question">Answer it</h3>
+		</div>
+		<div class="UsersListHolder"> 
+			<ul id="UsersList">
+				<li>haha</li>
+			</ul>
+		</div>
+		<button id='SubmitVoteButton' onclick="SubmitVoteButtonClick()" >Submit </button>
+
+	</div>
+	<div id="GameResult" class="center" hidden>
+		<div class="QuestionHolder">
+			<h3 name="question">Answer it</h3>
+		</div>
+		<div class="UsersListHolder">
+			<ol id="UsersRankList">
+				<li>haha</li>
+			</ol>
+		</div>
+		<button id="Result-ReadyButton" onclick="ReadyButtonClick()" >Ready</button>
+
+		<button id="Result-StartButton" onclick="StartButtonClick()" >Start</button>
+
+	</div>
+</body>
+<script type="text/javascript">
+	
+	function UpdateGameEnterPage(){
+
+	}
+	function StartButtonClick(){
+		startGame();
+		HideItemById("StartButton");
+		HideItemById("Result-StartButton");
+
+	}
+	function ReadyButtonClick(){
+		
+
+		document.getElementsByName("waitingMsg")[0].removeAttribute("hidden");
+		
+		var name=document.getElementById("Username").value;
+	
+
+		DeactivateButton("ReadyButton");
+		DeactivateButton("Result-ReadyButton");
+
+		UserIsReady(name);
+		
+		
+		
+	}
+	function EnableStartButton(){
+		
+		RevealItemById("StartButton");
+		RevealItemById("Result-StartButton");
+	}
+	function DisableStartButton(){
+		HideItemById("StartButton");
+		HideItemById("Result-StartButton");
+	}
+	function DisplayQuestion(){
+		var questionStr = GetQuestion();
+		ActivateButton("SubmitVoteButton");
+	
+		//GetUsersList()
+		//{Username:'Greg',Rank:1,Count:3}
+
+		// cleaer View
+		HideItemById("GameEnter");
+		HideItemById("GameResult");
+
+		document.getElementsByName("waitingMsg")[0].setAttribute("hidden", true);
+		//HideItemById("")
+		RevealItemById("GameOn");
+		//questionText= document.getElementById("GetQuestion");
+		var questiontags = document.getElementsByName("question");
+		for(var i in questiontags){
+			questiontags[i].innerHTML=questionStr;
+		}
+
+
+
+		var userList = GetGameUsersList();
+		var Ulist= document.getElementById("UsersList");
+		Ulist.innerHTML='';
+			
+		for(var index in userList){
+			var user=userList[index];
+			console.log(user);
+			//Ulist.innerHTML+="<li><button onclick='"+'ListItemClick("'+user.Username+'")'+"'>"+user.Username+"</button></li>";
+
+			Ulist.innerHTML+='<li><input type="radio" name="voteList" value="'+user.Username+'"/>'+user.Username+'</li>'
+		}
+
+
+
+	};
+	function DisplayResults(){
+		//hide previouse view and display new view
+		document.getElementById("GameOn").setAttribute("hidden",true);
+		document.getElementById("GameResult").removeAttribute("hidden");
+		//document.getElementsByTagName("button").removeAttribute("disabled");
+
+		//document.getElementsByTagName("button").setAttribute("disabled",true);
+
+		ActivateButton("Result-StartButton");
+		ActivateButton("Result-ReadyButton");
+
+		var userList = GetGameUsersList();
+		var Ulist= document.getElementById("UsersRankList");
+			Ulist.innerHTML='';
+		for(var i=0 ;i<userList.length;i++){
+			var user;
+			for(var j=0;j<userList.length;j++){
+				if (userList[j].Rank==i+1) {
+					user=userList[j];
+
+				 };
+			}
+			
+			Ulist.innerHTML+="<li>"+user.Username+" vote:"+user.Count+"</li>";
+
+		}
+
+	}
+	/*
+	function ListItemClick(name){
+		answerQuestion(name);
+		//document.getElementsByTagName("button").setAttribute("disabled",true);
+		var buttons = document.getElementsByTagName("button");
+		for(var index in buttons){
+			console.log(index);
+			buttons[index].removeAttribute("disabled");
+
+		}
+		
+	}*/
+	function SubmitVoteButtonClick(){
+		var username = GetCheckedRadioName("voteList");
+		answerQuestion(username);
+		DeactivateButton("SubmitVoteButton");
+
+	}
+
+
+
+	//helper functions
+	function GetCheckedRadioName(name) {
+	    var elements = document.getElementsByName(name);
+
+	    for (var i=0, len=elements.length; i<len; ++i){
+	    	if (elements[i].checked) 
+	    		return elements[i].value;
+
+	    }
+	        
+	}
+	function ActivateButton(id){
+		var element = document.getElementById(id);
+		element.removeAttribute("disabled");
+	}
+	function DeactivateButton(id){
+		var element = document.getElementById(id);
+		
+		element.setAttribute("disabled",true);
+
+	}
+	function HideItemById(id){
+		var element = document.getElementById(id)
+		element.setAttribute("hidden",true);
+
+	}
+	function RevealItemById(id){
+		var element = document.getElementById(id)
+		element.removeAttribute("hidden");
+	}
+
+
+
+
+	//should be implement in whois.hs
+
+	//
+	/*
+	function UserIsReady(name){
+		DisplayQuestion();
+	}
+	function GetUsersList(){
+		return [{Username:'greg',Rank:1,Count:1},{Username:'greg',Rank:2,Count:1}];
+	}
+	function UserPicked(name){
+		DisplayResult();
+
+	}
+	*/
+
+</script>
+</html>
+

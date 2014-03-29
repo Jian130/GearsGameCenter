@@ -10,6 +10,8 @@ var NUMBER_OF_STATES = 4;
 var IS_READY = 1;
 var NOT_READY = 0;
 
+var UNDEFINED = -1;
+
 // on opening page, set state to GAME_ENTER
 var state = GAME_ENTER;
 // only host can start game
@@ -39,10 +41,29 @@ function nextState(){
 	//
 	if(state == GAME_ON)
 		DisplayQuestion();
-	if(state == GAME_OVER)
+	if(state == GAME_OVER){
+		caculateRank();
 		DisplayResults();
+	}
 	
 	return state;
+	
+	function caculateRank(){
+		for(var i=0; i<GameUserList.length; i++){
+			maxIndex = -1;
+			maxVote = -1;
+			for(var j=0; j<GameUserList.length; j++){
+				if(GameUserList[j].Rank == UNDEFINED){
+					if(GameUserList[j].Count>maxVote){
+						maxVote = GameUserList[j].Count;
+						maxIndex = j;
+					}
+				}
+			}
+			console.log(maxIndex);
+			GameUserList[maxIndex].Rank = i+1;
+		}
+	}
 }
 
 function GetGameUsersList(){
@@ -57,16 +78,19 @@ function startGame(){
 
 function answerQuestion(name){
 	//answer question and send it out
+	console.log("name: "+name);
 	var dataobject={type:"answer", value:name};
 	connect.broadcasting(dataobject);
 	
 	nextState();
 }
 
+myName = "";
+
 function UserIsReady(name){
 	//send the name to the server
 	setUser(name, IS_READY);
-	
+	myName= name;
 	//move state forward
 	nextState();
 	return state;
@@ -90,10 +114,17 @@ function receivedSharedMemory(name, body){
 function receivedUserlist(list){
 	UserList = list;
 	//the first user is host
-	if(Object.keys(UserList).length == 1){
-		isHost = 1;
-		EnableStartButton();
-	}
+	//if(Object.keys(UserList).length == 1){
+		if(Object.keys(UserList)[0]==myName){
+			isHost = 1;
+			EnableStartButton();
+		}
+		else{
+			isHost = 0;
+			DisableStartButton();
+		}
+		
+	//}
 }
 
 mocked_Rank = 0;
@@ -114,7 +145,7 @@ function recievedCallBack(object){
 			mocked_Rank+=1;
 			for (var key in UserList){
 				if(UserList[key]==IS_READY){
-					var obj = {"Username":key, "Rank":mocked_Rank, "Count":0};
+					var obj = {"Username":key, "Rank":UNDEFINED, "Count":0};
 					GameUserList.push(obj);
 				}
 			}
