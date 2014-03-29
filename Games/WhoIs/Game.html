@@ -73,6 +73,10 @@
 		RevealItemById("StartButton");
 		RevealItemById("Result-StartButton");
 	}
+	function DisableStartButton(){
+		HideItemById("StartButton");
+		HideItemById("Result-StartButton");
+	}
 	function DisplayQuestion(){
 		var questionStr = GetQuestion();
 		ActivateButton("SubmitVoteButton");
@@ -133,7 +137,7 @@
 				 };
 			}
 			
-			Ulist.innerHTML+="<li>"+user.Username+" vote:"+user.Rank+"</li>";
+			Ulist.innerHTML+="<li>"+user.Username+" vote:"+user.Count+"</li>";
 
 		}
 
