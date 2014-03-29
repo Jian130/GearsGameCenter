@@ -81,7 +81,7 @@
 	// Set up audio player with sound file
 	audioPlayer_ = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL
 	                                                      error:nil];
-	[fileURL release];
+	//[fileURL release];
 	
 	[self.audioPlayer prepareToPlay];
 	
@@ -95,10 +95,10 @@
 
 - (void)dealloc
 {
-	[preventSleepTimer_ release];
-	[audioPlayer_       release];
+	//[preventSleepTimer_ release];
+	//[audioPlayer_       release];
 	
-	[super dealloc];
+	//[super dealloc];
 }
 
 
@@ -120,7 +120,7 @@
 	                                                      userInfo:nil
 	                                                       repeats:YES];
 	self.preventSleepTimer = preventSleepTimer;
-	[preventSleepTimer release];
+	//[preventSleepTimer release];
 	
 	// Add the timer to the current run loop.
 	[[NSRunLoop currentRunLoop] addTimer:self.preventSleepTimer

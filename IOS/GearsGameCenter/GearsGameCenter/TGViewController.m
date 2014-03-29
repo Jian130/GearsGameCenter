@@ -23,17 +23,43 @@
 
 #import "TGAppDelegate.h"
 
+#import "MMPDeepSleepPreventer.h"
 
-@interface TGViewController () <MFMessageComposeViewControllerDelegate>
+
+@interface TGViewController () <MFMessageComposeViewControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) UIActionSheet *inviteOptionsList;
+@property (strong, nonatomic) MMPDeepSleepPreventer *preventDeepSleep;
 
 @end
 
 @implementation TGViewController
 
 @synthesize webView = _webView;
+@synthesize inviteOptionsList = _inviteOptionsList;
+@synthesize preventDeepSleep = _preventDeepSleep;
+
+- (UIActionSheet *)inviteOptionsList {
+	if (!_inviteOptionsList) {
+        _inviteOptionsList = [[UIActionSheet alloc] initWithTitle:nil
+                                                         delegate:self
+                                                cancelButtonTitle:@"Cancel"
+                                           destructiveButtonTitle:nil
+                                                otherButtonTitles:@"SMS", @"Copy game link to Clipboard", nil];
+    }
+    
+    return _inviteOptionsList;
+}
+
+- (MMPDeepSleepPreventer *)preventDeepSleep {
+    if (!_preventDeepSleep) {
+        _preventDeepSleep = [[MMPDeepSleepPreventer alloc] init];
+    }
+    
+    return _preventDeepSleep;
+}
 
 - (void)viewDidLoad
 {
@@ -42,13 +68,13 @@
     [[TGWebServer sharedManager] startWebServer];
     [[TGCommunicationServer sharedManager] startCommunicationServer];
     
-    
-    NSString *fullURL = [[[[@"http://" stringByAppendingString:@"127.0.0.1"] stringByAppendingString:@"/Games/"] stringByAppendingString:self.gameName] stringByAppendingString:@"/index.html"];
+    NSString *fullURL = [[[[@"http://" stringByAppendingString:@"127.0.0.1"] stringByAppendingString:@"/games/"] stringByAppendingString:self.gameName] stringByAppendingString:@"/index.html"];
     
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [_webView loadRequest:requestObj];
-
+    
+    //[self.preventDeepSleep startPreventSleep];
 }
 
 - (void)didReceiveMemoryWarning
@@ -58,34 +84,13 @@
 }
 
 - (IBAction)shareTapped:(id)sender {
-    @try {
-    if(![MFMessageComposeViewController canSendText]) {
-        UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [warningAlert show];
-        return;
-    }
+    [self.inviteOptionsList showInView:self.view];
     
-    NSString *gameName = @"Maze";
     
-    NSString *gameLink = [[[[@"http://" stringByAppendingString:[Util getIPAddress]] stringByAppendingString:@"/Games/"] stringByAppendingString:gameName] stringByAppendingString:@"/index.html"];
     
-    NSString *message = [@"Please join the Maze game: " stringByAppendingString:gameLink];
+    /*
     
-    MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
-    messageController.messageComposeDelegate = self;
-    [messageController setBody:message];
-    
-    // Present message view controller on screen
-    [self presentViewController:messageController animated:YES completion:nil];
-    }
-    @catch (NSException *e) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
-            message:@"You must connect to a Wi-Fi network."
-            delegate:nil
-            cancelButtonTitle:@"OK"
-            otherButtonTitles:nil];
-        [alert show];
-    }
+     */
 }
 
 - (IBAction)doneTapped:(id)sender {
@@ -93,6 +98,8 @@
     [[TGCommunicationServer sharedManager] stopCommunicationServer];
     
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    //[self.preventDeepSleep stopPreventSleep];
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
@@ -116,6 +123,55 @@
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            [self showSMSView];
+            break;
+        case 1:
+            [self copyToClipboard];
+            break;
+    }
+}
+
+- (void)showSMSView {
+    @try {
+        if(![MFMessageComposeViewController canSendText]) {
+            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [warningAlert show];
+            return;
+        }
+        
+        NSString *gameLink = [self getGameUrl];
+        
+        NSString *message = [@"Please join the Maze game: " stringByAppendingString:gameLink];
+        
+        MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+        messageController.messageComposeDelegate = self;
+        [messageController setBody:message];
+        
+        // Present message view controller on screen
+        [self presentViewController:messageController animated:YES completion:nil];
+    }
+    @catch (NSException *e) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection Error"
+                                                        message:@"You must connect to a Wi-Fi network."
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (NSString *)getGameUrl {
+    return [[[[@"http://" stringByAppendingString:[Util getIPAddress]] stringByAppendingString:@"/games/"] stringByAppendingString:self.gameName] stringByAppendingString:@"/index.html"];
+    
+}
+
+- (void)copyToClipboard {
+    [UIPasteboard generalPasteboard].string = [self getGameUrl];
 }
 
 @end
