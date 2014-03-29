@@ -63,7 +63,7 @@
                                       
                                   }];
     
-    [self.webServer startWithPort:80 bonjourName:NULL];
+    [self.webServer startWithPort:28 bonjourName:NULL];
 }
 
 - (void)stopWebServer {

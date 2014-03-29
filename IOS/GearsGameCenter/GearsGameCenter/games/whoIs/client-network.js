@@ -13,7 +13,7 @@ function GameCenter() {
 	//var mazeID;
 	var connection;
 	//to close connection connection.close();
-	this.initial = function() {
+	(this.initial = function() {
 		console.log("loading!");
 		//check preconditions for web socket support
 		if (window.MozWebSocket) {
@@ -39,7 +39,7 @@ function GameCenter() {
 		connection.onerror = function(error) { connectionError(error) };
 		connection.onmessage = function(message) { receiveMessage(message) };
 		connection.onclose = function(event) { onCloseEvent() };
-	}
+	})();
 
 	//connection error handling
 	var connectionError = function(error) {

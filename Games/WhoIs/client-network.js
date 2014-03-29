@@ -3,96 +3,132 @@
 
 //can send data in binary
 	//init objects
-	var gameStateObject;  //json object to tx
-	var recievedObject;	  // recieved json object
-	var wsPort;
+	// var recievedObject;	  // recieved json object
+
+function GameCenter() {
+
+	var wsPort
 
 	var ID;
-	var mazeID;
+	//var mazeID;
 	var connection;
 	//to close connection connection.close();
-	window.onload = function() {
+	this.initial = function() {
 		console.log("loading!");
 		//check preconditions for web socket support
-		if (window.MozWebSocket)
-	    {
+		if (window.MozWebSocket) {
+
 	        console.log('using MozillaWebSocket');
 	        window.WebSocket = window.MozWebSocket;
-	    }
-	    else if (!window.WebSocket)
-	    {
+	    } else if (!window.WebSocket) {
+	    	
 	        console.log('browser does not support websockets!');
 	        alert('browser does not support websockets!');
 	        return;
 	    }
-		gameStateObject = {message1: "test", message2:"test2"};
-		wsPort = "8001";
-		connection = new WebSocket('ws://localhost:8001');
+
+		wsPort = "81";
+		var matches = document.URL.match(/http:\/\/([\d.]+)\/.*/);
+        var ip = matches[1];
+        
+        console.log("IP: " + ip);
+        
+		connection = new WebSocket("ws://" + ip + ":" + wsPort);
 
 		connection.onopen = function(event) { onConnection() };
 		connection.onerror = function(error) { connectionError(error) };
-		connection.onmessage = function(object) { recieveObject(object) };
+		connection.onmessage = function(message) { receiveMessage(message) };
 		connection.onclose = function(event) { onCloseEvent() };
 	}
 
 	//connection error handling
-	function connectionError(error) {
+	var connectionError = function(error) {
 		console.log("connection error: " + error);
 		alert(error);
 		document.getElementById('test').innerHTML = error;
 	}
 
 	//initial connection sequence
-	function onConnection() {
+	var onConnection = function() {
 		console.log("connected");
-		sendOut(gameStateObject);
+		// sendOut(gameStateObject);
 	}
 
-	function onCloseEvent() {
+	var onCloseEvent = function() {
 		console.log("closing");
 	}
 
-	function recieveObject(input) {
+	var receiveMessage = function(message) {
 		//convert JSON
-		console.log(input);
+		console.log(message);
+
 		try {
-			recievedObject = JSON.parse(input.data);
-			//it is a initiali ID packet
-			if(recievedObject.user_id != null)
-			{
-				ID = recievedObject.user_id;
-				mazeID = recievedObject.maze_id;
+			var receivedMessage = JSON.parse(message.data);
+			
+
+			if(receivedMessage.user_id != null) {
+				ID = receivedObject.user_id;
+				
 				return;
+			} else if (receivedMessage.action = "broadcasting") {
+				recievedCallBack(receivedMessage.body);
+				console.log(receivedMessage.body);
+				console.log(receivedMessage.body.test);
+			} else if (receivedMessage.action = "get_shared_memory") {
+				receivedSharedMemory(receivedMessage.name, receivedMessage.body);
+			} else if (receivedMessage.action = "user_list"){
+				receivedUserlist(receiveMessage.body);
+			}else {
+				console.log("undefined action: " + receivedMessage.action);
 			}
+
+			console.log("Recevied Message " + receivedMessage);
 		} catch(error) {
 			console.log('message is not a JSON object');
-			receivedObject = input;
 		}
-		//recievedObject = JSON.parse(input.data);
-		//document.getElementById('test').innerHTML = recievedObject;
-		console.log(recievedObject);
-		//other data handling here
-//dsfsdf
-		recievedCallBack(recievedObject);
 	}
-	function sendOut(object) {
-		if(connection.readyState == 1)
-		{
-			connection.send(JSON.stringify(object));
+	
+
+	var getSessionID = function() {
+		return ID;
+	}
+
+	var sendMessage = function(action, name, body) {
+		var timestamp = new Date();
+
+		var message = {
+			"action": action,
+			"timestamp": timestamp,
+			"userID": null,
+			"name": name,
+			"body": body 
+		}
+
+		if(connection.readyState == 1) {
+			connection.send(JSON.stringify(message));
 		} else {
 			console.log("connection not ready!");
 		}
 		console.log("SENT");
 	}
-	var UserList=new Array();
-	/*
-	function getUser(){
 
+	this.broadcasting = function(body) {
+		sendMessage("broadcasting", "message", body);
 	}
-	function setUser(name, IS_READY){
 
-		UserList.push([name,IS_READY]);
+	this.setSharedMemory = function(name, body) {
+		sendMessage("set_shared_memory", name, body);
 	}
-	function getUserList(){
-		return UserList;
-	}*/
+
+	this.getSharedMemory = function(name) {
+		sendMessage("get_shared_memory", name, null);
+	}
+
+	this.setUser = function(name, property) {
+		sendMessage("set_user", name, property);
+	}
+
+	this.getUserList = function () {
+		sendMessage("get_user_list", null, null);
+	}
+}
