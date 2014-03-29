@@ -5,23 +5,23 @@
 	//init objects
 	// var recievedObject;	  // recieved json object
 
-function GameCenter() {
 
-	var wsPort
+	var wsPort;
 
 	var ID;
 	//var mazeID;
 	var connection;
 	//to close connection connection.close();
-	this.initial = function() {
+	window.onload = function() {
 		console.log("loading!");
 		//check preconditions for web socket support
-		if (window.MozWebSocket) {
-
+		if (window.MozWebSocket)
+	    {
 	        console.log('using MozillaWebSocket');
 	        window.WebSocket = window.MozWebSocket;
-	    } else if (!window.WebSocket) {
-	    	
+	    }
+	    else if (!window.WebSocket)
+	    {
 	        console.log('browser does not support websockets!');
 	        alert('browser does not support websockets!');
 	        return;
@@ -42,23 +42,23 @@ function GameCenter() {
 	}
 
 	//connection error handling
-	var connectionError = function(error) {
+	function connectionError(error) {
 		console.log("connection error: " + error);
 		alert(error);
 		document.getElementById('test').innerHTML = error;
 	}
 
 	//initial connection sequence
-	var onConnection = function() {
+	function onConnection() {
 		console.log("connected");
 		// sendOut(gameStateObject);
 	}
 
-	var onCloseEvent = function() {
+	function onCloseEvent() {
 		console.log("closing");
 	}
 
-	var receiveMessage = function(message) {
+	function receiveMessage(message) {
 		//convert JSON
 		console.log(message);
 
@@ -66,7 +66,8 @@ function GameCenter() {
 			var receivedMessage = JSON.parse(message.data);
 			
 
-			if(receivedMessage.user_id != null) {
+			if(receivedMessage.user_id != null)
+			{
 				ID = receivedObject.user_id;
 				
 				return;
@@ -79,21 +80,23 @@ function GameCenter() {
 			} else if (receivedMessage.action = "user_list"){
 				receivedUserlist(receiveMessage.body);
 			}else {
+
 				console.log("undefined action: " + receivedMessage.action);
 			}
 
 			console.log("Recevied Message " + receivedMessage);
+
 		} catch(error) {
 			console.log('message is not a JSON object');
 		}
 	}
 	
 
-	var getSessionID = function() {
+	function getSessionID() {
 		return ID;
 	}
 
-	var sendMessage = function(action, name, body) {
+	function sendMessage(action, name, body) {
 		var timestamp = new Date();
 
 		var message = {
@@ -112,23 +115,22 @@ function GameCenter() {
 		console.log("SENT");
 	}
 
-	this.broadcasting = function(body) {
+	function broadcasting(body) {
 		sendMessage("broadcasting", "message", body);
 	}
 
-	this.setSharedMemory = function(name, body) {
+	function setSharedMemory(name, body) {
 		sendMessage("set_shared_memory", name, body);
 	}
 
-	this.getSharedMemory = function(name) {
+	function getSharedMemory(name) {
 		sendMessage("get_shared_memory", name, null);
 	}
 
-	this.setUser = function(name, property) {
+	function setUser(name, property) {
 		sendMessage("set_user", name, property);
 	}
 
-	this.getUserList = function () {
+	function getUserList() {
 		sendMessage("get_user_list", null, null);
 	}
-}
