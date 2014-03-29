@@ -1,7 +1,7 @@
 <html>
 <head>
 	<script type="text/javascript" src="whois.js"></script>
-	<script type="text/javascript" src="client-network.js"></script>
+	<script type="text/javascript" src="client-network_backup.js"></script>
 </head>
 <body>
 	<div id="GameEnter">
@@ -87,7 +87,7 @@
 		for(var index in userList){
 			var user=userList[index];
 			console.log(user);
-			Ulist.innerHTML+="<li><button onclick='"+"ListItemClick("+user.Username+")"+"'>"+user.Username+"</button></li>";
+			Ulist.innerHTML+="<li><button onclick='"+'ListItemClick("'+user.Username+'")'+"'>"+user.Username+"</button></li>";
 
 
 		}
@@ -99,9 +99,9 @@
 		//hide previouse view and display new view
 		document.getElementById("GameOn").setAttribute("hidden",true);
 		document.getElementById("GameResult").removeAttribute("hidden");
-		document.getElementsByTagName("button").removeAttribute("disabled");
+		//document.getElementsByTagName("button").removeAttribute("disabled");
 
-		document.getElementsByTagName("button").setAttribute("disabled",true);
+		//document.getElementsByTagName("button").setAttribute("disabled",true);
 		var buttons = document.getElementsByTagName("button");
 		for(var index in buttons){
 			console.log(buttons[index]);

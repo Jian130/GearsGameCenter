@@ -21,6 +21,13 @@ var GameUserList;
 var numGameUser;
 var numGameAnswer;
 
+function Center(){
+	this.broadcasting=function(msg){
+		sendOut(msg);
+	}
+}
+var connect =new Center();
+
 // to move State forward
 // 0 - 1 - 2 - 3 - 4 - 1
 function nextState(){
@@ -45,13 +52,13 @@ function GetGameUsersList(){
 function startGame(){
 	// start the game
 	var dataobject={type:"startGame", value:null};
-    sendOut(dataobject);
+    connect.broadcasting(dataobject);
 }
 
 function answerQuestion(name){
 	//answer question and send it out
 	var dataobject={type:"answer", value:name};
-	sendOut(dataobject);
+	connect.broadcasting(dataobject);
 	
 	nextState();
 }
@@ -73,7 +80,7 @@ function setUser(name, state){
 	mocked_UserList[name] = state;
 	console.log(mocked_UserList);
 	var dataobject={type:"mocked", value:mocked_UserList};
-	sendOut(dataobject);
+	connect.broadcasting(dataobject);
 }
 
 function receivedSharedMemory(name, body){
