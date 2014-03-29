@@ -43,6 +43,7 @@
                                   processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
                                       
                                       NSString *path = [request.path substringWithRange:NSMakeRange(1, request.path.length - 1)];
+                                      path = [path lowercaseString];
                                       NSString *ext = nil;
                                       NSRange range = [request.path rangeOfString:@"."];
                                       if (range.location != NSNotFound) {
