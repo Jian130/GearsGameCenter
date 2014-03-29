@@ -10,6 +10,8 @@ var NUMBER_OF_STATES = 4;
 var IS_READY = 1;
 var NOT_READY = 0;
 
+var UNDEFINED = -1;
+
 // on opening page, set state to GAME_ENTER
 var state = GAME_ENTER;
 // only host can start game
@@ -39,10 +41,29 @@ function nextState(){
 	//
 	if(state == GAME_ON)
 		DisplayQuestion();
-	if(state == GAME_OVER)
+	if(state == GAME_OVER){
+		caculateRank();
 		DisplayResults();
+	}
 	
 	return state;
+	
+	function caculateRank(){
+		for(var i=0; i<GameUserList.length; i++){
+			maxIndex = -1;
+			maxVote = -1;
+			for(var j=0; j<GameUserList.length; j++){
+				if(GameUserList[j].Rank == UNDEFINED){
+					if(GameUserList[j].Count>maxVote){
+						maxVote = GameUserList[j].Count;
+						maxIndex = j;
+					}
+				}
+			}
+			console.log(maxIndex);
+			GameUserList[maxIndex].Rank = i+1;
+		}
+	}
 }
 
 function GetGameUsersList(){
@@ -114,7 +135,7 @@ function recievedCallBack(object){
 			mocked_Rank+=1;
 			for (var key in UserList){
 				if(UserList[key]==IS_READY){
-					var obj = {"Username":key, "Rank":mocked_Rank, "Count":0};
+					var obj = {"Username":key, "Rank":UNDEFINED, "Count":0};
 					GameUserList.push(obj);
 				}
 			}
