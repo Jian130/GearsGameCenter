@@ -78,6 +78,7 @@ function startGame(){
 
 function answerQuestion(name){
 	//answer question and send it out
+	console.log("name: "+name);
 	var dataobject={type:"answer", value:name};
 	connect.broadcasting(dataobject);
 	
