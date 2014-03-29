@@ -23,12 +23,13 @@ var GameUserList;
 var numGameUser;
 var numGameAnswer;
 
-function Center(){
-	this.broadcasting=function(msg){
-		sendOut(msg);
-	}
-}
-var connect =new Center();
+//function Center(){
+//	this.broadcasting=function(msg){
+//		sendOut(msg);
+//	}
+//}
+var connect = new GameCenter();
+
 
 // to move State forward
 // 0 - 1 - 2 - 3 - 4 - 1
