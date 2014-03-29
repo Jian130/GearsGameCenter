@@ -85,10 +85,12 @@ function answerQuestion(name){
 	nextState();
 }
 
+myName = "";
+
 function UserIsReady(name){
 	//send the name to the server
 	setUser(name, IS_READY);
-	
+	myName= name;
 	//move state forward
 	nextState();
 	return state;
@@ -112,10 +114,17 @@ function receivedSharedMemory(name, body){
 function receivedUserlist(list){
 	UserList = list;
 	//the first user is host
-	if(Object.keys(UserList).length == 1){
-		isHost = 1;
-		EnableStartButton();
-	}
+	//if(Object.keys(UserList).length == 1){
+		if(Object.keys(UserList)[0]==myName){
+			isHost = 1;
+			EnableStartButton();
+		}
+		else{
+			isHost = 0;
+			DisableStartButton();
+		}
+		
+	//}
 }
 
 mocked_Rank = 0;
