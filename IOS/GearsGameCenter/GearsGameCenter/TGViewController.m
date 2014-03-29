@@ -43,7 +43,7 @@
     [[TGCommunicationServer sharedManager] startCommunicationServer];
     
     
-    NSString *fullURL = [[[[@"http://" stringByAppendingString:@"127.0.0.1"] stringByAppendingString:@"/Games/"] stringByAppendingString:self.gameName] stringByAppendingString:@"/index.html"];
+    NSString *fullURL = [[[[@"http://" stringByAppendingString:@"127.0.0.1"] stringByAppendingString:@":28/Games/"] stringByAppendingString:self.gameName] stringByAppendingString:@"/index.html"];
     
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
