@@ -1,4 +1,3 @@
-//
 //  TGMessage.m
 //  GearsGameCenter
 //
