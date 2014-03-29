@@ -25,17 +25,18 @@
 {
     [super viewDidLoad];
     self.ipAddress.text = [Util getIPAddress];
+    [self.navigationController setNavigationBarHidden:YES];
 }
 
 - (IBAction)mazeStartTapped:(id)sender {
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     TGViewController *vc = [sb instantiateViewControllerWithIdentifier:@"TGViewController"];
-    vc.gameName = @"Maze";
+    vc.gameName = @"maze";
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-- (IBAction)pongStartTapped:(id)sender {
+- (IBAction)whoisStartTapped:(id)sender {
 
 //    TGViewController *vc = [[TGViewController alloc] init];
 //    vc.gameName = @"WhoIs";
@@ -43,7 +44,7 @@
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     TGViewController *vc = [sb instantiateViewControllerWithIdentifier:@"TGViewController"];
-    vc.gameName = @"WhoIs";
+    vc.gameName = @"whois";
     [self presentViewController:vc animated:YES completion:nil];
 }
 

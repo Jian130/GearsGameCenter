@@ -10,6 +10,8 @@
 #import "BLWebSocketsServer.h"
 #import "GCDSingleton.h"
 #import "TGMessage.h"
+#import <Foundation/Foundation.h>
+#import "JSONModel.h"
 
 NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
 
@@ -108,32 +110,17 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         [self broadcastingMessage:message];
     } else if ([message.action isEqualToString:@"set_shared_memory"]) {
 		[self.messageQueue addObject:message];
-        [self setSharedMemory:message];
+        [self writeSharedMemory:message];
     } else if ([message.action isEqualToString:@"get_shared_memory"]) {
-    	returnedMessage = [self getSharedMemory:message];
+    	returnedMessage = [self readSharedMemory:message];
     } else if ([message.action isEqualToString:@"set_user"]) {
         [self.userList setObject:message.name forKey:message.body];
     } else if ([message.action isEqualToString:@"get_user_list"]) {
-        bool isFirst = YES;
-        NSMutableString * body = [[NSMutableString alloc] init];
-        [body appendString:@"["];
-        for (NSString* key in self.userList) {
-            if (!isFirst) {
-                [body appendString:@","];
-            }
-            [body appendString:@"{"];
-            [body appendString:key];
-            [body appendString:@":"];
-            [body appendString:[self.userList objectForKey:key]];
-            [body appendString:@"}"];
-            isFirst = NO;
-        }
-        [body appendString:@"]"];
         returnedMessage = [[TGMessage alloc] init];
         returnedMessage.action = @"user_list";
         returnedMessage.timestamp = [NSDate date];
         returnedMessage.name = @"user_list";
-        returnedMessage.body = body;
+        returnedMessage.body = self.userList;
     }
     
     return returnedMessage;
@@ -145,7 +132,7 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     [[BLWebSocketsServer sharedInstance] pushToAll:jsonData];
 }
 
-- (void)setSharedMemory:(TGMessage *)message {
+- (void)writeSharedMemory:(TGMessage *)message {
     @synchronized(self.sharedMemory)
     {
         [self.sharedMemory setObject:message.body forKey:message.name];
@@ -156,7 +143,7 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     }
 }
 
-- (TGMessage*)getSharedMemory:(TGMessage *)message {
+- (TGMessage*)readSharedMemory:(TGMessage *)message {
     @synchronized(self.sharedMemory)
     {
         TGMessage *returnedMessage = nil;

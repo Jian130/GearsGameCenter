@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "162"
             endingLineNumber = "162"
-            landmarkName = "-getSharedMemory:"
+            landmarkName = "-stopCommunicationServer"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

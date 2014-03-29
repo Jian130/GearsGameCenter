@@ -145,7 +145,7 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="pongStartTapped:" destination="Ps4-ii-P1A" eventType="touchDown" id="D1a-cS-yyF"/>
+                                                        <action selector="whoisStartTapped:" destination="Ps4-ii-P1A" eventType="touchDown" id="QKZ-JB-Wkl"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -159,7 +159,7 @@
                             <outlet property="delegate" destination="Ps4-ii-P1A" id="LkA-xD-iOb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="pDY-LH-C2w"/>
+                    <navigationItem key="navigationItem" id="xLm-if-tA9"/>
                     <connections>
                         <outlet property="ipAddress" destination="SyI-oQ-Bm0" id="cVF-kT-5sH"/>
                         <outlet property="tableView" destination="HTE-X7-hUJ" id="D1K-C0-ypx"/>
