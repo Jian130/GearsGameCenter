@@ -4,12 +4,14 @@
 {
 	font-family:  "Comic Sans MS";
 	font-size: 20px;
-	width: 100% ;
+	width:  560;
 	min-height: 600px;
 	min-width: 600px;
 	background-image:url('../img/who_is.png');
 	background-repeat: no-repeat;
 	background-color:#deedd;
+	margin-left:auto;
+	margin-right:auto;
 }
 .btn-center
 {
@@ -31,6 +33,7 @@
 	
 }
 .stage {
+	font-size: 40px;
 	padding-top: 340px;
 }
 label{
