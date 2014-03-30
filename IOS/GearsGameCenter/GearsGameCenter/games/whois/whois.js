@@ -67,9 +67,11 @@ function nextState(){
 	}
 }
 
+/*
 function GetGameUsersList(){
 	return GameUserList;
 }
+*/
 
 function startGame(){
 	// start the game
@@ -92,6 +94,7 @@ function UserIsReady(name){
 	//send the name to the server
 	setUser(name, IS_READY);
 	myName= name;
+	//GetGameUsersList();
 	//move state forward
 	nextState();
 	return state;
@@ -100,13 +103,16 @@ function UserIsReady(name){
 //mock up
 mocked_UserList = new Object();
 
+/*
 function setUser(name, state){
-	console.log(mocked_UserList)
-	mocked_UserList[name] = state;
-	console.log(mocked_UserList);
-	var dataobject={type:"mocked", value:mocked_UserList};
+	mocked_UserList_tmp = new Object();
+	mocked_UserList_tmp[0] = name;
+	mocked_UserList_tmp[1] = state;
+	console.log(mocked_UserList_tmp);
+	var dataobject={type:"mocked", value:mocked_UserList_tmp};
 	connect.broadcasting(dataobject);
 }
+*/
 
 function receivedSharedMemory(name, body){
 
@@ -169,8 +175,8 @@ function recievedCallBack(object){
 		}
 		//mock up
 		if(object.type == "mocked"){
-			mocked_UserList = object.value;
-			receivedUserlist(object.value)
+			mocked_UserList[object.value[0]] = object.value[1];
+			receivedUserlist(object.value);
 		}
 }
 
