@@ -125,7 +125,7 @@ function GameCenter() {
 	}
 
 	this.setUser = function(name, property) {
-		sendMessage("set_user", name, property);
+		sendMessage("set_user", name, {"data":property});
 	}
 
 	this.getUserList = function () {

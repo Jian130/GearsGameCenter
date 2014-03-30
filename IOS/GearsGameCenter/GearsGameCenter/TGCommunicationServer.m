@@ -12,6 +12,7 @@
 #import "TGMessage.h"
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
+#import "TGMessageList.h"
 
 NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
 
@@ -94,16 +95,13 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         
 		TGMessage* newMessage = [TGMessage messageFromJsonData:requestData];
         
-        newMessage = [self messageHandler:newMessage];
-        return [TGMessage jsonDataFromMessage:newMessage];
-        return nil;
+        return [self messageHandler:newMessage];
+        //return [TGMessage jsonDataFromMessage:newMessage];
     }];
 }
 
-- (TGMessage *)messageHandler:(TGMessage *)message {
+- (NSData *)messageHandler:(TGMessage *)message {
 
-    TGMessage *returnedMessage = nil;
-    
     NSLog(@"Incoming message action: %@", message.action);
     
     if ([message.action isEqualToString:@"broadcasting"]) {
@@ -112,18 +110,42 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
 		[self.messageQueue addObject:message];
         [self writeSharedMemory:message];
     } else if ([message.action isEqualToString:@"get_shared_memory"]) {
-    	returnedMessage = [self readSharedMemory:message];
+    	TGMessage *returnedMessage = [self readSharedMemory:message];
+        return [TGMessage jsonDataFromMessage:returnedMessage];
     } else if ([message.action isEqualToString:@"set_user"]) {
-        [self.userList setObject:message.name forKey:message.body];
-    } else if ([message.action isEqualToString:@"get_user_list"]) {
-        returnedMessage = [[TGMessage alloc] init];
+        [self.userList setObject:message.body forKey:message.name];
+
+        NSMutableDictionary *body = [[NSMutableDictionary alloc] init];
+        
+        for (NSString* key in self.userList) {
+            id value = [self.userList objectForKey:key];
+            [body setObject:[value objectForKey:@"data"] forKey:key];
+        }
+        
+        TGMessage *returnedMessage = [[TGMessage alloc] init];
         returnedMessage.action = @"user_list";
         returnedMessage.timestamp = [NSDate date];
         returnedMessage.name = @"user_list";
-        returnedMessage.body = self.userList;
+        returnedMessage.body = body;
+        
+        [self broadcastingMessage:returnedMessage];
+    } else if ([message.action isEqualToString:@"get_user_list"]) {
+        NSMutableDictionary *body = [[NSMutableDictionary alloc] init];
+        
+        for (NSString* key in self.userList) {
+            id value = [self.userList objectForKey:key];
+            [body setObject:[value objectForKey:@"data"] forKey:key];
+        }
+        
+        TGMessage *returnedMessage = [[TGMessage alloc] init];
+        returnedMessage.action = @"user_list";
+        returnedMessage.timestamp = [NSDate date];
+        returnedMessage.name = @"user_list";
+        returnedMessage.body = body;
+        return [TGMessage jsonDataFromMessage:returnedMessage];
     }
     
-    return returnedMessage;
+    return nil;
 }
 
 - (void)broadcastingMessage:(TGMessage *)message {
