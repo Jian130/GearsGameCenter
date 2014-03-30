@@ -71,6 +71,11 @@ function GameCenter() {
 				
 				return;
 			} else if (receivedMessage.action = "broadcasting") {
+
+				if (receivedMessage.name = "user_list") {
+					receivedUserlist(receivedMessage.body);
+				}
+
 				recievedCallBack(receivedMessage.body);
 				console.log(receivedMessage.body);
 				console.log(receivedMessage.body.test);
