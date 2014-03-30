@@ -13,16 +13,17 @@
 		
 		<div id="GameEnter" class="stage">
 			<div class="NameHolder">
-				<label>Name:</label>
+				
 				<input id="Username" type="text">
 			</div>
+			<p name="waitingMsg" hidden>Waiting for other players...</p>
+
 			<div class="button Container">
 				<button id="ReadyButton" class="btn-center"  onclick="ReadyButtonClick()" >Ready</button>
 
 				<button id="StartButton" class="btn-center"  onclick="StartButtonClick()" hidden>Start</button>
 			</div>
-			<p name="waitingMsg" hidden>Waiting for other players...</p>
-
+			
 		</div>
 		<div id="GameOn" class="stage" hidden>
 			<div class="QuestionHolder"> 
