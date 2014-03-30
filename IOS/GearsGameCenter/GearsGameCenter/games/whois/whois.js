@@ -92,7 +92,8 @@ myName = "";
 
 function UserIsReady(name){
 	//send the name to the server
-	setUser(name, IS_READY);
+	//setUser(name, IS_READY);
+	connect.setUser(name, 0);
 	myName= name;
 	//GetGameUsersList();
 	//move state forward

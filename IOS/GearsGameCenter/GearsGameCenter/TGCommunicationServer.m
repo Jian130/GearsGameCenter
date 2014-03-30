@@ -114,13 +114,21 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         return [TGMessage jsonDataFromMessage:returnedMessage];
     } else if ([message.action isEqualToString:@"set_user"]) {
         [self.userList setObject:message.body forKey:message.name];
+
+        NSMutableDictionary *body = [[NSMutableDictionary alloc] init];
+        
+        for (NSString* key in self.userList) {
+            id value = [self.userList objectForKey:key];
+            [body setObject:[value objectForKey:@"data"] forKey:key];
+        }
+        
         TGMessage *returnedMessage = [[TGMessage alloc] init];
         returnedMessage.action = @"user_list";
         returnedMessage.timestamp = [NSDate date];
         returnedMessage.name = @"user_list";
-        returnedMessage.body = [self.userList objectForKey:message.name];
+        returnedMessage.body = body;
+        
         [self broadcastingMessage:returnedMessage];
-        return [TGMessage jsonDataFromMessage:returnedMessage];
     } else if ([message.action isEqualToString:@"get_user_list"]) {
         NSMutableDictionary *body = [[NSMutableDictionary alloc] init];
         
