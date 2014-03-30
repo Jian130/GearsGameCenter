@@ -1,48 +1,57 @@
 <html>
 <head>
+	<script type="text/javascript" src="config.js"></script>
+	<script type="text/javascript" src="adapt.min.js"></script>
     <script type="text/javascript" src="gamecenter.js"></script>
 	<script type="text/javascript" src="whois.js"></script>
-    <link rel="stylesheet" type="text/css" href="game.css">
+    
 </head>
-<body bgcolor='#000000'>
-	<img src="who_is.png" alt="WHO IS?">
-	<div id="GameEnter" class="center">
-		<label>Name:</label>
-		<input id="Username" type="text"><br>
-		<button id="ReadyButton" onclick="ReadyButtonClick()" >Ready</button>
+<body bgcolor='#deedd'>
+	<div id="bodyContainer">
+		
+		<div id="GameEnter" class="stage">
+			<div class="NameHolder">
+				<label>Name:</label>
+				<input id="Username" type="text">
+			</div>
+			<div class="button Container">
+				<button id="ReadyButton" class="btn-center"  onclick="ReadyButtonClick()" >Ready</button>
 
-		<button id="StartButton" onclick="StartButtonClick()" hidden>Start</button>
-		<p name="waitingMsg" hidden>Waiting for other players...</p>
+				<button id="StartButton" class="btn-center"  onclick="StartButtonClick()" hidden>Start</button>
+			</div>
+			<p name="waitingMsg" hidden>Waiting for other players...</p>
 
-	</div>
-	<div id="GameOn" class="center" hidden>
-		<div class="QuestionHolder"> 
-			<h3 name="question">Answer it</h3>
 		</div>
-		<div class="UsersListHolder"> 
-			<ul id="UsersList">
-				<li>haha</li>
-			</ul>
-		</div>
-		<button id='SubmitVoteButton' onclick="SubmitVoteButtonClick()" >Submit </button>
+		<div id="GameOn" class="stage" hidden>
+			<div class="QuestionHolder"> 
+				<h3 name="question">Answer it</h3>
+			</div>
+			<div class="UsersListHolder"> 
+				<ul id="UsersList">
+					<li>haha</li>
+				</ul>
+			</div>
+			<button id='SubmitVoteButton' class="btn-center" onclick="SubmitVoteButtonClick()" >Submit </button>
 
-	</div>
-	<div id="GameResult" class="center" hidden>
-		<div class="QuestionHolder">
-			<h3 name="question">Answer it</h3>
 		</div>
-		<div class="UsersListHolder">
-			<ol id="UsersRankList">
-				<li>haha</li>
-			</ol>
+		<div id="GameResult" class="stage" hidden>
+			<div class="QuestionHolder">
+				<h3 name="question">Answer it</h3>
+			</div>
+			<div class="UsersListHolder">
+				<ol id="UsersRankList">
+					<li>haha</li>
+				</ol>
+			</div>
+			<button id="Result-ReadyButton" class="btn-center" onclick="ReadyButtonClick()" >Ready</button>
+
+			<button id="Result-StartButton" class="btn-center" onclick="StartButtonClick()" >Start</button>
+
 		</div>
-		<button id="Result-ReadyButton" onclick="ReadyButtonClick()" >Ready</button>
-
-		<button id="Result-StartButton" onclick="StartButtonClick()" >Start</button>
-
 	</div>
 </body>
 <script type="text/javascript">
+	
 	
 	function UpdateGameEnterPage(){
 
