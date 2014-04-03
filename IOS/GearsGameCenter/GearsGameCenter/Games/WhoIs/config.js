@@ -4,9 +4,9 @@ var ADAPT_CONFIG = {
 		range: [
 		    '0px    to 760px  = 720.css',
 		    '760px  to 980px  = 720.css',
-		    '980px  to 1280px = 720.css',
-		    '1280px to 1600px = 720.css',
-		    '1600px to 1920px = 720.css',
+		    '980px  to 1280px = 980.css',
+		    '1280px to 1600px = 980.css',
+		    '1600px to 1920px = 980.css',
 		    '1920px           = fluid.css'
 		  ]
 	};

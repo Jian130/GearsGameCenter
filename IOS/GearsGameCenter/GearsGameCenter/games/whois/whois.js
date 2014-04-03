@@ -118,7 +118,7 @@ function setUser(name, state){
 function receivedSharedMemory(name, body){
 
 }
-
+/*
 function receivedUserlist(list){
 	UserList = list;
 	//the first user is host
@@ -133,9 +133,48 @@ function receivedUserlist(list){
 		}
 		
 	//}
+}*/
+// Greg edit temp fix
+function receivedUserlist(total){
+	if(total.Total==1){
+		isHost=1;
+		EnableStartButton();
+	}else{
+		isHost =0;
+		DisableStartButton();
+	}
+}
+function sendWelcome(){
+	var dataobject={type:"welcome", value:myName};
+    connect.broadcasting(dataobject);
+}
+function whoIsOn(){
+	if(isHost==1){
+		var dataobject={type:"whoIsOn", value:myName};
+    	connect.broadcasting(dataobject);
+	}
+	
 }
 
 mocked_Rank = 0;
+var Ulist=[];
+
+function setGameOn{
+	//initiate GameUserList
+	//object {Userame:"", Rank:1, Count:1}
+	GameUserList = [];
+	mocked_Rank+=1;
+	for (var key in Ulist){
+	
+		var obj = {"Username":Ulist[key], "Rank":UNDEFINED, "Count":0};
+		GameUserList.push(obj);
+		
+	}
+	numGameUser = GameUserList.length;
+	numGameAnswer = 0;
+	
+	nextState();
+}
 
 // receive msg
 function recievedCallBack(object){
@@ -147,6 +186,8 @@ function recievedCallBack(object){
 			if(state!=GAME_READY){
 				return;
 			}
+
+			/*
 			//initiate GameUserList
 			//object {Userame:"", Rank:1, Count:1}
 			GameUserList = [];
@@ -161,6 +202,26 @@ function recievedCallBack(object){
 			numGameAnswer = 0;
 			
 			nextState();
+			*/
+			whoIsOn();
+			setTimeout(function(){setGameOn()},1000);
+		}
+		if(object.type == "whoIsOn"){
+			sendWelcome();
+		}
+		//greg added
+		if(object.type == "welcome"){
+			var exist=0;
+			for(var i in Ulist)
+			{
+				if(Ulist[i]==object.value){
+					exist=1;
+				}
+			}
+			if(exist=0){
+				Ulist.push(object.value);
+			}
+
 		}
 		if(object.type=="answer"){
 			numGameAnswer = numGameAnswer+1;
