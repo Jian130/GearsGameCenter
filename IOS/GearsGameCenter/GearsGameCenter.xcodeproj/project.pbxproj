@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2A40DE8518D445AA00BD441F /* TGMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A40DE8418D445AA00BD441F /* TGMessage.m */; };
 		40B3E01FB8BA476EB5624566 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 912CEF8CAF2346FDA093E02F /* libPods.a */; };
+		522E6D7E18E7915E005331CF /* TGMessageList.m in Sources */ = {isa = PBXBuildFile; fileRef = 522E6D7D18E7915E005331CF /* TGMessageList.m */; };
 		52493DF118B94B0000E0B215 /* util.m in Sources */ = {isa = PBXBuildFile; fileRef = 52493DEF18B94B0000E0B215 /* util.m */; };
 		525256D618B9251300E30880 /* games in Resources */ = {isa = PBXBuildFile; fileRef = 525256D518B9251300E30880 /* games */; };
 		529DCF3C18E7652900410BED /* MMPDeepSleepPreventer.m in Sources */ = {isa = PBXBuildFile; fileRef = 529DCF3A18E7652900410BED /* MMPDeepSleepPreventer.m */; };
@@ -49,6 +50,8 @@
 		2A40DE8318D445AA00BD441F /* TGMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGMessage.h; sourceTree = "<group>"; };
 		2A40DE8418D445AA00BD441F /* TGMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGMessage.m; sourceTree = "<group>"; };
 		2A7CD6C518D05777005A596C /* GCDSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDSingleton.h; sourceTree = "<group>"; };
+		522E6D7C18E7915E005331CF /* TGMessageList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGMessageList.h; sourceTree = "<group>"; };
+		522E6D7D18E7915E005331CF /* TGMessageList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGMessageList.m; sourceTree = "<group>"; };
 		52493DEF18B94B0000E0B215 /* util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = util.m; sourceTree = "<group>"; };
 		52493DF018B94B0000E0B215 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
 		525256D518B9251300E30880 /* games */ = {isa = PBXFileReference; lastKnownFileType = folder; path = games; sourceTree = "<group>"; };
@@ -190,6 +193,8 @@
 				8EF262F618B91A8000AEE044 /* TGViewController.m */,
 				2A40DE8318D445AA00BD441F /* TGMessage.h */,
 				2A40DE8418D445AA00BD441F /* TGMessage.m */,
+				522E6D7C18E7915E005331CF /* TGMessageList.h */,
+				522E6D7D18E7915E005331CF /* TGMessageList.m */,
 			);
 			path = GearsGameCenter;
 			sourceTree = "<group>";
@@ -370,6 +375,7 @@
 				529DCF3C18E7652900410BED /* MMPDeepSleepPreventer.m in Sources */,
 				8EF262EE18B91A8000AEE044 /* TGAppDelegate.m in Sources */,
 				2A40DE8518D445AA00BD441F /* TGMessage.m in Sources */,
+				522E6D7E18E7915E005331CF /* TGMessageList.m in Sources */,
 				8E625DD318B9245400BB9BF9 /* TGCommunicationServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -71,6 +71,11 @@ function GameCenter() {
 				
 				return;
 			} else if (receivedMessage.action = "broadcasting") {
+
+				if (receivedMessage.name = "user_list") {
+					receivedUserlist(receivedMessage.body);
+				}
+
 				recievedCallBack(receivedMessage.body);
 				console.log(receivedMessage.body);
 				console.log(receivedMessage.body.test);
@@ -125,7 +130,7 @@ function GameCenter() {
 	}
 
 	this.setUser = function(name, property) {
-		sendMessage("set_user", name, property);
+		sendMessage("set_user", name, {"data":property});
 	}
 
 	this.getUserList = function () {
