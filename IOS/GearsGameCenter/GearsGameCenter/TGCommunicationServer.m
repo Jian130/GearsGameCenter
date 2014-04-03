@@ -93,7 +93,7 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         }
         
 		TGMessage* newMessage = [TGMessage messageFromJsonData:requestData];
-        newMessage.sessionID = sessionID;
+//        newMessage.sessionID = sessionID;
         
         newMessage = [self messageHandler:newMessage];
         NSData* jsonData = [TGMessage jsonDataFromMessage:newMessage];
@@ -118,6 +118,12 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     } else if ([message.action isEqualToString:@"set_user"]) {
 //        [self.userList setObject:message.name forKey:message.body];
         [self.userList setObject:message.body forKey:message.name];
+        
+        returnedMessage = [[TGMessage alloc] init];
+        returnedMessage.action = @"user_list";
+        returnedMessage.timestamp = [NSDate date];
+        returnedMessage.name = @"user_list";
+        returnedMessage.body = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInteger:[self.userList count]],@"Total",  nil];
     } else if ([message.action isEqualToString:@"get_user_list"]) {
         returnedMessage = [[TGMessage alloc] init];
         returnedMessage.action = @"user_list";
