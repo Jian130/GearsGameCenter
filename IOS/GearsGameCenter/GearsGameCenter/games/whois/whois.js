@@ -91,6 +91,7 @@ function answerQuestion(name){
 myName = "";
 
 function UserIsReady(name){
+	//TODO :set user 
 	//send the name to the server
 	//setUser(name, IS_READY);
 	connect.setUser(name, 0);
@@ -136,6 +137,7 @@ function receivedUserlist(list){
 }*/
 // Greg edit temp fix
 function receivedUserlist(total){
+	//TODO:  detect is host
 	if(total.Total==1){
 		isHost=1;
 		EnableStartButton();
