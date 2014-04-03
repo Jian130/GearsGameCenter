@@ -95,8 +95,9 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
 		TGMessage* newMessage = [TGMessage messageFromJsonData:requestData];
         
         newMessage = [self messageHandler:newMessage];
-        return [TGMessage jsonDataFromMessage:newMessage];
-        return nil;
+        NSData* jsonData = [TGMessage jsonDataFromMessage:newMessage];
+        //return nil;
+        return jsonData;
     }];
 }
 
