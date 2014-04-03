@@ -151,7 +151,7 @@ function sendWelcome(){
     connect.broadcasting(dataobject);
 }
 function whoIsOn(){
-	if(isHost==1){
+	if(isHost==1&&myName!=""){
 		var dataobject={type:"whoIsOn", value:myName};
     	connect.broadcasting(dataobject);
 	}
