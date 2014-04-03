@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
+#import "TGUser.h"
+
 
 @interface TGMessage : JSONModel
 
@@ -17,6 +19,7 @@
 //@property (nonatomic, assign) BOOL *isBroadcasting;
 @property (nonatomic, strong) NSString<Optional> *name;
 @property (nonatomic, strong) NSMutableDictionary<Optional> *body;
+//@property (nonatomic, strong) NSArray<TGUser> *userList;
 
 + (TGMessage*)messageFromJsonData:(NSData *)jsonData;
 + (NSData *)jsonDataFromMessage:(TGMessage *)message;

@@ -155,6 +155,10 @@ static BLWebSocketsServer *sharedInstance = nil;
     [self.asyncMessageQueue enqueueMessageForAllUsers:data];
 }
 
+//- (void)pushData:(NSData *)data toUser:(NSString *)sessionID withSocket:(struct libwebsocket *)wsi{
+//
+//}
+
 
 @end
 

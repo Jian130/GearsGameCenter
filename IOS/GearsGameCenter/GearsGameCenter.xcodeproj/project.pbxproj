@@ -34,6 +34,7 @@
 		8EF2630218B91A8000AEE044 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EF262E118B91A8000AEE044 /* UIKit.framework */; };
 		8EF2630A18B91A8000AEE044 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8EF2630818B91A8000AEE044 /* InfoPlist.strings */; };
 		8EF2630C18B91A8000AEE044 /* GearsGameCenterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EF2630B18B91A8000AEE044 /* GearsGameCenterTests.m */; };
+		8EFA1F0018ED161B001AC9E7 /* TGUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EFA1EFF18ED161B001AC9E7 /* TGUser.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,8 @@
 		8EF2630718B91A8000AEE044 /* GearsGameCenterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GearsGameCenterTests-Info.plist"; sourceTree = "<group>"; };
 		8EF2630918B91A8000AEE044 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8EF2630B18B91A8000AEE044 /* GearsGameCenterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GearsGameCenterTests.m; sourceTree = "<group>"; };
+		8EFA1EFE18ED161B001AC9E7 /* TGUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGUser.h; sourceTree = "<group>"; };
+		8EFA1EFF18ED161B001AC9E7 /* TGUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGUser.m; sourceTree = "<group>"; };
 		912CEF8CAF2346FDA093E02F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -195,6 +198,8 @@
 				2A40DE8418D445AA00BD441F /* TGMessage.m */,
 				522E6D7C18E7915E005331CF /* TGMessageList.h */,
 				522E6D7D18E7915E005331CF /* TGMessageList.m */,
+				8EFA1EFE18ED161B001AC9E7 /* TGUser.h */,
+				8EFA1EFF18ED161B001AC9E7 /* TGUser.m */,
 			);
 			path = GearsGameCenter;
 			sourceTree = "<group>";
@@ -371,6 +376,7 @@
 				8E625DD018B9243400BB9BF9 /* TGWebServer.m in Sources */,
 				8EF262F718B91A8000AEE044 /* TGViewController.m in Sources */,
 				52493DF118B94B0000E0B215 /* util.m in Sources */,
+				8EFA1F0018ED161B001AC9E7 /* TGUser.m in Sources */,
 				8EF262EA18B91A8000AEE044 /* main.m in Sources */,
 				529DCF3C18E7652900410BED /* MMPDeepSleepPreventer.m in Sources */,
 				8EF262EE18B91A8000AEE044 /* TGAppDelegate.m in Sources */,
