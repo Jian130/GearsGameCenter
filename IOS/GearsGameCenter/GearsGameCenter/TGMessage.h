@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSDate *timestamp;
 @property (nonatomic, strong) NSString<Optional> *name;
 @property (nonatomic, strong) NSMutableDictionary<Optional> *body;
+@property (nonatomic, strong) NSArray<Optional> *userList;
 
 
 + (TGMessage*)messageFromJsonData:(NSData *)jsonData;

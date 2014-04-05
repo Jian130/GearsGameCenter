@@ -89,20 +89,33 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     } else if ([message.action isEqualToString:@"get_shared_memory"]) {
     	returnedMessage = [self readSharedMemory:message];
     } else if ([message.action isEqualToString:@"set_user"]) {
-//        [self.userList setObject:message.name forKey:message.body];
-        [self.userList setObject:message.body forKey:message.name];
         
-        returnedMessage = [[TGMessage alloc] init];
-        returnedMessage.action = @"user_list";
-        returnedMessage.timestamp = [NSDate date];
-        returnedMessage.name = @"user_list";
-        returnedMessage.body = [[NSMutableDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInteger:[self.userList count]],@"Total",  nil];
+        //create user
+        TGUser *newUSer = [[TGUser alloc] init];
+        newUSer.name = [message.body objectForKey:@"name"];
+        newUSer.sessionID = sessionID;
+        newUSer.properties = [[message.body objectForKey:@"properties"] objectForKey:@"Total"];
+        
+        //add user to userList
+        [self.userList setObject:newUSer forKey:sessionID];
+        
+        //prepare broadcast message
+        TGMessage *broadcastMessage = [[TGMessage alloc] init];
+        broadcastMessage.action = @"user_list";
+        broadcastMessage.timestamp = [NSDate date];
+        broadcastMessage.name = @"user_list";
+        broadcastMessage.userList = [self.userList allValues];;
+        
+        //broadcast message
+        [self broadcastingMessage:broadcastMessage];
+        
     } else if ([message.action isEqualToString:@"get_user_list"]) {
+        //prepare return message
         returnedMessage = [[TGMessage alloc] init];
         returnedMessage.action = @"user_list";
         returnedMessage.timestamp = [NSDate date];
         returnedMessage.name = @"user_list";
-        returnedMessage.body = [[NSMutableDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInteger:[self.userList count]],@"Total",  nil];
+        returnedMessage.userList = [self.userList allValues];
     }
     
     return returnedMessage;

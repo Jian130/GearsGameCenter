@@ -14,7 +14,8 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString<Optional> *isHost;
 @property (nonatomic, strong) NSString<Optional> *sessionID;
-@property (nonatomic, strong) NSDictionary<Optional> *properties;
+//@property (nonatomic, strong) NSDictionary<Optional> *properties;
+@property (nonatomic, strong) NSString<Optional> *properties;
 
 + (TGUser*)userFromJsonData:(NSData *)jsonData;
 + (NSData *)jsonDataFromUser:(TGUser *)message;
