@@ -19,7 +19,8 @@
 			<p name="waitingMsg" hidden>Waiting for other players...</p>
 			<div class="UserListContainer">
 				<div class="UsersListHolder"> 
-				<ul id="UsersList">
+				<ul id="EnteredUsersList">
+
 					
 				</ul>
 			</div>
@@ -64,8 +65,8 @@
 	
 	
 	function UpdateGameEnterPage(){
-		var userList = GetGameUsersList();
-		var Ulist= document.getElementById("UsersList");
+		var userList = UserList;
+		var Ulist= document.getElementById("EnteredUsersList");
 		Ulist.innerHTML='';
 			
 		for(var index in userList){
@@ -73,7 +74,7 @@
 			console.log(user);
 			//Ulist.innerHTML+="<li><button onclick='"+'ListItemClick("'+user.Username+'")'+"'>"+user.Username+"</button></li>";
 
-			Ulist.innerHTML+='<li>'+user.Username+'</li>'
+			Ulist.innerHTML+='<li>'+user.name+'</li>'
 		}
 
 	}
@@ -81,6 +82,7 @@
 		startGame();
 		HideItemById("StartButton");
 		HideItemById("Result-StartButton");
+
 
 	}
 	function ReadyButtonClick(){
@@ -93,6 +95,8 @@
 
 		DeactivateButton("ReadyButton");
 		DeactivateButton("Result-ReadyButton");
+		HideItemById("ReadyButton");
+		HideItemById("Result-ReadyButton");
 
 		UserIsReady(name);
 		
@@ -103,6 +107,9 @@
 		
 		RevealItemById("StartButton");
 		RevealItemById("Result-StartButton");
+		RevealItemById("ReadyButton");
+		RevealItemById("Result-ReadyButton");
+
 	}
 	function DisableStartButton(){
 		HideItemById("StartButton");
@@ -118,6 +125,8 @@
 		// cleaer View
 		HideItemById("GameEnter");
 		HideItemById("GameResult");
+
+		RevealItemById("SubmitVoteButton");
 
 		document.getElementsByName("waitingMsg")[0].setAttribute("hidden", true);
 		//HideItemById("")
@@ -189,6 +198,7 @@
 		var username = GetCheckedRadioName("voteList");
 		answerQuestion(username);
 		DeactivateButton("SubmitVoteButton");
+		HideItemById("SubmitVoteButton");
 
 	}
 

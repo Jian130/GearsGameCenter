@@ -165,6 +165,9 @@ function receivedUserlist(list){
 			break;
 		}
 	}
+	if(state == GAME_READY){
+		UpdateGameEnterPage();
+	}
 	if(isHost == 1){
 		EnableStartButton();
 	}
