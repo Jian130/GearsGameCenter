@@ -96,8 +96,11 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         newUser.name = [message.body objectForKey:@"name"];
         newUser.sessionID = sessionID;
         newUser.property = [message.body objectForKey:@"property"];
+        
         if (self.userList.count == 0) {
             newUser.isHost = @"1";
+        } else if([self.userList objectForKey:sessionID]) {
+        	newUser.isHost = ((TGUser*)[self.userList objectForKey:sessionID]).isHost;
         } else {
             newUser.isHost = @"0";
         }
