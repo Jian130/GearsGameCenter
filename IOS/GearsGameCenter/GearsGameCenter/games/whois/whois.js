@@ -161,7 +161,7 @@ function whoIsOn(){
 mocked_Rank = 0;
 var Ulist=[];
 
-function setGameOn{
+function setGameOn(){
 	//initiate GameUserList
 	//object {Userame:"", Rank:1, Count:1}
 	GameUserList = [];

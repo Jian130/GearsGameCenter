@@ -11,7 +11,7 @@
 
 @interface TGUser : JSONModel
 
-@property (nonatomic, strong) NSString *userName;
+@property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *isHost;
 @property (nonatomic, strong) NSString<Ignore> *sessionID;
 
