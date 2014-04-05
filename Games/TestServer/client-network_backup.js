@@ -3,15 +3,20 @@
 
 //can send data in binary
 	//init objects
+function GameCenter(){
+
+
 	var gameStateObject;  //json object to tx
 	var recievedObject;	  // recieved json object
-	var wsPort;
+	var wsPort = "81";
 
-	var ID;
-	var mazeID;
+	var SessionID;
+	//var mazeID;
 	var connection;
+
+
 	//to close connection connection.close();
-	window.onload = function() {
+	this.initial = function() {
 		console.log("loading!");
 		//check preconditions for web socket support
 		if (window.MozWebSocket)
@@ -26,13 +31,26 @@
 	        return;
 	    }
 		//gameStateObject = {message1: "test", message2:"test2"};
-		wsPort = "8001";
-		connection = new WebSocket('ws://localhost:8001');
+		
+		var matches = document.URL.match(/http:\/\/([\d.]+)\/.*/);
+        var ip = matches[1];
+        
+        console.log("IP: " + ip);
+        
+		connection = new WebSocket("ws://" + ip + ":" + wsPort);
 
 		connection.onopen = function(event) { onConnection() };
 		connection.onerror = function(error) { connectionError(error) };
 		connection.onmessage = function(object) { recieveObject(object) };
 		connection.onclose = function(event) { onCloseEvent() };
+	};
+
+	this.broadcasting = function (object){
+		sendOut(type:"broadcast",value:object);
+	}
+
+	this.setUser= function (object){
+		sendOut({type:"setUser",value:object}});
 	}
 
 	//connection error handling
@@ -45,7 +63,7 @@
 	//initial connection sequence
 	function onConnection() {
 		console.log("connected");
-		sendOut(gameStateObject);
+		//sendOut(gameStateObject);
 	}
 
 	function onCloseEvent() {
@@ -54,27 +72,29 @@
 
 	function recieveObject(input) {
 		//convert JSON
-		console.log(input);
+
 		try {
 			recievedObject = JSON.parse(input.data);
 			//it is a initiali ID packet
+			/*
 			if(recievedObject.user_id != null)
 			{
 				ID = recievedObject.user_id;
 				mazeID = recievedObject.maze_id;
 				return;
-			}
+			}*/
 		} catch(error) {
 			console.log('message is not a JSON object');
 			receivedObject = input;
 		}
-		//recievedObject = JSON.parse(input.data);
-		//document.getElementById('test').innerHTML = recievedObject;
+
 		console.log(recievedObject);
 		//other data handling here
-//dsfsdf
+
 		recievedCallBack(recievedObject);
 	}
+	
+
 	function sendOut(object) {
 		if(connection.readyState == 1)
 		{
@@ -84,15 +104,6 @@
 		}
 		console.log("SENT");
 	}
-	//var UserList=new Array();
-	/*
-	function getUser(){
 
-	}
-	function setUser(name, IS_READY){
-
-		UserList.push([name,IS_READY]);
-	}
-	function getUserList(){
-		return UserList;
-	}*/
+	this.initial();
+}

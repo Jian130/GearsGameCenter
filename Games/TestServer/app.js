@@ -40,16 +40,36 @@ wss.on('connection', function(ws) {
 	var newuser={user_id:id,mazeID:mazeID}
 	ws.send(JSON.stringify(newuser));
     console.log('connected');
+    function getWsClientIndex(ws){
+    	for(var index in wsclients){
+    		var wc = wsclients[index];
+    		if(wc.ws==ws)return index;
+
+    	}
+    }
+
 
 	ws.on('close', function() {
 	    console.log('disconnected');
-	    var msg={type:'disconnected',userid:getuserid(ws)}
+	    var msg={type:'disconnected',userid:getuserid(ws)};
+	    mywc=getWsClientIndex(ws);
+	    wsclients.splice(mywc,1);
+
 	    wss.broadcast(JSON.stringify(msg));
 	});
     ws.on('message', function(message) {
         console.log('received: %s', message);
-        
-        wss.broadcast(message,ws);
+        //
+        message=JSON.parse(message);
+        console.log(message.type);
+        if(message.type=="broadcast"){
+            wss.broadcast(JSON.stringify(message.value));
+        	
+            console.log(message.value);
+        } 	
+       	else if(message.type=="setUser"){
+       		wss.broadcast(JSON.stringify({Total:wsclients.length}));
+       	}
         
     });
 
