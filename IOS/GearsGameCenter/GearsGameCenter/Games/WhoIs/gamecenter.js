@@ -72,27 +72,26 @@ function GameCenter() {
 				ID = receivedObject.user_id;
 				
 				return;
-			} else if (receivedMessage.action = "broadcasting") {
+			} else if (receivedMessage.action == "broadcasting") {
 
-				if (receivedMessage.name = "user_list") {
-					receivedUserlist(receivedMessage.body);
-				}
-
-				recievedCallBack(receivedMessage.body);
+		
 				console.log(receivedMessage.body);
-				console.log(receivedMessage.body.test);
-			} else if (receivedMessage.action = "get_shared_memory") {
+				recievedCallBack(receivedMessage.body);
+			} else if (receivedMessage.action == "get_shared_memory") {
 				receivedSharedMemory(receivedMessage.name, receivedMessage.body);
-			} else if (receivedMessage.action = "user_list"){
-				// this.userList = receivedMessage.body;
-				receivedUserlist(receiveMessage.userList);
+			} else if (receivedMessage.action == "user_list"){
+		
+
+				console.log(receiveMessage.userList);
+				receivedUserlist(receivedMessage.userList);
+
 			}else {
 				console.log("undefined action: " + receivedMessage.action);
 			}
 
 			console.log("Recevied Message " + receivedMessage);
 		} catch(error) {
-			console.log('message is not a JSON object');
+			console.log('message is not a JSON object' + error);
 		}
 	}
 
