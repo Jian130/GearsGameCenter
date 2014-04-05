@@ -40,10 +40,11 @@ wss.on('connection', function(ws) {
 	var newuser={user_id:id,mazeID:mazeID}
 	ws.send(JSON.stringify(newuser));
     console.log('connected');
-    function getWsClientIndex(ws){
+    function getWsClientIndex(cid){
     	for(var index in wsclients){
     		var wc = wsclients[index];
-    		if(wc.ws==ws)return index;
+    		if(wc.id==cid)
+                return index;
 
     	}
     }
@@ -52,7 +53,8 @@ wss.on('connection', function(ws) {
 	ws.on('close', function() {
 	    console.log('disconnected');
 	    var msg={type:'disconnected',userid:getuserid(ws)};
-	    mywc=getWsClientIndex(ws);
+        var cid=getuserid(cid);
+	    mywc=getWsClientIndex(cid);
 	    wsclients.splice(mywc,1);
 
 	    wss.broadcast(JSON.stringify(msg));
