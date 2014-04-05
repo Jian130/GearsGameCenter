@@ -67,14 +67,30 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     [[BLWebSocketsServer sharedInstance] setHandleRequestBlock:^NSData *(NSData *requestData, NSString *sessionID) {
 
         NSData* jsonData;
-        if(requestData == NULL){
-        	NSLog(@"session id: %@ disconnected", sessionID);
-        }
-        else {
-		TGMessage* newMessage = [TGMessage messageFromJsonData:requestData];
         
-        newMessage = [self messageHandler:newMessage sessionID:sessionID];
-        jsonData = [TGMessage jsonDataFromMessage:newMessage];
+        if(requestData == NULL){
+            BOOL needToChangeHost = false;
+        	NSLog(@"session id: %@ disconnected", sessionID);
+            
+          	if([self.userList objectForKey:sessionID]) {
+            	TGUser *user = [self.userList objectForKey:sessionID];
+                if(user.isHost){
+                	needToChangeHost = true;
+                }
+                
+                [self.userList removeObjectForKey:sessionID];
+            }
+            
+            if(needToChangeHost && [self.userList count] > 0){
+            	((TGUser *)[self.userList objectForKey:self.userList.allKeys[0]]).isHost = [NSString stringWithFormat:@"1"];
+            }
+            
+            [self broadcastingUserList];
+            
+        } else {
+			TGMessage* newMessage = [TGMessage messageFromJsonData:requestData];
+	        newMessage = [self messageHandler:newMessage sessionID:sessionID];
+    	    jsonData = [TGMessage jsonDataFromMessage:newMessage];
         }
         return jsonData;
     }];
@@ -112,15 +128,9 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         //add user to userList
         [self.userList setObject:newUser forKey:sessionID];
         
-        //prepare broadcast message
-        TGMessage *broadcastMessage = [[TGMessage alloc] init];
-        broadcastMessage.action = @"user_list";
-        broadcastMessage.timestamp = [NSDate date];
-        broadcastMessage.name = @"user_list";
-        broadcastMessage.userList = [self.userList allValues];
         
-        //broadcast message
-        [self broadcastingMessage:broadcastMessage];
+        
+		[self broadcastingUserList];
         
     } else if ([message.action isEqualToString:@"get_user_list"]) {
         //prepare return message
@@ -132,6 +142,17 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     }
     
     return returnedMessage;
+}
+
+- (void)broadcastingUserList {
+	TGMessage *broadcastMessage = [[TGMessage alloc] init];
+    broadcastMessage.action = @"user_list";
+    broadcastMessage.timestamp = [NSDate date];
+    broadcastMessage.name = @"user_list";
+    broadcastMessage.userList = [self.userList allValues];
+    
+	[self broadcastingMessage:broadcastMessage];
+	
 }
 
 - (void)broadcastingMessage:(TGMessage *)message {
