@@ -146,7 +146,7 @@
         
         NSString *gameLink = [self getGameUrl];
         
-        NSString *message = [@"Please join the Maze game: " stringByAppendingString:gameLink];
+        NSString *message = [NSString stringWithFormat:@"Please join the %@ game by clicking on the link : %@", self.gameName, gameLink];
         
         MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
         messageController.messageComposeDelegate = self;
