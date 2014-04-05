@@ -14,12 +14,10 @@
 @interface TGMessage : JSONModel
 
 @property (nonatomic, strong) NSString *action;
-//@property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSDate *timestamp;
-//@property (nonatomic, assign) BOOL *isBroadcasting;
 @property (nonatomic, strong) NSString<Optional> *name;
 @property (nonatomic, strong) NSMutableDictionary<Optional> *body;
-//@property (nonatomic, strong) NSArray<TGUser> *userList;
+
 
 + (TGMessage*)messageFromJsonData:(NSData *)jsonData;
 + (NSData *)jsonDataFromMessage:(TGMessage *)message;

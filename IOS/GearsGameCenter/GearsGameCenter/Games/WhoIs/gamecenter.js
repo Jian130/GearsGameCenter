@@ -7,7 +7,7 @@
 
 function GameCenter() {
 
-	var wsPort
+	var wsPort;
 
 	var ID;
 	//var mazeID;
@@ -58,6 +58,8 @@ function GameCenter() {
 		console.log("closing");
 	}
 
+	var userList = [];
+
 	var receiveMessage = function(message) {
 		//convert JSON
 		console.log(message);
@@ -92,10 +94,12 @@ function GameCenter() {
 			console.log('message is not a JSON object');
 		}
 	}
-	
 
-	var getSessionID = function() {
-		return ID;
+	var user = function(name, property){
+		this.name = name;
+		this.id = null;
+		this.isHost = null;
+		this.property = property
 	}
 
 	var sendMessage = function(action, name, body) {
@@ -130,10 +134,26 @@ function GameCenter() {
 	}
 
 	this.setUser = function(name, property) {
+
+		var existingUser = 0;
+		for (var i = this.userList.length - 1; i >= 0; i--) {
+			if(this.userList[i].name = name) {
+				this.userList[i].property = property;
+				existingUser = 1;
+				break;
+			}
+		};
+
+		if(!existingUser) {
+			var newUser = new user(name, property);
+			this.userList.push(newUser);
+		}
+
 		sendMessage("set_user", name, {"data":property});
 	}
 
 	this.getUserList = function () {
 		sendMessage("get_user_list", null, null);
 	}
+
 }

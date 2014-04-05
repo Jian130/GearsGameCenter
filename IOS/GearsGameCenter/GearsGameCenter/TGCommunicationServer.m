@@ -17,7 +17,6 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
 
 @interface TGCommunicationServer()
 
-@property (strong, nonatomic) NSMutableDictionary *clients;
 @property (strong, nonatomic) NSMutableDictionary *userList;
 @property (nonatomic, strong) NSMutableDictionary *sharedMemory;
 @property (nonatomic, strong) NSMutableArray *messageQueue;
@@ -26,10 +25,8 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
 
 @implementation TGCommunicationServer
 
-@synthesize clients = _clients;
 @synthesize userList = _userList;
 @synthesize sharedMemory = _sharedMemory;
-@synthesize messageQueue = _messageQueue;
 
 #pragma mark - shared instance
 
@@ -37,14 +34,6 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
         return [[self alloc] init];
     });
-}
-
-- (NSMutableDictionary *)clients {
-	if (!_clients) {
-        _clients = [[NSMutableDictionary alloc] init];
-    }
-    
-    return _clients;
 }
 
 - (NSMutableDictionary *)userList {
@@ -63,14 +52,6 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     return _sharedMemory;
 }
 
-- (NSMutableArray *)messageQueue {
-	if (!_messageQueue) {
-        _messageQueue = [[NSMutableArray alloc] init];
-    }
-    
-    return _messageQueue;
-}
-
 - (void)startCommunicationServer {
     
 	[[BLWebSocketsServer sharedInstance] startListeningOnPort:81 withProtocolName:NULL andCompletionBlock:^(NSError *error) {
@@ -85,24 +66,16 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     [[BLWebSocketsServer sharedInstance] setHandleRequestBlock:^NSData *(NSData *requestData, NSString *sessionID) {
 
         
-        BOOL newUser = YES;
-        if (![self.clients objectForKey:sessionID]) {
-            [self.clients setObject:[NSNumber numberWithBool:newUser] forKey:sessionID];
-        } else {
-        	newUser = NO;
-        }
-        
 		TGMessage* newMessage = [TGMessage messageFromJsonData:requestData];
-//        newMessage.sessionID = sessionID;
         
-        newMessage = [self messageHandler:newMessage];
+        newMessage = [self messageHandler:newMessage sessionID:sessionID];
         NSData* jsonData = [TGMessage jsonDataFromMessage:newMessage];
-        //return nil;
+
         return jsonData;
     }];
 }
 
-- (TGMessage *)messageHandler:(TGMessage *)message {
+- (TGMessage *)messageHandler:(TGMessage *)message sessionID:(NSString *)sessionID {
 
     TGMessage *returnedMessage = nil;
     
@@ -171,6 +144,8 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
 - (void)stopCommunicationServer {
 	[[BLWebSocketsServer sharedInstance] stopWithCompletionBlock:^{
         NSLog(@"Server stopped");
+        [self.userList removeAllObjects];
+        [self.sharedMemory removeAllObjects];
     }];
 }
 
