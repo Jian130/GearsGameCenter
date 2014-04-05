@@ -12,6 +12,7 @@
 #import "TGMessage.h"
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
+#import "TGUser.h"
 
 NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
 
@@ -91,20 +92,25 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     } else if ([message.action isEqualToString:@"set_user"]) {
         
         //create user
-        TGUser *newUSer = [[TGUser alloc] init];
-        newUSer.name = [message.body objectForKey:@"name"];
-        newUSer.sessionID = sessionID;
-        newUSer.properties = [[message.body objectForKey:@"properties"] objectForKey:@"Total"];
+        TGUser *newUser = [[TGUser alloc] init];
+        newUser.name = [message.body objectForKey:@"name"];
+        newUser.sessionID = sessionID;
+        newUser.property = [message.body objectForKey:@"property"];
+        if (self.userList.count == 0) {
+            newUser.isHost = @"1";
+        } else {
+            newUser.isHost = @"0";
+        }
         
         //add user to userList
-        [self.userList setObject:newUSer forKey:sessionID];
+        [self.userList setObject:newUser forKey:sessionID];
         
         //prepare broadcast message
         TGMessage *broadcastMessage = [[TGMessage alloc] init];
         broadcastMessage.action = @"user_list";
         broadcastMessage.timestamp = [NSDate date];
         broadcastMessage.name = @"user_list";
-        broadcastMessage.userList = [self.userList allValues];;
+        broadcastMessage.userList = [self.userList allValues];
         
         //broadcast message
         [self broadcastingMessage:broadcastMessage];
