@@ -17,6 +17,13 @@
 				<input id="Username" type="text">
 			</div>
 			<p name="waitingMsg" hidden>Waiting for other players...</p>
+			<div class="UserListContainer">
+				<div class="UsersListHolder"> 
+				<ul id="UsersList">
+					
+				</ul>
+			</div>
+			</div>
 
 			<div class="button Container">
 				<button id="ReadyButton" class="btn-center"  onclick="ReadyButtonClick()" >Ready</button>
@@ -57,6 +64,17 @@
 	
 	
 	function UpdateGameEnterPage(){
+		var userList = GetGameUsersList();
+		var Ulist= document.getElementById("UsersList");
+		Ulist.innerHTML='';
+			
+		for(var index in userList){
+			var user=userList[index];
+			console.log(user);
+			//Ulist.innerHTML+="<li><button onclick='"+'ListItemClick("'+user.Username+'")'+"'>"+user.Username+"</button></li>";
+
+			Ulist.innerHTML+='<li>'+user.Username+'</li>'
+		}
 
 	}
 	function StartButtonClick(){
