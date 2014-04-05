@@ -123,13 +123,13 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         returnedMessage.action = @"user_list";
         returnedMessage.timestamp = [NSDate date];
         returnedMessage.name = @"user_list";
-        returnedMessage.body = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInteger:[self.userList count]],@"Total",  nil];
+        returnedMessage.body = [[NSMutableDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInteger:[self.userList count]],@"Total",  nil];
     } else if ([message.action isEqualToString:@"get_user_list"]) {
         returnedMessage = [[TGMessage alloc] init];
         returnedMessage.action = @"user_list";
         returnedMessage.timestamp = [NSDate date];
         returnedMessage.name = @"user_list";
-        returnedMessage.body = [[NSDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInteger:[self.userList count]],@"Total",  nil];
+        returnedMessage.body = [[NSMutableDictionary alloc] initWithObjectsAndKeys: [NSNumber numberWithInteger:[self.userList count]],@"Total",  nil];
     }
     
     return returnedMessage;
