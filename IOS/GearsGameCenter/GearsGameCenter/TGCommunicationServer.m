@@ -66,12 +66,16 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
     
     [[BLWebSocketsServer sharedInstance] setHandleRequestBlock:^NSData *(NSData *requestData, NSString *sessionID) {
 
-        
+        NSData* jsonData;
+        if(requestData == NULL){
+        	NSLog(@"session id: %@ disconnected", sessionID);
+        }
+        else {
 		TGMessage* newMessage = [TGMessage messageFromJsonData:requestData];
         
         newMessage = [self messageHandler:newMessage sessionID:sessionID];
-        NSData* jsonData = [TGMessage jsonDataFromMessage:newMessage];
-
+        jsonData = [TGMessage jsonDataFromMessage:newMessage];
+        }
         return jsonData;
     }];
 }
