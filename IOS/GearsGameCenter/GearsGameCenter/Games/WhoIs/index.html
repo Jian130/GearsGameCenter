@@ -19,7 +19,7 @@
 			<p name="waitingMsg" hidden>Waiting for other players...</p>
 			<div class="UserListContainer">
 				<div class="UsersListHolder"> 
-				<ul id="EnteredUsersList">
+				<ul id="ReadyUserList">
 
 					
 				</ul>
@@ -66,7 +66,7 @@
 	
 	function UpdateGameEnterPage(){
 		var userList = UserList;
-		var Ulist= document.getElementById("EnteredUsersList");
+		var Ulist= document.getElementById("ReadyUserList");
 		Ulist.innerHTML='';
 			
 		for(var index in userList){
@@ -76,6 +76,10 @@
 
 			Ulist.innerHTML+='<li>'+user.name+'</li>'
 		}
+
+	}
+	function UpdateReadyList(){
+		var readyLists=document.getElementsByName("ReadyUserList");
 
 	}
 	function StartButtonClick(){
@@ -107,8 +111,8 @@
 		
 		ActivateButton("StartButton");
 		ActivateButton("Result-StartButton");
-		RevealItemById("ReadyButton");
-		RevealItemById("Result-ReadyButton");
+		RevealItemById("StartButton");
+		RevealItemById("Result-StartButton");
 
 	}
 	function DisableStartButton(){
