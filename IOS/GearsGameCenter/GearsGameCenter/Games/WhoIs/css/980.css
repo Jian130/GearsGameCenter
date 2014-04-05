@@ -23,13 +23,13 @@
 	width: 960px;
 	height: 96px;  
 	background-color: transparent;
-	background-image: url("../img/button.png");
+	background-image: url("../img/button980.png");
 	background-repeat: no-repeat;
 	
 
 }
 .btn-center:hover{
-	background-image: url("../img/select.png");
+	background-image: url("../img/select980.png");
 	
 }
 .stage {
@@ -56,5 +56,5 @@ label{
 	width: 960px;
 	height: 96px;
 	background-repeat: no-repeat;
-	background-image: url("../img/name.png");
+	background-image: url("../img/name980.png");
 }
