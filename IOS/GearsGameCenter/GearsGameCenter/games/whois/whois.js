@@ -75,6 +75,13 @@ function GetGameUsersList(){
 
 function startGame(){
 	// start the game
+	//TODO
+	//when sending the start game message
+	//host should broadcase a question
+	//i think we could usethe value:question
+	//TODO
+	//also we want to make sure that
+	//in one game no question appears twice
 	var dataobject={type:"startGame", value:null};
     connect.broadcasting(dataobject);
 }
@@ -91,7 +98,6 @@ function answerQuestion(name){
 myName = "";
 
 function UserIsReady(name){
-	//TODO :set user 
 	//send the name to the server
 	console.log("UserIsReady");
 	connect.setUser(name, IS_READY);
@@ -137,19 +143,8 @@ function receivedUserlist(list){
 		DisableStartButton();
 	}
 }
-// Greg edit temp fix
-/*
-function receivedUserlist(total){
-	//TODO:  detect is host
-	if(total.Total==1){
-		isHost=1;
-		EnableStartButton();
-	}else{
-		isHost =0;
-		DisableStartButton();
-	}
-}
-*/
+
+
 function sendWelcome(){
 	var dataobject={type:"welcome", value:myName};
     connect.broadcasting(dataobject);
@@ -192,6 +187,10 @@ function recievedCallBack(object){
 			if(state!=GAME_READY){
 				return;
 			}
+			
+			//TODO
+			//when user get the start game message
+			//there should be a question
 			
 			//initiate GameUserList
 			//object {Userame:"", Rank:1, Count:1}
@@ -250,5 +249,6 @@ function recievedCallBack(object){
 }
 
 function GetQuestion(){
+	//TODO
 	return "Who is the most 'gregry' guy among us?";
 }
