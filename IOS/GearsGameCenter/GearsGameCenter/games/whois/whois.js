@@ -120,7 +120,7 @@ function answerQuestion(name){
 	console.log("name: "+name);
 	var dataobject={type:"answer", value:name};
 	connect.broadcasting(dataobject);
-	
+	connect.setUser(name, NOT_READY);
 	nextState();
 }
 
