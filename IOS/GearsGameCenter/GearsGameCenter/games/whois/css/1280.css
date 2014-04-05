@@ -4,7 +4,7 @@
 {
 	font-family:  "Comic Sans MS";
 	font-size: 36px;
-	width:  960px;
+	width:  1280px;
 	min-height: 600px;
 	min-width: 600px;
 	background-image:url('../img/who_is_980.png');
@@ -21,7 +21,7 @@
 	outline: 0;
 	border: 0px;
 	width: 960px;
-	height: 128px;  
+	height: 96px;  
 	background-color: transparent;
 	background-image: url("../img/button_980.png");
 	background-repeat: no-repeat;
@@ -34,7 +34,7 @@
 }
 .stage {
 	font-size: 64px;
-	padding-top: 500px;
+	padding-top: 480px;
 }
 label{
 	display: inline-block;
@@ -46,15 +46,15 @@ label{
 	font-size: 64px;
 	outline: none;
 	border: 0;
-	background-color: transparent;
+	background-color: transparent;;
 	min-width: 960px;
-	height: 128px;
+	height: 96px;
 	width:100%;
-	padding-left: 400px;
+	padding-left: 350px;
 }
 .NameHolder{
 	width: 960px;
-	height: 128px;
+	height: 96px;
 	background-repeat: no-repeat;
 	background-image: url("../img/name_980.png");
 }
