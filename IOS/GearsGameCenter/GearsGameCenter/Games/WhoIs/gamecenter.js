@@ -84,7 +84,8 @@ function GameCenter() {
 			} else if (receivedMessage.action = "get_shared_memory") {
 				receivedSharedMemory(receivedMessage.name, receivedMessage.body);
 			} else if (receivedMessage.action = "user_list"){
-				receivedUserlist(receiveMessage.body);
+				// this.userList = receivedMessage.body;
+				receivedUserlist(receiveMessage.userList);
 			}else {
 				console.log("undefined action: " + receivedMessage.action);
 			}
@@ -135,22 +136,23 @@ function GameCenter() {
 
 	this.setUser = function(name, property) {
 
-		var existingUser = 0;
-		for (var i = this.userList.length - 1; i >= 0; i--) {
-			if(this.userList[i].name = name) {
-				this.userList[i].property = property;
-				existingUser = 1;
-				break;
-			}
-		};
+		// var existingUser = 0;
+		// for (var i = this.userList.length - 1; i >= 0; i--) {
+		// 	if(this.userList[i].name = name) {
+		// 		this.userList[i].property = property;
+		// 		existingUser = 1;
+		// 		break;
+		// 	}
+		// };
 
-		if(!existingUser) {
+		// if(!existingUser) {
 			var newUser = new user(name, property);
-			this.userList.push(newUser);
-		}
+			// this.userList.push(newUser);
+		// }
 
-		sendMessage("set_user", name, {"data":property});
+		sendMessage("set_user", name, newUser);
 	}
+
 
 	this.getUserList = function () {
 		sendMessage("get_user_list", null, null);
