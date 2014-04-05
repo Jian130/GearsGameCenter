@@ -23,6 +23,30 @@ var GameUserList;
 var numGameUser;
 var numGameAnswer;
 
+
+var questionIndex;
+var questions = ["Who is the most beautiful person?",
+"Who is the most handsome?",
+"Who is the greediest person?",
+"Who is easiest person to get along with?",
+"Who is your best friend?",
+"Who has the best voice?",
+"Who is the kindest person?",
+"Who knows the most about World History?",
+"Who is the best singer?",
+"Who is the most physically fit?",
+"Who has the most analytical mind?",
+"Who can eat the most?",
+"Who has the largest feet?",
+"Who is the best chef?",
+"Who has the best smile?",
+"Who is the most flirtatious?",
+"Who is the most adventurous?",
+"Who is the biggest sci fi fan?",
+"Who laughs the loudest?",
+"Who has the smelliest feet ?",
+"Who is always being late ?"
+];
 //function Center(){
 //	this.broadcasting=function(msg){
 //		sendOut(msg);
@@ -79,10 +103,15 @@ function startGame(){
 	//when sending the start game message
 	//host should broadcase a question
 	//i think we could usethe value:question
+
 	//TODO
 	//also we want to make sure that
 	//in one game no question appears twice
-	var dataobject={type:"startGame", value:null};
+	if(isHost) {
+    	questionIndex = Math.floor((Math.random() * questions.length));
+	}
+
+	var dataobject={"type":"startGame", "questionIndex":questionIndex};
     connect.broadcasting(dataobject);
 }
 
@@ -144,7 +173,6 @@ function receivedUserlist(list){
 	}
 }
 
-
 function sendWelcome(){
 	var dataobject={type:"welcome", value:myName};
     connect.broadcasting(dataobject);
@@ -192,6 +220,7 @@ function recievedCallBack(object){
 			//when user get the start game message
 			//there should be a question
 			
+
 			//initiate GameUserList
 			//object {Userame:"", Rank:1, Count:1}
 			GameUserList = [];
@@ -204,7 +233,8 @@ function recievedCallBack(object){
 			}
 			numGameUser = GameUserList.length;
 			numGameAnswer = 0;
-			
+			questionIndex = object.questionIndex;
+
 			nextState();
 			
 			//whoIsOn();
@@ -249,6 +279,6 @@ function recievedCallBack(object){
 }
 
 function GetQuestion(){
-	//TODO
-	return "Who is the most 'gregry' guy among us?";
+	
+	return questions[questionIndex];
 }
