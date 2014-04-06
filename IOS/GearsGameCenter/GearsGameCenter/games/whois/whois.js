@@ -166,7 +166,7 @@ function receivedUserlist(list){
 		}
 	}
 	if(state == GAME_READY){
-		UpdateGameEnterPage();
+		UpdateReadyList();
 	}
 	if(isHost == 1){
 		EnableStartButton();
