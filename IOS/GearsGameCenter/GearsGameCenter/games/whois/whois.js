@@ -69,6 +69,9 @@ function nextState(){
 	if(state == GAME_OVER){
 		caculateRank();
 		DisplayResults();
+
+		GameUserList=[];
+		UserList=[];
 	}
 	
 	return state;
@@ -110,7 +113,7 @@ function startGame(){
 	if(isHost) {
     	questionIndex = Math.floor((Math.random() * questions.length));
 	}
-
+	
 	var dataobject={"type":"startGame", "questionIndex":questionIndex};
     connect.broadcasting(dataobject);
 }
@@ -120,7 +123,8 @@ function answerQuestion(name){
 	console.log("name: "+name);
 	var dataobject={type:"answer", value:name};
 	connect.broadcasting(dataobject);
-	connect.setUser(name, NOT_READY);
+	connect.setUser(myName,NOT_READY);
+
 	nextState();
 }
 
@@ -270,7 +274,7 @@ function recievedCallBack(object){
 					GameUserList[i]["Count"] += 1;
 				}
 			}
-			if(numGameAnswer==numGameUser){
+			if(numGameAnswer>=UserList.length){
 				//everyone finish the question
 				nextState();
 			}

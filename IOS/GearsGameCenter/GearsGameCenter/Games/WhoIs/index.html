@@ -93,9 +93,12 @@
 		}
 		for (var i = userList.length - 1; i >= 0; i--) {
 			var user=userList[i];
-			for (var j = readyLists.length - 1; j >= 0; j--) {
-				readyLists[j].innerHTML += '<li>'+user.name+' - Ready</li>'
-			};
+			if(userList[i].property==1){
+				for (var j = readyLists.length - 1; j >= 0; j--) {
+					
+						readyLists[j].innerHTML += '<li>'+user.name+' - Ready</li>'
+				}
+			}
 		};
 
 	}
@@ -176,8 +179,8 @@
 			var user=userList[index];
 			console.log(user);
 			//Ulist.innerHTML+="<li><button onclick='"+'ListItemClick("'+user.Username+'")'+"'>"+user.Username+"</button></li>";
-
-			Ulist.innerHTML+='<li><input type="radio" name="voteList" value="'+user.Username+'"/>'+user.Username+'</li>'
+		
+				Ulist.innerHTML+='<li><input type="radio" name="voteList" value="'+user.Username+'"/>'+user.Username+'</li>'
 		}
 
 
