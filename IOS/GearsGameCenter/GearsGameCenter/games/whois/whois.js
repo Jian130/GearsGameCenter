@@ -131,6 +131,7 @@ function UserIsReady(name){
 	console.log("UserIsReady");
 	connect.setUser(name, IS_READY);
 	myName= name;
+	GameUserList = [];
 	//GetGameUsersList();
 	//move state forward
 	nextState();
@@ -168,7 +169,7 @@ function receivedUserlist(list){
 	if(state == GAME_READY){
 		UpdateReadyList();
 	}
-	if(isHost == 1){
+	if(isHost == 1 && state == GAME_READY){
 		EnableStartButton();
 	}
 	else{
