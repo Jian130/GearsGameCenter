@@ -22,6 +22,7 @@ var GameUserList;
 
 var numGameUser;
 var numGameAnswer;
+var numExpectedGameAnswer;
 
 
 var questionIndex;
@@ -121,7 +122,7 @@ function startGame(){
 function answerQuestion(name){
 	//answer question and send it out
 	console.log("name: "+name);
-	var dataobject={type:"answer", value:name};
+	var dataobject={type:"answer", value:name, id:myName};
 	connect.broadcasting(dataobject);
 	connect.setUser(myName,NOT_READY);
 
@@ -172,6 +173,37 @@ function receivedUserlist(list){
 	}
 	if(state == GAME_READY){
 		UpdateReadyList();
+	}
+	if(GameUserList!=undefined){
+		//handle user left
+		for(var i=0; i<GameUserList.length; i++){
+			already_quit = 1;
+			if(GameUserList[i]["AnswerStatus"]==1){
+				//if user already answer the question, then it is fine
+				continue;
+			}
+			for(var j=0; j<UserList.length; j++){
+				if(UserList[i].name==GameUserList[i].Username){
+					// user is still in
+					already_quit = 0;
+					break;
+				}
+			}
+			if(already_quit == 1){
+				//delete it from GameUserList
+				//GameUserList.splice(i,1);
+				numExpectedGameAnswer -= 1;
+				console.log("numExpectedGameAnswer:"+numExpectedGameAnswer);
+			}
+		}
+		//if we are waiting for him to answer, see if we can go to next state
+		if(state == GAME_WAIT){
+			//TODO
+			if(numGameAnswer>=numExpectedGameAnswer){
+				//everyone finish the question
+				nextState();
+			}
+		}
 	}
 	if(isHost == 1 && state == GAME_READY){
 		EnableStartButton();
@@ -235,12 +267,13 @@ function recievedCallBack(object){
 			mocked_Rank+=1;
 			for (var i=0; i<UserList.length; i++){
 				if(UserList[i]["property"]==IS_READY){
-					var obj = {"Username":UserList[i]["name"], "Rank":UNDEFINED, "Count":0};
+					var obj = {"Username":UserList[i]["name"], "Rank":UNDEFINED, "Count":0, "AnswerStatus":0};
 					GameUserList.push(obj);
 				}
 			}
-			numGameUser = GameUserList.length;
+			//numGameUser = GameUserList.length;
 			numGameAnswer = 0;
+			numExpectedGameAnswer = GameUserList.length;
 			questionIndex = object.questionIndex;
 
 			nextState();
@@ -273,11 +306,17 @@ function recievedCallBack(object){
 			}
 			numGameAnswer = numGameAnswer+1;
 			for(var i=0; i<GameUserList.length; i++){
+				// record who is selected
 				if(GameUserList[i]["Username"]==object.value){
 					GameUserList[i]["Count"] += 1;
 				}
+				//record who answers it
+				if(GameUserList[i]["Username"]==object.id){
+					GameUserList[i]["AnswerStatus"] = 1;
+				}
 			}
-			if(numGameAnswer>=UserList.length){
+			
+			if(numGameAnswer>=numExpectedGameAnswer){
 				//everyone finish the question
 				nextState();
 			}
