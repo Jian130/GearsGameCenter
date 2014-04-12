@@ -27,8 +27,8 @@ function GameCenter() {
 	        return;
 	    }
 
-		wsPort = "81";
-		var matches = document.URL.match(/http:\/\/([\d.]+)\/.*/);
+		wsPort = "8081";
+		var matches = document.URL.match(/http:\/\/([\d.]+)[\/:].*/);
         var ip = matches[1];
         //var ip="192.168.0.32";
         console.log("IP: " + ip);

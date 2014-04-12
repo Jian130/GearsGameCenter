@@ -10,6 +10,8 @@
 
 @interface TGWebServer : NSObject
 
+@property (nonatomic) int portNumber;
+
 + (id)sharedManager;
 
 - (void)startWebServer;

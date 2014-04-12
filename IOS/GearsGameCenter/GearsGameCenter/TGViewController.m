@@ -68,7 +68,7 @@
     [[TGWebServer sharedManager] startWebServer];
     [[TGCommunicationServer sharedManager] startCommunicationServer];
     
-    NSString *fullURL = [[[[@"http://" stringByAppendingString:@"127.0.0.1"] stringByAppendingString:@"/games/"] stringByAppendingString:self.gameName] stringByAppendingString:@"/index.html"];
+    NSString *fullURL = [[[[@"http://" stringByAppendingString:@"127.0.0.1:8080"] stringByAppendingString:@"/games/"] stringByAppendingString:self.gameName] stringByAppendingString:@"/index.html"];
     
     NSURL *url = [NSURL URLWithString:fullURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
@@ -166,8 +166,15 @@
 }
 
 - (NSString *)getGameUrl {
-    return [[[[@"http://" stringByAppendingString:[Util getIPAddress]] stringByAppendingString:@"/games/"] stringByAppendingString:self.gameName] stringByAppendingString:@"/index.html"];
     
+    NSString *gameURL;
+    if ([Util getIPAddress]) {
+        gameURL = [[[[@"http://" stringByAppendingString:[Util getIPAddress]] stringByAppendingString:@":8080/games/"] stringByAppendingString:self.gameName] stringByAppendingString:@"/index.html"];
+    } else {
+    	gameURL  = nil;
+    }
+    
+    return gameURL;
 }
 
 - (void)copyToClipboard {
