@@ -15,6 +15,7 @@ var gameStage = 0;
 var gameTurn = GAME_NIGHT ;
 var clientId;
 var isKiller=true;
+var connect=null;
 
 function S4() {
    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
