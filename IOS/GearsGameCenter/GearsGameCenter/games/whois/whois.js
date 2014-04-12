@@ -183,12 +183,13 @@ function receivedUserlist(list){
 				continue;
 			}
 			for(var j=0; j<UserList.length; j++){
-				if(UserList[i].name==GameUserList[i].Username){
+				if(UserList[j].name==GameUserList[i].Username){
 					// user is still in
 					already_quit = 0;
 					break;
 				}
 			}
+			console.log("quit:"+already_quit);
 			if(already_quit == 1){
 				//delete it from GameUserList
 				//GameUserList.splice(i,1);
