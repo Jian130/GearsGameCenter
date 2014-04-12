@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		2A40DE8518D445AA00BD441F /* TGMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A40DE8418D445AA00BD441F /* TGMessage.m */; };
 		40B3E01FB8BA476EB5624566 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 912CEF8CAF2346FDA093E02F /* libPods.a */; };
-		520DD0BA18F9B46000DEC162 /* background_480_320.png in Resources */ = {isa = PBXBuildFile; fileRef = 520DD0B618F9B46000DEC162 /* background_480_320.png */; };
-		520DD0BB18F9B46000DEC162 /* background_960_640.png in Resources */ = {isa = PBXBuildFile; fileRef = 520DD0B718F9B46000DEC162 /* background_960_640.png */; };
-		520DD0BC18F9B46000DEC162 /* background_1136_640.png in Resources */ = {isa = PBXBuildFile; fileRef = 520DD0B818F9B46000DEC162 /* background_1136_640.png */; };
-		520DD0BD18F9B46000DEC162 /* background_prototype.png in Resources */ = {isa = PBXBuildFile; fileRef = 520DD0B918F9B46000DEC162 /* background_prototype.png */; };
+		5217174D18F9C9BA0065A9B3 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 5217174B18F9C9BA0065A9B3 /* background.png */; };
+		5217174E18F9C9BA0065A9B3 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5217174C18F9C9BA0065A9B3 /* background@2x.png */; };
 		52493DF118B94B0000E0B215 /* util.m in Sources */ = {isa = PBXBuildFile; fileRef = 52493DEF18B94B0000E0B215 /* util.m */; };
 		525256D618B9251300E30880 /* games in Resources */ = {isa = PBXBuildFile; fileRef = 525256D518B9251300E30880 /* games */; };
 		529DCF3C18E7652900410BED /* MMPDeepSleepPreventer.m in Sources */ = {isa = PBXBuildFile; fileRef = 529DCF3A18E7652900410BED /* MMPDeepSleepPreventer.m */; };
@@ -54,10 +52,8 @@
 		2A40DE8318D445AA00BD441F /* TGMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGMessage.h; sourceTree = "<group>"; };
 		2A40DE8418D445AA00BD441F /* TGMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TGMessage.m; sourceTree = "<group>"; };
 		2A7CD6C518D05777005A596C /* GCDSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDSingleton.h; sourceTree = "<group>"; };
-		520DD0B618F9B46000DEC162 /* background_480_320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background_480_320.png; path = GearsGameCenter/Resources/background_480_320.png; sourceTree = "<group>"; };
-		520DD0B718F9B46000DEC162 /* background_960_640.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background_960_640.png; path = GearsGameCenter/Resources/background_960_640.png; sourceTree = "<group>"; };
-		520DD0B818F9B46000DEC162 /* background_1136_640.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background_1136_640.png; path = GearsGameCenter/Resources/background_1136_640.png; sourceTree = "<group>"; };
-		520DD0B918F9B46000DEC162 /* background_prototype.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background_prototype.png; path = GearsGameCenter/Resources/background_prototype.png; sourceTree = "<group>"; };
+		5217174B18F9C9BA0065A9B3 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = background.png; path = GearsGameCenter/Resources/background.png; sourceTree = "<group>"; };
+		5217174C18F9C9BA0065A9B3 /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "background@2x.png"; path = "GearsGameCenter/Resources/background@2x.png"; sourceTree = "<group>"; };
 		52493DEF18B94B0000E0B215 /* util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = util.m; sourceTree = "<group>"; };
 		52493DF018B94B0000E0B215 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
 		525256D518B9251300E30880 /* games */ = {isa = PBXFileReference; lastKnownFileType = folder; path = games; sourceTree = "<group>"; };
@@ -152,10 +148,8 @@
 		520DD0AD18F9B42200DEC162 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				520DD0B618F9B46000DEC162 /* background_480_320.png */,
-				520DD0B718F9B46000DEC162 /* background_960_640.png */,
-				520DD0B818F9B46000DEC162 /* background_1136_640.png */,
-				520DD0B918F9B46000DEC162 /* background_prototype.png */,
+				5217174B18F9C9BA0065A9B3 /* background.png */,
+				5217174C18F9C9BA0065A9B3 /* background@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -330,15 +324,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				520DD0BB18F9B46000DEC162 /* background_960_640.png in Resources */,
-				520DD0BA18F9B46000DEC162 /* background_480_320.png in Resources */,
 				525256D618B9251300E30880 /* games in Resources */,
 				8EF262F418B91A8000AEE044 /* Main_iPad.storyboard in Resources */,
-				520DD0BD18F9B46000DEC162 /* background_prototype.png in Resources */,
+				5217174D18F9C9BA0065A9B3 /* background.png in Resources */,
 				8EF262F918B91A8000AEE044 /* Images.xcassets in Resources */,
 				8EF262F118B91A8000AEE044 /* Main_iPhone.storyboard in Resources */,
 				8EF262E818B91A8000AEE044 /* InfoPlist.strings in Resources */,
-				520DD0BC18F9B46000DEC162 /* background_1136_640.png in Resources */,
+				5217174E18F9C9BA0065A9B3 /* background@2x.png in Resources */,
 				529DCF3D18E7652900410BED /* MMPSilence.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

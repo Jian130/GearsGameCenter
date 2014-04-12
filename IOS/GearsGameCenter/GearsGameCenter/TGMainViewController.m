@@ -28,26 +28,19 @@
     self.ipAddress.text = [Util getIPAddress];
     [self.navigationController setNavigationBarHidden:YES];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_480_320.png"]];
+    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
     self.textInfoBox.backgroundColor = [UIColor clearColor];
-    
-    self.hidesBottomBarWhenPushed = YES;
+
 }
 
-- (IBAction)mazeStartTapped:(id)sender {
-    
+- (void)startMazeGame {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     TGViewController *vc = [sb instantiateViewControllerWithIdentifier:@"TGViewController"];
     vc.gameName = @"maze";
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-- (IBAction)whoisStartTapped:(id)sender {
-
-//    TGViewController *vc = [[TGViewController alloc] init];
-//    vc.gameName = @"WhoIs";
-//    [self.navigationController pushViewController:vc animated:YES];
-    
+- (void)startWhoISGame {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     TGViewController *vc = [sb instantiateViewControllerWithIdentifier:@"TGViewController"];
     vc.gameName = @"whois/";
@@ -60,9 +53,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)mazeStartButton:(id)sender {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 1) {
+        [self startWhoISGame];
+    }
 }
 
-- (IBAction)pongStartButton:(id)sender {
-}
 @end
+
