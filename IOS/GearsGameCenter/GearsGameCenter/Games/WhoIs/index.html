@@ -238,7 +238,7 @@
 	}*/
 	function SubmitVoteButtonClick(){
 		//var username = GetCheckedRadioName("voteList");
-		var username= GetSelectedVoteListItemByName("voteListItem").value;
+		var username= GetSelectedVoteListItemByName("voteListItem").getAttribute("value");
 
 		answerQuestion(username);
 		DeactivateButton("SubmitVoteButton");
