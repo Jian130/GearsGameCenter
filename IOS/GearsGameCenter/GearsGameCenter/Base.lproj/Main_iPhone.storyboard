@@ -67,11 +67,12 @@
         <scene sceneID="MIu-9p-TvE">
             <objects>
                 <tableViewController id="Ps4-ii-P1A" customClass="TGMainViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="HTE-X7-hUJ">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" bounces="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="HTE-X7-hUJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="scrollIndicatorInsets" minX="0.0" minY="20" maxX="0.0" maxY="0.0"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <textView key="tableFooterView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="0ff-df-UPx">
                             <rect key="frame" x="0.0" y="232" width="320" height="335"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -105,7 +106,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="uab-xr-Nzc">
                                         <rect key="frame" x="0.0" y="172" width="320" height="60"/>
@@ -132,6 +135,7 @@
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -145,6 +149,7 @@
                     <connections>
                         <outlet property="ipAddress" destination="SyI-oQ-Bm0" id="cVF-kT-5sH"/>
                         <outlet property="tableView" destination="HTE-X7-hUJ" id="D1K-C0-ypx"/>
+                        <outlet property="textInfoBox" destination="0ff-df-UPx" id="jul-o8-Cwj"/>
                         <segue destination="vXZ-lx-hvc" kind="push" id="I3j-Ou-ENE"/>
                     </connections>
                 </tableViewController>

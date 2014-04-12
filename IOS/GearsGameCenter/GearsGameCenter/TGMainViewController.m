@@ -15,6 +15,7 @@
 @interface TGMainViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *ipAddress;
+@property (weak, nonatomic) IBOutlet UITextView *textInfoBox;
 
 @end
 
@@ -26,6 +27,9 @@
     [super viewDidLoad];
     self.ipAddress.text = [Util getIPAddress];
     [self.navigationController setNavigationBarHidden:YES];
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_480_320.png"]];
+    self.textInfoBox.backgroundColor = [UIColor clearColor];
 }
 
 - (IBAction)mazeStartTapped:(id)sender {

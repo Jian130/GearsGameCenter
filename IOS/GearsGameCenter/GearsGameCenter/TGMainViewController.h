@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface TGMainViewController : UITableViewController
+@property (weak, nonatomic) IBOutlet UITextView *textInfo;
 
 @end
