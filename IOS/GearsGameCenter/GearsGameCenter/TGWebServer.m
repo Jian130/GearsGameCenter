@@ -44,13 +44,20 @@
                                   requestClass:[GCDWebServerRequest class]
                                   processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
                                       
-                                      NSString *path = [request.path substringWithRange:NSMakeRange(1, request.path.length - 1)];
-                                      path = [path lowercaseString];
+                                      NSString *gameFolder = @"games";
+                                      
+//                                      NSString *path = [request.path substringWithRange:NSMakeRange(1, request.path.length - 1)];
+//                                      path = [path lowercaseString];
+                                      NSString *path = [[gameFolder stringByAppendingString:request.path] lowercaseString];
                                       NSString *ext = nil;
-                                      NSRange range = [request.path rangeOfString:@"."];
+                                      NSRange range = [path rangeOfString:@"." options:NSBackwardsSearch];
+                                      
                                       if (range.location != NSNotFound) {
-                                          ext = [request.path substringWithRange:NSMakeRange(range.location + 1, request.path.length - range.location - 1)];
-                                          path = [path substringWithRange:NSMakeRange(0, path.length - (path.length - range.location) - 1)];
+                                          ext = [path substringWithRange:NSMakeRange(range.location + 1, path.length - range.location - 1)];
+                                          path = [path substringWithRange:NSMakeRange(0, range.location)];
+                                      } else {
+                                          ext = @"html";
+                                          path = [path stringByAppendingString:@"index"];
                                       }
                                       
                                       NSString *filePath = [[NSBundle mainBundle] pathForResource:path ofType:ext];
@@ -68,6 +75,8 @@
     
     [self.webServer startWithPort:self.portNumber bonjourName:NULL];
 }
+
+
 
 - (void)stopWebServer {
     [self.webServer stop];

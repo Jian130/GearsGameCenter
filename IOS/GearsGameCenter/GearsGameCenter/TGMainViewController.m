@@ -50,7 +50,7 @@
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
     TGViewController *vc = [sb instantiateViewControllerWithIdentifier:@"TGViewController"];
-    vc.gameName = @"whois";
+    vc.gameName = @"whois/";
     [self presentViewController:vc animated:YES completion:nil];
 }
 
