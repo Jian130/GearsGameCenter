@@ -47,6 +47,7 @@ function nextTurn(){
 
 	if(gameTurn == GAME_NIGHT){
 		if(isKiller){
+			//get killed person and then submit
 			var item=getSelectedListItem("survivorList");
 			console.log(item.value);
 		}
@@ -74,7 +75,9 @@ function startButtonClick(){
 }
 function voteButtonClick(){
 	var item = getSelectedListItem("voteList");
+
 }
+
 function listItemClick(elem){
 	
 	var ulid= elem.parentNode.id;
