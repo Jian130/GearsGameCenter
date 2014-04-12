@@ -5,26 +5,60 @@ function generateClientId(){
 function CountDownTimer(timeout, callbackFunPerSec, callbackFunWhenStop){
 	//callback function for per second need to allow a parameter to be passed in
 	var time=timeout;
+	this.intervalid =0;
+
 	this.startTimer=function(){
-		setInterval(function(){
+		 this.intervalid=setInterval(function(){
 			time--;
 			callbackFunPerSec(time);
+			console.log(time);
 			if(time<=0){
-				clearInterval();
+				clearInterval(this.intervalid);
 				callbackFunWhenStop();
 			}
 
 		},1000);
 		
 	}
+	return this;
 
 }
 function nextStage(){
 	gameStage++;
 	if(gameStage==6){
 		gameStage=0;
+		renderStage();
 	}
-	renderStage();
+	if(gameStage==GAME_LOAD){
+		renderStage();
+	}
+	if(gameStage==GAME_IDENTITY){
+		var timer=CountDownTimer(5,displayIdentityTimer,nextStage);
+		timer.startTimer();
+		renderStage();
+	}
+	if(gameStage == GAME_ON){
+		var timer=CountDownTimer(5, displayNightTimer, nextTurn);
+		timer.startTimer();
+		renderStage();
+	}
+}
+function nextTurn(){
+
+	if(gameTurn == GAME_NIGHT){
+		if(isKiller){
+			var item=getSelectedListItem("survivorList");
+			console.log(item.value);
+		}
+		gameTurn = GAME_DAY;
+
+		renderStage();
+
+	}
+	else if(gameTurn == GAME_DAY){
+		gameTurn = GAME_NIGHT;
+		renderStage();
+	}
 }
 function readyButtonClick(){
 	hideItemsByName("readyButton");
@@ -37,4 +71,14 @@ function readyButtonClick(){
 function startButtonClick(){
 	
 	nextStage();
+}
+function voteButtonClick(){
+
+}
+function listItemClick(elem){
+	
+	var ulid= elem.parentNode.id;
+	removeSelectListItem(ulid);
+	elem.className="selected";
+
 }

@@ -3,6 +3,7 @@
 		<script type="text/javascript" src="sizzle.min.js"></script>
 		<script type="text/javascript" src="Config.js"></script>
 		<script type="text/javascript" src="Game.js"></script>
+		<script type="text/javascript" src="GameData.js"></script>
 		<script type="text/javascript" src="Render.js"></script>
 	</head>
 	<body>
@@ -27,28 +28,35 @@
 
 		</div>
 		<div id="stageGameIdentity" class="stageContainer">
-			<p><span name="timer"></span></p>
+			<p>Game starts in <span name="identityTimer">5</span></p>
 			<p>You are </p>
 			<h3>KILLER</h3>
 		</div>
 		<div id="stageGameNight" class="stageContainer">
 			
 				<p>If you are killer please pick one to kill, if you are civilian please also pick random person.</p>
-				<p><span name="countDownClock"></span><p>
-				
+				<p>Day comes in <span id="nightTimer">20</span> seconds<p>
+				<div class="survivorListContainer">
+					<ul id="survivorList"></ul>
+				</div>
 				
 			
 			
 		</div>
 		<div id="stageGameDay" class="stageContainer">
 			<div class="deathBoardContainer">
+				<p>R.I.P</p>
+				<ul id="deathList"></ul>
 			</div>
 			<div class="voteBoardContiner">
+				<p> Now , who do you think is the killer, vote for the dead</p>
+				<ul id="voteList"></ul>
+				<button id="voteButton" onclick="voteButtonClick">Vote</button>
 			</div>
 
 		</div>
 		<div id="stageVoteResult" class="stageContainer">
-			<p><span name="newDead"><span></span></p>
+			<p><span name="newDead"></span></p>
 		</div>
 		<div id="stageGameOver" class="stageContainer">
 			ddd
@@ -63,3 +71,13 @@ window.onload=function(){
 	generateClientId();
 }
 </script>
+<style type="text/css">
+.selected
+{
+	
+	border: 2px solid red;
+	width: 200px;
+
+}
+
+</style>
