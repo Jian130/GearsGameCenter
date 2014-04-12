@@ -73,7 +73,7 @@ function startButtonClick(){
 	nextStage();
 }
 function voteButtonClick(){
-
+	var item = getSelectedListItem("voteList");
 }
 function listItemClick(elem){
 	
