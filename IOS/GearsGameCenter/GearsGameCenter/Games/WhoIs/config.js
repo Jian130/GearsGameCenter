@@ -7,6 +7,6 @@ var ADAPT_CONFIG = {
 		    '980px  to 1280px = 980.css',
 		    '1280px to 1600px = 980.css',
 		    '1600px to 1920px = 980.css',
-		    '1920px           = fluid.css'
+		    '1920px           = 980.css'
 		  ]
 	};

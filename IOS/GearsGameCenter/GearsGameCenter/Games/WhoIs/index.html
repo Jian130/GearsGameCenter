@@ -69,7 +69,7 @@
 </body>
 <script type="text/javascript">
 	
-	
+	/*
 	function UpdateGameEnterPage(){
 		var userList = UserList;
 		var Ulist= document.getElementById("ReadyUserList");
@@ -79,11 +79,15 @@
 			var user=userList[index];
 			console.log(user);
 			//Ulist.innerHTML+="<li><button onclick='"+'ListItemClick("'+user.Username+'")'+"'>"+user.Username+"</button></li>";
-
-			Ulist.innerHTML+='<li>'+user.name+'-Ready</li>'
+			if(user.isHost=="1"){
+				Ulist.innerHTML+='<li>'+user.name+'-Host</li>'
+			}else{
+				Ulist.innerHTML+='<li>'+user.name+'-Ready</li>'
+			}
+			
 		}
 
-	}
+	}*/
 	function UpdateReadyList(){
 		var readyLists=document.getElementsByName("ReadyUserList");
 		var userList = UserList;
@@ -95,8 +99,12 @@
 			var user=userList[i];
 			if(userList[i].property==1){
 				for (var j = readyLists.length - 1; j >= 0; j--) {
-					
-						readyLists[j].innerHTML += '<li>'+user.name+' - Ready</li>'
+						var Ulist =readyLists[j];
+						if(user.isHost=="1"){
+							Ulist.innerHTML+='<li>'+user.name+'-Host</li>'
+						}else{
+							Ulist.innerHTML+='<li>'+user.name+'-Ready</li>'
+						}
 				}
 			}
 		};
