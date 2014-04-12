@@ -10,6 +10,8 @@
 
 @interface TGCommunicationServer : NSObject
 
+@property (nonatomic) int portNumber;
+
 + (id)sharedManager;
 
 - (void)startCommunicationServer;

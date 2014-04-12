@@ -25,7 +25,7 @@
 	        return;
 	    }
 
-		wsPort = "81";
+		wsPort = "8081";
 		var matches = document.URL.match(/http:\/\/([\d.]+)\/.*/);
         var ip = matches[1];
         
