@@ -153,6 +153,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="gameCell" destination="3Uz-6X-igO" id="Xnf-Bb-FWX"/>
                         <outlet property="ipAddress" destination="SyI-oQ-Bm0" id="cVF-kT-5sH"/>
                         <outlet property="tableView" destination="HTE-X7-hUJ" id="D1K-C0-ypx"/>
                         <outlet property="textInfoBox" destination="0ff-df-UPx" id="jul-o8-Cwj"/>

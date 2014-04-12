@@ -10,5 +10,6 @@
 
 @interface TGMainViewController : UITableViewController
 @property (weak, nonatomic) IBOutlet UITextView *textInfo;
+@property (weak, nonatomic) IBOutlet UIView *gameCell;
 
 @end

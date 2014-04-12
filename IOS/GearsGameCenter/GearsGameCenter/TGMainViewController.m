@@ -27,12 +27,12 @@
     [super viewDidLoad];
     self.ipAddress.text = [Util getIPAddress];
     [self.navigationController setNavigationBarHidden:YES];
-    
+    self.gameCell.backgroundColor = [UIColor colorWithRed:157.0/255 green:141.0/255 blue:70.0/255 alpha:1.0];
     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
     self.textInfoBox.backgroundColor = [UIColor clearColor];
-    self.edgesForExtendedLayout=UIRectEdgeNone;
-    self.extendedLayoutIncludesOpaqueBars=NO;
-    self.automaticallyAdjustsScrollViewInsets=NO;
+//    self.edgesForExtendedLayout=UIRectEdgeNone;
+//    self.extendedLayoutIncludesOpaqueBars=NO;
+//    self.automaticallyAdjustsScrollViewInsets=NO;
 }
 
 - (void)startMazeGame {
