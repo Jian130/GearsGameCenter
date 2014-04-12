@@ -1,18 +1,4 @@
-function ShowGameEnterContainer(){
 
-}
-function ShowGameLoadingContainer(){
-
-}
-function ShowGameNiteContainer(){
-
-}
-function ShowGameDayContainer(){
-
-}
-function ShowGameOverContainer(){
-
-}
 function displayIdentityTimer(time){
 	var t=document.getElementsByName("identityTimer");
 	t[0].innerHTML=time;
