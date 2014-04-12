@@ -30,6 +30,8 @@
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background_480_320.png"]];
     self.textInfoBox.backgroundColor = [UIColor clearColor];
+    
+    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (IBAction)mazeStartTapped:(id)sender {

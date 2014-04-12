@@ -55,7 +55,8 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
 
 - (void)startCommunicationServer {
     
-	[[BLWebSocketsServer sharedInstance] startListeningOnPort:81 withProtocolName:NULL andCompletionBlock:^(NSError *error) {
+    self.portNumber = 8081;
+	[[BLWebSocketsServer sharedInstance] startListeningOnPort:self.portNumber withProtocolName:NULL andCompletionBlock:^(NSError *error) {
         if (!error) {
             NSLog(@"Server started");
         }

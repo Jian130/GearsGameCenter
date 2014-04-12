@@ -268,6 +268,9 @@ function recievedCallBack(object){
 		}
 		*/
 		if(object.type=="answer"){
+			if(state==GAME_READY){
+				return;
+			}
 			numGameAnswer = numGameAnswer+1;
 			for(var i=0; i<GameUserList.length; i++){
 				if(GameUserList[i]["Username"]==object.value){

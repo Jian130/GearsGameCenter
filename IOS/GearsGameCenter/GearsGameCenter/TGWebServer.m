@@ -19,6 +19,7 @@
 @implementation TGWebServer
 
 @synthesize webServer = _webServer;
+@synthesize portNumber = _portNumber;
 
 - (GCDWebServer *)webServer {
     if (!_webServer) {
@@ -38,6 +39,7 @@
 
 - (void)startWebServer {
     
+    self.portNumber = 8080;
     [self.webServer addDefaultHandlerForMethod:@"GET"
                                   requestClass:[GCDWebServerRequest class]
                                   processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
@@ -64,7 +66,7 @@
                                       
                                   }];
     
-    [self.webServer startWithPort:80 bonjourName:NULL];
+    [self.webServer startWithPort:self.portNumber bonjourName:NULL];
 }
 
 - (void)stopWebServer {
