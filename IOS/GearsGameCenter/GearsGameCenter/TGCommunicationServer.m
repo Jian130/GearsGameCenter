@@ -75,7 +75,7 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
             
           	if([self.userList objectForKey:sessionID]) {
             	TGUser *user = [self.userList objectForKey:sessionID];
-                if(user.isHost){
+                if([user.isHost isEqualToString:@"1"]){
                 	needToChangeHost = true;
                 }
                 
