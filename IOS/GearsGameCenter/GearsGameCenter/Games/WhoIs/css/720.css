@@ -4,7 +4,7 @@
 {
 	font-family:  "Comic Sans MS";
 	font-size: 20px;
-	width:  560;
+	width:  560px;
 	min-height: 600px;
 	min-width: 600px;
 	background-image:url('../img/who_is.png');
@@ -27,6 +27,10 @@
 	background-repeat: no-repeat;
 	
 
+}
+li.selected{
+	border:2px solid red;
+	width: 500px
 }
 .btn-center:hover{
 	background-image: url("../img/select.png");
