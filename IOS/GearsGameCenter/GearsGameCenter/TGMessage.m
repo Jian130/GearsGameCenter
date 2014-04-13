@@ -7,13 +7,24 @@
 
 #import "TGMessage.h"
 
+NSString* const KEY_MESSAGE_TIMESTAMP = @"timestamp";
+NSString* const KEY_MESSAGE_ACTION = @"action";
+NSString* const KEY_MESSAGE_NAME = @"name";
+NSString* const KEY_MESSAGE_BODY = @"body";
+
 @implementation TGMessage
 
 + (TGMessage *)messageFromJsonData:(NSData *)jsonData {
 	
-    NSError* error = nil;
-    NSString* jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    TGMessage *newMessage = [[TGMessage alloc] initWithString:jsonString error:&error];
+    TGMessage *newMessage = [[TGMessage alloc] init];
+    NSError *error = nil;
+    
+    id object = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
+    
+    newMessage.timestamp = [object objectForKey:KEY_MESSAGE_TIMESTAMP];
+    newMessage.action = [object objectForKey:KEY_MESSAGE_ACTION];
+	newMessage.name = [object objectForKey:KEY_MESSAGE_NAME];
+	newMessage.body = [object objectForKey:KEY_MESSAGE_BODY];
     
     if (error) {
         NSLog(@"error: %@", error);
@@ -23,8 +34,12 @@
 }
 
 + (NSData *)jsonDataFromMessage:(TGMessage *)message {
-	NSString* jsonString = [message toJSONString];
-    NSData* jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error = nil;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:message options:0 error:&error];
+    
+    if (error) {
+    	NSLog(@"error: %@", error);
+    }
 	return jsonData;
 }
 

@@ -15,6 +15,8 @@
 #import "TGUser.h"
 
 NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
+NSString* const ACTION_SET_USER = @"set_user";
+NSString* const ACTION_SET_USER_PROPERTY = @"set_user_property";
 
 @interface TGCommunicationServer()
 
@@ -69,6 +71,7 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
 
         NSData* jsonData;
         
+        
         if(requestData == NULL){
             BOOL needToChangeHost = false;
         	NSLog(@"session id: %@ disconnected", sessionID);
@@ -89,6 +92,7 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
             [self broadcastingUserList];
             
         } else {
+            
 			TGMessage* newMessage = [TGMessage messageFromJsonData:requestData];
 	        newMessage = [self messageHandler:newMessage sessionID:sessionID];
     	    jsonData = [TGMessage jsonDataFromMessage:newMessage];
@@ -110,7 +114,7 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         [self writeSharedMemory:message];
     } else if ([message.action isEqualToString:@"get_shared_memory"]) {
     	returnedMessage = [self readSharedMemory:message];
-    } else if ([message.action isEqualToString:@"set_user"]) {
+    } else if ([message.action isEqualToString:ACTION_SET_USER]) {
         
         //create user
         TGUser *newUser = [[TGUser alloc] init];
@@ -139,7 +143,7 @@ NSString* const ACTION_SHARED_MESSAGE = @"shared_message";
         returnedMessage.action = @"user_list";
         returnedMessage.timestamp = [NSDate date];
         returnedMessage.name = @"user_list";
-        returnedMessage.userList = [self.userList allValues];
+//        returnedMessage.userList = [self.userList allValues];
     }
     
     return returnedMessage;

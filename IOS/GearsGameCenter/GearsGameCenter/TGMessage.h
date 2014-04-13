@@ -11,14 +11,12 @@
 #import "TGUser.h"
 
 
-@interface TGMessage : JSONModel
+@interface TGMessage : NSObject
 
 @property (nonatomic, strong) NSString *action;
 @property (nonatomic, strong) NSDate *timestamp;
-@property (nonatomic, strong) NSString<Optional> *name;
-@property (nonatomic, strong) NSMutableDictionary<Optional> *body;
-@property (nonatomic, strong) NSArray<TGUser, Optional> *userList;
-
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) id body;
 
 + (TGMessage*)messageFromJsonData:(NSData *)jsonData;
 + (NSData *)jsonDataFromMessage:(TGMessage *)message;
