@@ -7,6 +7,10 @@ function displayNightTimer(time){
 	var t=document.getElementById("nightTimer");
 	t.innerHTML=time;
 }
+function updateUserIdentityText(text){
+	var doc=document.getElementById("userIdentityLabel");
+	doc.innerHTML=text;
+}
 
 function renderStage(){
 	if(gameStage==GAME_ENTER){	

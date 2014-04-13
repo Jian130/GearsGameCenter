@@ -14,7 +14,8 @@ var GAME_DAY = 32;
 var gameStage = 0;
 var gameTurn = GAME_NIGHT ;
 var clientId;
-var isKiller=true;
+var isKiller=false;
+var isHost=false;
 var connect=null;
 
 function S4() {
@@ -23,3 +24,5 @@ function S4() {
 function guid() {
    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
 }
+var myUser={username:null,id:null,status:0,identity:0}
+var UserList; //global Userlist

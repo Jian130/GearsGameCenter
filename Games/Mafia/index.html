@@ -70,7 +70,8 @@
 window.onload=function(){
 	//SET THINGS UP
 	renderStage();
-	generateClientId();
+	clientId = generateClientId();
+	myUser.id=clientId;
 	connect = new GameCenter();
 }
 </script>

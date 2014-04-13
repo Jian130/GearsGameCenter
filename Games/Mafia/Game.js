@@ -2,27 +2,7 @@ function generateClientId(){
 	clientId = guid();
 	return clientId;
 }
-function CountDownTimer(timeout, callbackFunPerSec, callbackFunWhenStop){
-	//callback function for per second need to allow a parameter to be passed in
-	var time=timeout;
-	this.intervalid =0;
 
-	this.startTimer=function(){
-		 this.intervalid=setInterval(function(){
-			time--;
-			callbackFunPerSec(time);
-			console.log(time);
-			if(time<=0){
-				clearInterval(this.intervalid);
-				callbackFunWhenStop();
-			}
-
-		},1000);
-		
-	}
-	return this;
-
-}
 function nextStage(){
 	gameStage++;
 	if(gameStage==6){
@@ -66,11 +46,14 @@ function readyButtonClick(){
 	showItemsByName("startButton");
 
 	var name=document.getElementById("usernameText").value;
-	myName=name;
+	myUser.username=name;
+	connect.setUser(myUser.id, JSON.stringify(myUser));
 	nextStage();
 }
 function startButtonClick(){
-	
+	if(isHost){
+		broadcastUsersIdentity();
+	}
 	nextStage();
 }
 function voteButtonClick(){
@@ -84,4 +67,17 @@ function listItemClick(elem){
 	removeSelectListItem(ulid);
 	elem.className="selected";
 
+}
+function broadcastUsersIdentity(){
+	var killerIndex=Math.floor(Math.random()* UserList.length);
+	var killerId;
+	for (var i = UserList.length - 1; i >= 0; i--) {
+		var id=UserList[i].clientId;
+		//var userProp=JSON.parse(UserList[i].property);
+		if(killerIndex==i){
+			killerId=id;
+		}
+	};
+	var message={type:"setKiller",value:killerId}
+	connect.broadcasting(message);
 }
