@@ -8,24 +8,33 @@ function displayNightTimer(time){
 	t.innerHTML=time;
 }
 function updateUserIdentityText(text){
+	console.log("Iam"+text);
+	console.log(text);
 	var doc=document.getElementById("userIdentityLabel");
+
 	doc.innerHTML=text;
 }
 
 function renderStage(){
+	
+
 	if(gameStage==GAME_ENTER){	
-		hideAllStageExcpet("stageGameEnter");	
-		//hideItemsByName("startButton");
-		//showItemsByName("readyButton");
+	hideAllStageExcpet("stageGameEnter");	
+	//hideItemsByName("startButton");
+	//showItemsByName("readyButton");
 	}
 	if(gameStage == GAME_LOAD){
 		hideAllStageExcpet("stageGameLoad");
 	}
 	if(gameStage == GAME_IDENTITY){
+		var timer=CountDownTimer(5,displayIdentityTimer,nextStage);
+		timer.startTimer();
 		hideAllStageExcpet("stageGameIdentity");
 	}
 	if(gameStage == GAME_ON){
 		if(gameTurn == GAME_NIGHT){
+			var timer=CountDownTimer(15, displayNightTimer, nextTurn);
+			timer.startTimer();
 			hideAllStageExcpet("stageGameNight");
 			var docSlist=document.getElementById("survivorList");
 			docSlist.innerHTML="";
@@ -52,4 +61,7 @@ function renderStage(){
 
 		}
 	}	
+}
+function displayWatitingIcon(){
+
 }

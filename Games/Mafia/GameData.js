@@ -2,7 +2,7 @@ var mocklist=[{name:"Greg",id:"1",status:1,identity:1},
 {name:"Luna",id:"2",status:0,identity:0},
 {name:"Effie",id:"3",status:0,identity:0}];
 function getPlayerList(){
-	return mocklist;
+	return playerList;
 }
 function getDeathList(){
 	var list=getPlayerList();
@@ -45,6 +45,7 @@ function getSurvivorList(){
 	return sList;
 }
 function receivedUserlist(list){
+
 	UserList = list;
 	console.log("receivedUserlist:"+JSON.stringify(list));
 	//setHost
@@ -66,6 +67,11 @@ function recievedCallBack(object){
 
 		whoIsOn();
 		setTimeout(function(){setGameOn()},1000);
+	}if(object.type == "peace"){
+		setGameProcessing();
+	}
+	if(object.type == "killed"){
+		setGameProcessing();
 	}
 	if(object.type=="setKiller"){
 		if(clientId == object.value){
@@ -75,8 +81,11 @@ function recievedCallBack(object){
 			updateUserIdentityText("Civilian");
 		}
 	}
-	if(object.type == "whoIsOn"){
-		sendWelcome();
+	if(object.type == "updatePlayerList"){
+		if(!isHost){
+
+			updatePlayerList(object.value);
+		}
 	}
 	//greg added
 	if(object.type == "welcome"){
@@ -87,7 +96,7 @@ function recievedCallBack(object){
 				exist=1;
 			}
 		}
-		if(exist=0){
+		if(exist==0){
 			Ulist.push(object.value);
 		}
 

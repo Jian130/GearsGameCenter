@@ -48,6 +48,7 @@ function getSelectedListItem(ulid){
 			return items[i];
 		}
 	}
+	return null;
 }
 function CountDownTimer(timeout, callbackFunPerSec, callbackFunWhenStop){
 	//callback function for per second need to allow a parameter to be passed in

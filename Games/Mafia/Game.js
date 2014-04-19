@@ -7,21 +7,20 @@ function nextStage(){
 	gameStage++;
 	if(gameStage==6){
 		gameStage=0;
-		renderStage();
+		//renderStage();
 	}
 	if(gameStage==GAME_LOAD){
-		renderStage();
+		//renderStage();
 	}
 	if(gameStage==GAME_IDENTITY){
-		var timer=CountDownTimer(5,displayIdentityTimer,nextStage);
-		timer.startTimer();
-		renderStage();
+		
+		//renderStage();
 	}
 	if(gameStage == GAME_ON){
-		var timer=CountDownTimer(5, displayNightTimer, nextTurn);
-		timer.startTimer();
-		renderStage();
+		
+		//renderStage();
 	}
+	processGame();
 }
 function nextTurn(){
 
@@ -29,21 +28,33 @@ function nextTurn(){
 		if(isKiller){
 			//get killed person and then submit
 			var item=getSelectedListItem("survivorList");
-			console.log(item.value);
+			if(item==null){
+				var message = {type:"peace"};
+				
+			}else{
+				var message = {type:"killed",value:item.value};
+				console.log(item.value);
+			}
+			connect.broadcasting(message);
+			setGameWaiting();
+			//console.log(item.value);
 		}
 		gameTurn = GAME_DAY;
 
-		renderStage();
+		//renderStage();
 
 	}
 	else if(gameTurn == GAME_DAY){
 		gameTurn = GAME_NIGHT;
-		renderStage();
+		//renderStage();
 	}
+	processGame();
 }
 function readyButtonClick(){
 	hideItemsByName("readyButton");
-	showItemsByName("startButton");
+	if(isHost){
+		showItemsByName("startButton");
+	}
 
 	var name=document.getElementById("usernameText").value;
 	myUser.username=name;
@@ -68,16 +79,62 @@ function listItemClick(elem){
 	elem.className="selected";
 
 }
+function setPlayerlist(){
+	for (var i = UserList.length - 1; i >= 0; i--) {
+		var userProp=JSON.parse(UserList[i].property);
+		playerList.push(userProp);
+
+	};
+	return playerList();
+}
+function broadcastPlayerList(){
+	var message = {type:"updatePlayerList",value:playerList};
+	connect.broadcasting(message);
+}
+
 function broadcastUsersIdentity(){
 	var killerIndex=Math.floor(Math.random()* UserList.length);
 	var killerId;
-	for (var i = UserList.length - 1; i >= 0; i--) {
-		var id=UserList[i].clientId;
-		//var userProp=JSON.parse(UserList[i].property);
+	for (var i = playerList.length - 1; i >= 0; i--) {
+		//var id=UserList[i].clientId;
+		var userProp=playerList[i];
+		var id=userProp.id;
 		if(killerIndex==i){
 			killerId=id;
 		}
 	};
-	var message={type:"setKiller",value:killerId}
+	var message={type:"setKiller",value:killerId};
+	//console.log(message);
 	connect.broadcasting(message);
+}
+function updatePlayerList(list){
+	playerList = list;
+}
+function processGame(){
+	if(GAME_WAITING){
+
+
+	}else{
+		if (gameStage == GAME_ENTER) {
+			renderStage();
+		}else if(gameStage == GAME_LOAD){
+			renderStage();
+		}else if(gameStage == GAME_IDENTITY){
+			renderStage();
+		}else if(gameStage == GAME_ON){
+			if(gameTurn == GAME_DAY){
+				renderStage();
+			}else if (gameTurn == GAME_NIGHT){
+				renderStage();
+			}
+		}
+	}
+}
+
+function setGameWaiting(){
+	GAME_WAITING = true;
+}
+function setGameProcessing(){
+	GAME_WAITING = false;
+	processGame();
 }

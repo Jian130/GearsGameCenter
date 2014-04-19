@@ -23,7 +23,7 @@
 		<div id="stageGameLoad" class="stageContainer">
 
 			<p>waiting for other player to join </p>
-			<button name="startButton" class="menuButton" onclick="startButtonClick()">Start</button>
+			<button name="startButton" class="menuButton" onclick="startButtonClick()" hidden>Start</button>
 			<ul name="gameUserList">
 			</ul>
 
@@ -32,7 +32,7 @@
 		<div id="stageGameIdentity" class="stageContainer">
 			<p>Game starts in <span name="identityTimer">5</span></p>
 			<p>You are </p>
-			<h3>KILLER</h3>
+			<h3 id="userIdentityLabel">NOBODY</h3>
 		</div>
 		<div id="stageGameNight" class="stageContainer">
 			
