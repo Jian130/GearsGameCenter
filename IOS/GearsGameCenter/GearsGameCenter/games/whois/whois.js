@@ -46,7 +46,15 @@ var questions = ["Who is the most beautiful person?",
 "Who is the biggest sci fi fan?",
 "Who laughs the loudest?",
 "Who has the smelliest feet ?",
-"Who is always being late ?"
+"Who is always being late ?",
+"Who drink the most?",
+"Who is the best actor/ actress?",
+"Who is the love expert?",
+"Who is working hardest?",
+"Who is the most romantic person?",
+"Who talks the most?",
+"Who is the hottest?",
+"Who is the easiest person got scared?"
 ];
 //function Center(){
 //	this.broadcasting=function(msg){
