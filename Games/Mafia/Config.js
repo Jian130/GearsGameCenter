@@ -20,6 +20,7 @@ var isKiller=false;
 var isHost=false;
 var connect=null;
 var isReady=false;
+var inGame=true;
 
 //will let host broadcast userlist;
 

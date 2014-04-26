@@ -25,6 +25,11 @@ function renderStage(){
 	}
 	if(gameStage == GAME_LOAD){
 		hideAllStageExcpet("stageGameLoad");
+		if(isHost){
+			if(isHost){
+				showItemsByName("startButton");
+			}
+		}
 	}
 	if(gameStage == GAME_IDENTITY){
 		var timer=CountDownTimer(5,displayIdentityTimer,nextStage);

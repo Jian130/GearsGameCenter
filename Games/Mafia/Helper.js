@@ -59,7 +59,7 @@ function CountDownTimer(timeout, callbackFunPerSec, callbackFunWhenStop){
 		 this.intervalid=setInterval(function(){
 			time--;
 			callbackFunPerSec(time);
-			console.log(time);
+			//console.log(time);
 			if(time<=0){
 				clearInterval(this.intervalid);
 				callbackFunWhenStop();

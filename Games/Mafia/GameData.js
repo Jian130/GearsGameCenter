@@ -53,12 +53,13 @@ function receivedUserlist(list){
 		var id=UserList[i].name;
 		if(UserList[i].isHost=="1" && id==clientId){
 			isHost=true;
+			showItemsByName("startButton");
 		}
 	};
 	
 }
 function recievedCallBack(object){
-	console.log(object);
+	//console.log(object);
 	if(object.type=="startGame"){
 		//everyone start the game
 		if(state!=GAME_READY){
@@ -73,49 +74,35 @@ function recievedCallBack(object){
 	if(object.type == "killed"){
 		setGameProcessing();
 	}
-	if(object.type=="setKiller"){
-		if(clientId == object.value){
-			isKiller=true;
-			updateUserIdentityText("Killer");
-		}else{
-			updateUserIdentityText("Civilian");
-		}
-	}
-	if(object.type == "updatePlayerList"){
+
+	if(object.type == "gameStart"){
+		console.log("Game start");
+
 		if(!isHost){
+			
 
 			updatePlayerList(object.value);
+
 		}
+		for (var i = playerList.length - 1; i >= 0; i--) {
+			if(playerList[i].id==clientId)
+			{
+				if( playerList[i].identity == 1){
+					isKiller = true;
+					updateUserIdentityText("Killer");
+				}	
+				else{
+					updateUserIdentityText("Civilian");
+				}
+
+
+			}
+			inGame=false;
+			nextStage();
+			processGame();
+		};
+		
 	}
 	//greg added
-	if(object.type == "welcome"){
-		var exist=0;
-		for(var i in Ulist)
-		{
-			if(Ulist[i]==object.value){
-				exist=1;
-			}
-		}
-		if(exist==0){
-			Ulist.push(object.value);
-		}
-
-	}
-	if(object.type=="answer"){
-		numGameAnswer = numGameAnswer+1;
-		for(var i=0; i<GameUserList.length; i++){
-			if(GameUserList[i]["Username"]==object.value){
-				GameUserList[i]["Count"] += 1;
-			}
-		}
-		if(numGameAnswer==numGameUser){
-			//everyone finish the question
-			nextState();
-		}
-	}
-	//mock up
-	if(object.type == "mocked"){
-		mocked_UserList[object.value[0]] = object.value[1];
-		receivedUserlist(object.value);
-	}
+	
 }

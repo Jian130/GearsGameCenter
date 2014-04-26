@@ -20,7 +20,7 @@ function nextStage(){
 		
 		//renderStage();
 	}
-	processGame();
+	//processGame();
 }
 function nextTurn(){
 
@@ -48,24 +48,25 @@ function nextTurn(){
 		gameTurn = GAME_NIGHT;
 		//renderStage();
 	}
-	processGame();
+	//processGame();
 }
 function readyButtonClick(){
 	hideItemsByName("readyButton");
-	if(isHost){
-		showItemsByName("startButton");
-	}
+	
 
 	var name=document.getElementById("usernameText").value;
 	myUser.username=name;
 	connect.setUser(myUser.id, JSON.stringify(myUser));
 	nextStage();
+	processGame();
 }
 function startButtonClick(){
 	if(isHost){
-		broadcastUsersIdentity();
+		setPlayerlist();
+		broadcastPlayerList();
+		//broadcastUsersIdentity();
 	}
-	nextStage();
+	//nextStage();
 }
 function voteButtonClick(){
 	var item = getSelectedListItem("voteList");
@@ -80,33 +81,33 @@ function listItemClick(elem){
 
 }
 function setPlayerlist(){
+	var killerIndex=Math.floor(Math.random()* UserList.length);
 	for (var i = UserList.length - 1; i >= 0; i--) {
 		var userProp=JSON.parse(UserList[i].property);
 		playerList.push(userProp);
-
 	};
-	return playerList();
+	playerList[killerIndex].identity=1;
+	//return playerList();
 }
 function broadcastPlayerList(){
-	var message = {type:"updatePlayerList",value:playerList};
+	var message = {type:"gameStart",value:playerList};
 	connect.broadcasting(message);
 }
 
+/*
 function broadcastUsersIdentity(){
-	var killerIndex=Math.floor(Math.random()* UserList.length);
+	
 	var killerId;
 	for (var i = playerList.length - 1; i >= 0; i--) {
 		//var id=UserList[i].clientId;
 		var userProp=playerList[i];
 		var id=userProp.id;
-		if(killerIndex==i){
-			killerId=id;
-		}
+		
 	};
 	var message={type:"setKiller",value:killerId};
 	//console.log(message);
 	connect.broadcasting(message);
-}
+}*/
 function updatePlayerList(list){
 	playerList = list;
 }
