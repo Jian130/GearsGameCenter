@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script type="text/javascript" src="client-network.js"></script>
+	</head>
+	<body>
+		<div> error message: </div>
+		<br />
+		<br />
+		<div>message from server: </div><br />
+		<div id="test"></div>
+		<script>
+			function recievedCallBack(object) {
+				alert(object.message1);
+			}
+		</script>
+	</body>
+</html>

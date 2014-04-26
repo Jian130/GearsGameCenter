@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>JS Maze</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: #b2cac9;
+		}
+
+		#help{
+			position: absolute;
+			z-index: 20;
+			color: black;
+			top: 20px;
+			left: 120px;
+		}
+	</style>
+
+	<script src="test.js"></script>
+
+	<script src="pixi.js"></script>
+</head>
+<body>
+	<script>
+
+	var fps = 30;
+	var now;
+	var then = Date.now();
+	var interval = 1000/fps;
+	var delta;
+	// create an new instance of a pixi stage
+	// the second parameter is interactivity...
+	var interactive = true;
+	var stage = new PIXI.Stage(0xb2cac9, interactive);
+
+	// create a renderer instance.
+	var renderer = PIXI.autoDetectRenderer(390, 390);
+	
+
+	var grid=new Array(11);
+	for(var i=0;i<11;i++){
+		grid[i]=new Array(11);
+		for(var j=0;j<11;j++){
+			grid[i][j]=1;
+		}
+
+	}
+	maze=generateMaze(31,31);
+	grid=returnFrame2(5,5,31,31,maze);
+
+	console.log(grid.toString());
+
+	var blockTexture=PIXI.Texture.fromImage("block1.png");
+	var emptyTexture=PIXI.Texture.fromImage("block3.png");
+	var charTexture;
+	var bg;
+	var blockSize=15;
+	
+	function GridBlock(x,y)
+    {
+        this.Disp = new PIXI.Sprite(emptyTexture);
+        this.Disp.anchor.x = 0;
+        this.Disp.anchor.y = 0;
+        this.Disp.position.x = x*blockSize+blockSize;
+        this.Disp.position.y = y*blockSize+blockSize;
+
+    }
+	//function moveBlock(x,y);
+	function ParseMazeData(mazeData){
+		var mazeGrids=new Array(11);
+		for(var i=0;i<11;i++){
+			mazeGrids[i]=new Array(11);
+
+		}
+		for(var i=0;i<11;i++){
+			for(var j=0;j<11;j++){
+				var g= new GridBlock(i,j);
+				if(mazeData[i][j]==0){
+					
+				}else{
+					g.Disp.setTexture(blockTexture);
+				}
+				mazeGrids[i][j]=g;
+			}
+		}
+		return mazeGrids;
+	}
+	function MazeSetup(mazegrid){
+		console.log(mazegrid);
+		for(var i=0;i<11;i++){
+			for(var j=0;j<11;j++){
+				stage.addChild(mazegrid[i][j].Disp);
+				//console.log(mazegrid[i][j].Disp.position.x)
+			}
+		}
+	}
+
+
+
+
+	MazeSetup(ParseMazeData(grid));
+	// create a background..
+	var background = PIXI.Sprite.fromImage("frame.png");
+
+	// add background to stage..
+	stage.addChild(background);
+
+
+	// add the renderer view element to the DOM
+	document.body.appendChild(renderer.view);
+
+	requestAnimFrame( animate );
+
+	var speed=10;
+	var pathArray=[(0,1),(1,1),(2,1),(3,1)]
+	function movePath(pathArray){
+		if(pathArray.length==0);
+
+	}
+	function animate() {
+		
+	    requestAnimFrame( animate );
+	    // render the stage
+
+	    // do a test..
+	    now = Date.now();
+		delta = now - then;
+	    if (delta > interval){
+
+			then = now - (delta % interval);
+			renderer.render(stage);
+			//do update here
+	    }
+	}
+
+
+	// add a logo!
+	//var pixiLogo = PIXI.Sprite.fromImage("pixi.png");
+	//stage.addChild(pixiLogo);
+
+	//pixiLogo.position.x = 620 - 56;
+	//pixiLogo.position.y = 400- 32;
+
+	//pixiLogo.setInteractive(true);
+
+	//pixiLogo.click = pixiLogo.tap = function(){
+
+	//	var win=window.open("https://github.com/GoodBoyDigital/pixi.js", '_blank');
+
+	
+	</script>
+
+	</body>
+</html>
