@@ -1,0 +1,60 @@
+
+
+#bodyContainer
+{
+	font-family:  "Comic Sans MS";
+	font-size: 36px;
+	width:  980px;
+	min-height: 600px;
+	min-width: 600px;
+	background-image:url('../img/who_is_980.png');
+	background-repeat: no-repeat;
+	background-color:#deedd;
+	margin-left:auto;
+	margin-right:auto;
+}
+.btn-center
+{
+	font-size: 64px;
+	color: #5c6d66;
+	margin-top: 10px;
+	outline: 0;
+	border: 0px;
+	width: 960px;
+	height: 96px;  
+	background-color: transparent;
+	background-image: url("../img/button_980.png");
+	background-repeat: no-repeat;
+	
+
+}
+.btn-center:hover{
+	background-image: url("../img/select_980.png");
+	
+}
+.stage {
+	font-size: 64px;
+	padding-top: 480px;
+}
+label{
+	display: inline-block;
+	min-width: 160px;
+	width:10%;
+}
+#Username{
+	/*font-family: "stencil";*/
+	font-size: 64px;
+	outline: none;
+	border: 0;
+	background-color: transparent;;
+	min-width: 960px;
+	height: 96px;
+	width:100%;
+	padding-left: 250px;
+}
+.NameHolder{
+	width: 960px;
+	height: 96px;
+	background-repeat: no-repeat;
+	background-image: url("../img/name_980.png");
+}

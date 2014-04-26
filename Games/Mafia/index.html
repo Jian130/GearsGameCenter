@@ -1,0 +1,86 @@
+<html>
+	<head>
+		
+		<script type="text/javascript" src="Config.js"></script>
+		<script type="text/javascript" src="gamecenter.js"></script>
+		<script type="text/javascript" src="Helper.js"></script>
+		<script type="text/javascript" src="Game.js"></script>
+		<script type="text/javascript" src="GameData.js"></script>
+		<script type="text/javascript" src="Render.js"></script>
+	</head>
+	<body>
+		<div  id="stageGameEnter" class="stageContainer">
+			<div name="UsernameContainer">
+				<label>Username:</label>
+				<input type="text" id="usernameText">
+			</div>
+			<div>
+				<button name="readyButton" class="menuButton" onclick="readyButtonClick()">Ready</button>
+				
+			</div>
+
+		</div>
+		<div id="stageGameLoad" class="stageContainer">
+
+			<p>waiting for other player to join </p>
+			<button name="startButton" class="menuButton" onclick="startButtonClick()">Start</button>
+			<ul name="gameUserList">
+			</ul>
+
+
+		</div>
+		<div id="stageGameIdentity" class="stageContainer">
+			<p>Game starts in <span name="identityTimer">5</span></p>
+			<p>You are </p>
+			<h3>KILLER</h3>
+		</div>
+		<div id="stageGameNight" class="stageContainer">
+			
+				<p>If you are killer please pick one to kill, if you are civilian please also pick random person.</p>
+				<p>Day comes in <span id="nightTimer">20</span> seconds<p>
+				<div class="survivorListContainer">
+					<ul id="survivorList"></ul>
+				</div>
+				
+			
+			
+		</div>
+		<div id="stageGameDay" class="stageContainer">
+			<div class="deathBoardContainer">
+				<p>R.I.P</p>
+				<ul id="deathList"></ul>
+			</div>
+			<div class="voteBoardContiner">
+				<p> Now , who do you think is the killer, vote for the dead</p>
+				<ul id="voteList"></ul>
+				<button id="voteButton" onclick="voteButtonClick">Vote </button>
+			</div>
+
+		</div>
+		<div id="stageVoteResult" class="stageContainer">
+			<p><span name="newDead"></span></p>
+		</div>
+		<div id="stageGameOver" class="stageContainer">
+			ddd
+		</div>
+
+	</body>
+</html>
+<script>
+window.onload=function(){
+	//SET THINGS UP
+	renderStage();
+	generateClientId();
+	connect = new GameCenter();
+}
+</script>
+<style type="text/css">
+.selected
+{
+	
+	border: 2px solid red;
+	width: 200px;
+
+}
+
+</style>

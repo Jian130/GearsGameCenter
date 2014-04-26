@@ -10,6 +10,8 @@ var NUMBER_OF_STATES = 4;
 var IS_READY = 1;
 var NOT_READY = 0;
 
+var UNDEFINED = -1;
+
 // on opening page, set state to GAME_ENTER
 var state = GAME_ENTER;
 // only host can start game
@@ -20,6 +22,14 @@ var GameUserList;
 
 var numGameUser;
 var numGameAnswer;
+
+//function Center(){
+//	this.broadcasting=function(msg){
+//		sendOut(msg);
+//	}
+//}
+var connect = new GameCenter();
+
 
 // to move State forward
 // 0 - 1 - 2 - 3 - 4 - 1
@@ -32,34 +42,61 @@ function nextState(){
 	//
 	if(state == GAME_ON)
 		DisplayQuestion();
-	if(state == GAME_OVER)
+	if(state == GAME_OVER){
+		caculateRank();
 		DisplayResults();
+	}
 	
 	return state;
+	
+	function caculateRank(){
+		for(var i=0; i<GameUserList.length; i++){
+			maxIndex = -1;
+			maxVote = -1;
+			for(var j=0; j<GameUserList.length; j++){
+				if(GameUserList[j].Rank == UNDEFINED){
+					if(GameUserList[j].Count>maxVote){
+						maxVote = GameUserList[j].Count;
+						maxIndex = j;
+					}
+				}
+			}
+			console.log(maxIndex);
+			GameUserList[maxIndex].Rank = i+1;
+		}
+	}
 }
 
+/*
 function GetGameUsersList(){
 	return GameUserList;
 }
+*/
 
 function startGame(){
 	// start the game
 	var dataobject={type:"startGame", value:null};
-    sendOut(dataobject);
+    connect.broadcasting(dataobject);
 }
 
 function answerQuestion(name){
 	//answer question and send it out
+	console.log("name: "+name);
 	var dataobject={type:"answer", value:name};
-	sendOut(dataobject);
+	connect.broadcasting(dataobject);
 	
 	nextState();
 }
 
+myName = "";
+
 function UserIsReady(name){
+	//TODO :set user 
 	//send the name to the server
-	setUser(name, IS_READY);
-	
+	//setUser(name, IS_READY);
+	connect.setUser(name, 0);
+	myName= name;
+	//GetGameUsersList();
 	//move state forward
 	nextState();
 	return state;
@@ -68,28 +105,78 @@ function UserIsReady(name){
 //mock up
 mocked_UserList = new Object();
 
+/*
 function setUser(name, state){
-	console.log(mocked_UserList)
-	mocked_UserList[name] = state;
-	console.log(mocked_UserList);
-	var dataobject={type:"mocked", value:mocked_UserList};
-	sendOut(dataobject);
+	mocked_UserList_tmp = new Object();
+	mocked_UserList_tmp[0] = name;
+	mocked_UserList_tmp[1] = state;
+	console.log(mocked_UserList_tmp);
+	var dataobject={type:"mocked", value:mocked_UserList_tmp};
+	connect.broadcasting(dataobject);
 }
+*/
 
 function receivedSharedMemory(name, body){
 
 }
-
+/*
 function receivedUserlist(list){
 	UserList = list;
 	//the first user is host
-	if(Object.keys(UserList).length == 1){
-		isHost = 1;
+	//if(Object.keys(UserList).length == 1){
+		if(Object.keys(UserList)[0]==myName){
+			isHost = 1;
+			EnableStartButton();
+		}
+		else{
+			isHost = 0;
+			DisableStartButton();
+		}
+		
+	//}
+}*/
+// Greg edit temp fix
+function receivedUserlist(total){
+	//TODO:  detect is host
+	if(total.Total==1){
+		isHost=1;
 		EnableStartButton();
+	}else{
+		isHost =0;
+		DisableStartButton();
 	}
+}
+function sendWelcome(){
+	var dataobject={type:"welcome", value:myName};
+    connect.broadcasting(dataobject);
+}
+function whoIsOn(){
+	if(isHost==1&&myName!=""){
+		var dataobject={type:"whoIsOn", value:myName};
+    	connect.broadcasting(dataobject);
+	}
+	
 }
 
 mocked_Rank = 0;
+var Ulist=[];
+
+function setGameOn(){
+	//initiate GameUserList
+	//object {Userame:"", Rank:1, Count:1}
+	GameUserList = [];
+	mocked_Rank+=1;
+	for (var key in Ulist){
+	
+		var obj = {"Username":Ulist[key], "Rank":UNDEFINED, "Count":0};
+		GameUserList.push(obj);
+		
+	}
+	numGameUser = GameUserList.length;
+	numGameAnswer = 0;
+	
+	nextState();
+}
 
 // receive msg
 function recievedCallBack(object){
@@ -101,13 +188,15 @@ function recievedCallBack(object){
 			if(state!=GAME_READY){
 				return;
 			}
+
+			/*
 			//initiate GameUserList
 			//object {Userame:"", Rank:1, Count:1}
 			GameUserList = [];
 			mocked_Rank+=1;
 			for (var key in UserList){
 				if(UserList[key]==IS_READY){
-					var obj = {"Username":key, "Rank":mocked_Rank, "Count":0};
+					var obj = {"Username":key, "Rank":UNDEFINED, "Count":0};
 					GameUserList.push(obj);
 				}
 			}
@@ -115,6 +204,26 @@ function recievedCallBack(object){
 			numGameAnswer = 0;
 			
 			nextState();
+			*/
+			whoIsOn();
+			setTimeout(function(){setGameOn()},1000);
+		}
+		if(object.type == "whoIsOn"){
+			sendWelcome();
+		}
+		//greg added
+		if(object.type == "welcome"){
+			var exist=0;
+			for(var i in Ulist)
+			{
+				if(Ulist[i]==object.value){
+					exist=1;
+				}
+			}
+			if(exist=0){
+				Ulist.push(object.value);
+			}
+
 		}
 		if(object.type=="answer"){
 			numGameAnswer = numGameAnswer+1;
@@ -130,8 +239,8 @@ function recievedCallBack(object){
 		}
 		//mock up
 		if(object.type == "mocked"){
-			mocked_UserList = object.value;
-			receivedUserlist(object.value)
+			mocked_UserList[object.value[0]] = object.value[1];
+			receivedUserlist(object.value);
 		}
 }
 

@@ -1,0 +1,60 @@
+
+
+#bodyContainer
+{
+	font-family:  "Comic Sans MS";
+	font-size: 20px;
+	width:  560;
+	min-height: 600px;
+	min-width: 600px;
+	background-image:url('../img/who_is.png');
+	background-repeat: no-repeat;
+	background-color:#deedd;
+	margin-left:auto;
+	margin-right:auto;
+}
+.btn-center
+{
+	font-size: 40px;
+	color: #5c6d66;
+	margin-top: 10px;
+	outline: 0;
+	border: 0px;
+	width: 544px;
+	height: 74px;  
+	background-color: transparent;
+	background-image: url("../img/button.png");
+	background-repeat: no-repeat;
+	
+
+}
+.btn-center:hover{
+	background-image: url("../img/select.png");
+	
+}
+.stage {
+	font-size: 40px;
+	padding-top: 340px;
+}
+label{
+	display: inline-block;
+	min-width: 100px;
+	width:10%;
+}
+#Username{
+	/*font-family: "stencil";*/
+	font-size: 40px;
+	outline: none;
+	border: 0px;
+	background-color: transparent;;
+	min-width: 544px;
+	height: 74px;
+	width:100%;
+	padding-left: 250px;
+}
+.NameHolder{
+	width: 544px;
+	height: 74px;
+	background-repeat: no-repeat;
+	background-image: url("../img/name.png");
+}

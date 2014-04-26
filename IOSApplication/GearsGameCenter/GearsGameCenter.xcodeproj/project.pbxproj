@@ -1,0 +1,482 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8EC433F818E7824500D093F9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC433F718E7824500D093F9 /* Cocoa.framework */; };
+		8EC4340218E7824500D093F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8EC4340018E7824500D093F9 /* InfoPlist.strings */; };
+		8EC4340418E7824500D093F9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4340318E7824500D093F9 /* main.m */; };
+		8EC4340818E7824500D093F9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 8EC4340618E7824500D093F9 /* Credits.rtf */; };
+		8EC4340B18E7824500D093F9 /* TGAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4340A18E7824500D093F9 /* TGAppDelegate.m */; };
+		8EC4340E18E7824500D093F9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EC4340C18E7824500D093F9 /* MainMenu.xib */; };
+		8EC4341018E7824500D093F9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EC4340F18E7824500D093F9 /* Images.xcassets */; };
+		8EC4341718E7824500D093F9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC4341618E7824500D093F9 /* XCTest.framework */; };
+		8EC4341818E7824500D093F9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EC433F718E7824500D093F9 /* Cocoa.framework */; };
+		8EC4342018E7824500D093F9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8EC4341E18E7824500D093F9 /* InfoPlist.strings */; };
+		8EC4342218E7824500D093F9 /* GearsGameCenterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EC4342118E7824500D093F9 /* GearsGameCenterTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8EC4341918E7824500D093F9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8EC433EC18E7824500D093F9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8EC433F318E7824500D093F9;
+			remoteInfo = GearsGameCenter;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8EC433F418E7824500D093F9 /* GearsGameCenter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GearsGameCenter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EC433F718E7824500D093F9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		8EC433FA18E7824500D093F9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		8EC433FB18E7824500D093F9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		8EC433FC18E7824500D093F9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8EC433FF18E7824500D093F9 /* GearsGameCenter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GearsGameCenter-Info.plist"; sourceTree = "<group>"; };
+		8EC4340118E7824500D093F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8EC4340318E7824500D093F9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8EC4340518E7824500D093F9 /* GearsGameCenter-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GearsGameCenter-Prefix.pch"; sourceTree = "<group>"; };
+		8EC4340718E7824500D093F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		8EC4340918E7824500D093F9 /* TGAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TGAppDelegate.h; sourceTree = "<group>"; };
+		8EC4340A18E7824500D093F9 /* TGAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TGAppDelegate.m; sourceTree = "<group>"; };
+		8EC4340D18E7824500D093F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		8EC4340F18E7824500D093F9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8EC4341518E7824500D093F9 /* GearsGameCenterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GearsGameCenterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EC4341618E7824500D093F9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		8EC4341D18E7824500D093F9 /* GearsGameCenterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GearsGameCenterTests-Info.plist"; sourceTree = "<group>"; };
+		8EC4341F18E7824500D093F9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8EC4342118E7824500D093F9 /* GearsGameCenterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GearsGameCenterTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8EC433F118E7824500D093F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EC433F818E7824500D093F9 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EC4341218E7824500D093F9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EC4341818E7824500D093F9 /* Cocoa.framework in Frameworks */,
+				8EC4341718E7824500D093F9 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8EC433EB18E7824500D093F9 = {
+			isa = PBXGroup;
+			children = (
+				8EC433FD18E7824500D093F9 /* GearsGameCenter */,
+				8EC4341B18E7824500D093F9 /* GearsGameCenterTests */,
+				8EC433F618E7824500D093F9 /* Frameworks */,
+				8EC433F518E7824500D093F9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8EC433F518E7824500D093F9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8EC433F418E7824500D093F9 /* GearsGameCenter.app */,
+				8EC4341518E7824500D093F9 /* GearsGameCenterTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8EC433F618E7824500D093F9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8EC433F718E7824500D093F9 /* Cocoa.framework */,
+				8EC4341618E7824500D093F9 /* XCTest.framework */,
+				8EC433F918E7824500D093F9 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8EC433F918E7824500D093F9 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8EC433FA18E7824500D093F9 /* AppKit.framework */,
+				8EC433FB18E7824500D093F9 /* CoreData.framework */,
+				8EC433FC18E7824500D093F9 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		8EC433FD18E7824500D093F9 /* GearsGameCenter */ = {
+			isa = PBXGroup;
+			children = (
+				8EC4340918E7824500D093F9 /* TGAppDelegate.h */,
+				8EC4340A18E7824500D093F9 /* TGAppDelegate.m */,
+				8EC4340C18E7824500D093F9 /* MainMenu.xib */,
+				8EC4340F18E7824500D093F9 /* Images.xcassets */,
+				8EC433FE18E7824500D093F9 /* Supporting Files */,
+			);
+			path = GearsGameCenter;
+			sourceTree = "<group>";
+		};
+		8EC433FE18E7824500D093F9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8EC433FF18E7824500D093F9 /* GearsGameCenter-Info.plist */,
+				8EC4340018E7824500D093F9 /* InfoPlist.strings */,
+				8EC4340318E7824500D093F9 /* main.m */,
+				8EC4340518E7824500D093F9 /* GearsGameCenter-Prefix.pch */,
+				8EC4340618E7824500D093F9 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8EC4341B18E7824500D093F9 /* GearsGameCenterTests */ = {
+			isa = PBXGroup;
+			children = (
+				8EC4342118E7824500D093F9 /* GearsGameCenterTests.m */,
+				8EC4341C18E7824500D093F9 /* Supporting Files */,
+			);
+			path = GearsGameCenterTests;
+			sourceTree = "<group>";
+		};
+		8EC4341C18E7824500D093F9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8EC4341D18E7824500D093F9 /* GearsGameCenterTests-Info.plist */,
+				8EC4341E18E7824500D093F9 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8EC433F318E7824500D093F9 /* GearsGameCenter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8EC4342518E7824500D093F9 /* Build configuration list for PBXNativeTarget "GearsGameCenter" */;
+			buildPhases = (
+				8EC433F018E7824500D093F9 /* Sources */,
+				8EC433F118E7824500D093F9 /* Frameworks */,
+				8EC433F218E7824500D093F9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GearsGameCenter;
+			productName = GearsGameCenter;
+			productReference = 8EC433F418E7824500D093F9 /* GearsGameCenter.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8EC4341418E7824500D093F9 /* GearsGameCenterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8EC4342818E7824500D093F9 /* Build configuration list for PBXNativeTarget "GearsGameCenterTests" */;
+			buildPhases = (
+				8EC4341118E7824500D093F9 /* Sources */,
+				8EC4341218E7824500D093F9 /* Frameworks */,
+				8EC4341318E7824500D093F9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8EC4341A18E7824500D093F9 /* PBXTargetDependency */,
+			);
+			name = GearsGameCenterTests;
+			productName = GearsGameCenterTests;
+			productReference = 8EC4341518E7824500D093F9 /* GearsGameCenterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8EC433EC18E7824500D093F9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TG;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Gears;
+				TargetAttributes = {
+					8EC4341418E7824500D093F9 = {
+						TestTargetID = 8EC433F318E7824500D093F9;
+					};
+				};
+			};
+			buildConfigurationList = 8EC433EF18E7824500D093F9 /* Build configuration list for PBXProject "GearsGameCenter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8EC433EB18E7824500D093F9;
+			productRefGroup = 8EC433F518E7824500D093F9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8EC433F318E7824500D093F9 /* GearsGameCenter */,
+				8EC4341418E7824500D093F9 /* GearsGameCenterTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8EC433F218E7824500D093F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EC4340218E7824500D093F9 /* InfoPlist.strings in Resources */,
+				8EC4341018E7824500D093F9 /* Images.xcassets in Resources */,
+				8EC4340818E7824500D093F9 /* Credits.rtf in Resources */,
+				8EC4340E18E7824500D093F9 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EC4341318E7824500D093F9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EC4342018E7824500D093F9 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8EC433F018E7824500D093F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EC4340418E7824500D093F9 /* main.m in Sources */,
+				8EC4340B18E7824500D093F9 /* TGAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EC4341118E7824500D093F9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8EC4342218E7824500D093F9 /* GearsGameCenterTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8EC4341A18E7824500D093F9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8EC433F318E7824500D093F9 /* GearsGameCenter */;
+			targetProxy = 8EC4341918E7824500D093F9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8EC4340018E7824500D093F9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8EC4340118E7824500D093F9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		8EC4340618E7824500D093F9 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8EC4340718E7824500D093F9 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		8EC4340C18E7824500D093F9 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8EC4340D18E7824500D093F9 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		8EC4341E18E7824500D093F9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8EC4341F18E7824500D093F9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8EC4342318E7824500D093F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8EC4342418E7824500D093F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		8EC4342618E7824500D093F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GearsGameCenter/GearsGameCenter-Prefix.pch";
+				INFOPLIST_FILE = "GearsGameCenter/GearsGameCenter-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		8EC4342718E7824500D093F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GearsGameCenter/GearsGameCenter-Prefix.pch";
+				INFOPLIST_FILE = "GearsGameCenter/GearsGameCenter-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		8EC4342918E7824500D093F9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GearsGameCenter.app/Contents/MacOS/GearsGameCenter";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GearsGameCenter/GearsGameCenter-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "GearsGameCenterTests/GearsGameCenterTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		8EC4342A18E7824500D093F9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GearsGameCenter.app/Contents/MacOS/GearsGameCenter";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GearsGameCenter/GearsGameCenter-Prefix.pch";
+				INFOPLIST_FILE = "GearsGameCenterTests/GearsGameCenterTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8EC433EF18E7824500D093F9 /* Build configuration list for PBXProject "GearsGameCenter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EC4342318E7824500D093F9 /* Debug */,
+				8EC4342418E7824500D093F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8EC4342518E7824500D093F9 /* Build configuration list for PBXNativeTarget "GearsGameCenter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EC4342618E7824500D093F9 /* Debug */,
+				8EC4342718E7824500D093F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8EC4342818E7824500D093F9 /* Build configuration list for PBXNativeTarget "GearsGameCenterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EC4342918E7824500D093F9 /* Debug */,
+				8EC4342A18E7824500D093F9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8EC433EC18E7824500D093F9 /* Project object */;
+}
