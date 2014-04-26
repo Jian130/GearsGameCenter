@@ -25,8 +25,9 @@ var numGameAnswer;
 var numExpectedGameAnswer;
 
 
-var questionIndex;
-var questions = ["Who is the most beautiful person?",
+var questionIndex = 0;
+var questions = [
+"Who is the most beautiful person?",
 "Who is the most handsome?",
 "Who is the greediest person?",
 "Who is easiest person to get along with?",
@@ -120,7 +121,7 @@ function startGame(){
 	//also we want to make sure that
 	//in one game no question appears twice
 	if(isHost) {
-    	questionIndex = Math.floor((Math.random() * questions.length));
+    	questionIndex ++; //= Math.floor((Math.random() * questions.length));
 	}
 	
 	var dataobject={"type":"startGame", "questionIndex":questionIndex};
