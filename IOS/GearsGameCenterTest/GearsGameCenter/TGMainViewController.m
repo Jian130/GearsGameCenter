@@ -15,38 +15,22 @@
 @interface TGMainViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *ipAddress;
-@property (weak, nonatomic) IBOutlet UITextView *textInfoBox;
+@property (nonatomic) BOOL isServerOn;
+@property (weak, nonatomic) IBOutlet UIButton *startButton;
 
 @end
 
 @implementation TGMainViewController
 
+@synthesize isServerOn;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.ipAddress.text = [Util getIPAddress];
     [self.navigationController setNavigationBarHidden:YES];
-    self.gameCell.backgroundColor = [UIColor colorWithRed:157.0/255 green:141.0/255 blue:70.0/255 alpha:1.0];
-    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
-    self.textInfoBox.backgroundColor = [UIColor clearColor];
-//    self.edgesForExtendedLayout=UIRectEdgeNone;
-//    self.extendedLayoutIncludesOpaqueBars=NO;
-//    self.automaticallyAdjustsScrollViewInsets=NO;
-}
 
-- (void)startMazeGame {
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-    TGViewController *vc = [sb instantiateViewControllerWithIdentifier:@"TGViewController"];
-    vc.gameName = @"maze";
-    [self presentViewController:vc animated:YES completion:nil];
-}
 
-- (void)startWhoISGame {
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
-    TGViewController *vc = [sb instantiateViewControllerWithIdentifier:@"TGViewController"];
-    vc.gameName = @"whois/";
-    [self presentViewController:vc animated:YES completion:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -55,11 +39,25 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 1) {
-        [self startWhoISGame];
+- (IBAction)startButtonPressed:(id)sender {
+    if (self.isServerOn) {
+        self.isServerOn = NO;
+        [[TGWebServer sharedManager] stopWebServer];
+        [[TGCommunicationServer sharedManager] stopCommunicationServer];
+        self.startButton.backgroundColor = [UIColor colorWithRed:0.0f green:1.0f blue:178.0/255.0f alpha:1.0f];
+        self.startButton.tintColor = [UIColor colorWithRed:0.0f green:122.0/255.0f blue:1.0f alpha:1.0f];
+        [self.startButton setTitle:@"Start" forState:UIControlStateNormal];
+    } else {
+        self.isServerOn = YES;
+        [[TGWebServer sharedManager] startWebServer];
+        [[TGCommunicationServer sharedManager] startCommunicationServer];
+        self.startButton.backgroundColor = [UIColor redColor];
+        self.startButton.tintColor = [UIColor whiteColor];
+        [self.startButton setTitle:@"Stop" forState:UIControlStateNormal];
     }
 }
+
+
 
 @end
 

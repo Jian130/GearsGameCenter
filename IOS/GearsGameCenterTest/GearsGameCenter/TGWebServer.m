@@ -9,6 +9,7 @@
 #import "TGWebServer.h"
 #import "GCDWebServer.h"
 #import "GCDSingleton.h"
+#import "util.h"
 
 @interface TGWebServer ()
 
@@ -45,9 +46,7 @@
                                   processBlock:^GCDWebServerResponse *(GCDWebServerRequest* request) {
                                       
                                       NSString *gameFolder = @"games";
-                                      
-//                                      NSString *path = [request.path substringWithRange:NSMakeRange(1, request.path.length - 1)];
-//                                      path = [path lowercaseString];
+
                                       NSString *path = [[gameFolder stringByAppendingString:request.path] lowercaseString];
                                       NSString *ext = nil;
                                       NSRange range = [path rangeOfString:@"." options:NSBackwardsSearch];
@@ -63,8 +62,20 @@
                                       NSString *filePath = [[NSBundle mainBundle] pathForResource:path ofType:ext];
                                       
                                       if (filePath != nil) {
-                                          NSData *data = [NSData dataWithContentsOfFile:filePath];
-                                          if (data) {
+                                          NSMutableData *data = nil;
+                                          NSData *fileData = [NSData dataWithContentsOfFile:filePath];
+                                          if (fileData) {
+                                              if ([path isEqualToString:@"games/gamecenter"]) {
+                                                  NSString *ipStr  = [[@"var this_is_the_server_ip = \"" stringByAppendingString:[Util getIPAddress]] stringByAppendingString:@"\";"];
+                                                  NSData *appendData = [ipStr dataUsingEncoding:NSUTF8StringEncoding];
+                                                  data = [[NSMutableData alloc] initWithData:appendData];
+                                                  [data appendData:fileData];
+                                              } else {
+                                                  data = [[NSMutableData alloc] initWithData:fileData];
+                                              }
+                                              
+                                              
+                                              
                                               return [GCDWebServerDataResponse responseWithData:data contentType:ext];
                                           }
                                       }

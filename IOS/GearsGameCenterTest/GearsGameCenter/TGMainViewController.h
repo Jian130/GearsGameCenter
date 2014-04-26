@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TGMainViewController : UITableViewController
+@interface TGMainViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITextView *textInfo;
 @property (weak, nonatomic) IBOutlet UIView *gameCell;
 
