@@ -21,6 +21,12 @@
 // JSONModel
 #define COCOAPODS_POD_AVAILABLE_JSONModel
 #define COCOAPODS_VERSION_MAJOR_JSONModel 0
-#define COCOAPODS_VERSION_MINOR_JSONModel 12
+#define COCOAPODS_VERSION_MINOR_JSONModel 13
 #define COCOAPODS_VERSION_PATCH_JSONModel 0
+
+// QR-Code-Encoder-for-Objective-C
+#define COCOAPODS_POD_AVAILABLE_QR_Code_Encoder_for_Objective_C
+#define COCOAPODS_VERSION_MAJOR_QR_Code_Encoder_for_Objective_C 1
+#define COCOAPODS_VERSION_MINOR_QR_Code_Encoder_for_Objective_C 0
+#define COCOAPODS_VERSION_PATCH_QR_Code_Encoder_for_Objective_C 0
 

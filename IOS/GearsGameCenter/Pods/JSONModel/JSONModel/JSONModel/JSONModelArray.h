@@ -27,7 +27,7 @@
  * of each of the objects stored in the array, it'll be converted to the target model class.
  * Thus saving time upon the very first model creation.
  */
-@interface JSONModelArray : NSMutableArray
+@interface JSONModelArray : NSObject
 
 /**
  * Don't make instances of JSONModelArray yourself, except you know what you are doing.
@@ -38,8 +38,11 @@
 - (id)initWithArray:(NSArray *)array modelClass:(Class)cls;
 
 - (id)objectAtIndex:(NSUInteger)index;
+- (id)objectAtIndexedSubscript:(NSUInteger)index;
 - (void)forwardInvocation:(NSInvocation *)anInvocation;
 - (NSUInteger)count;
+- (id)firstObject;
+- (id)lastObject;
 
 /**
  * Looks up the array's contents and tries to find a JSONModel object

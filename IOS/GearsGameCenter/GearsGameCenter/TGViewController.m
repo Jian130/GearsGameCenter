@@ -25,6 +25,8 @@
 
 #import "MMPDeepSleepPreventer.h"
 
+#import "TGQRCodeViewController.h"
+
 
 @interface TGViewController () <MFMessageComposeViewControllerDelegate, UIActionSheetDelegate>
 
@@ -47,7 +49,7 @@
                                                          delegate:self
                                                 cancelButtonTitle:@"Cancel"
                                            destructiveButtonTitle:nil
-                                                otherButtonTitles:@"SMS", @"Copy game link to Clipboard", nil];
+                                                otherButtonTitles:@"SMS", @"Copy game link to Clipboard", @"QR Code", nil];
     }
     
     return _inviteOptionsList;
@@ -133,6 +135,9 @@
         case 1:
             [self copyToClipboard];
             break;
+        case 2:
+            [self createQRCode];
+            break;
     }
 }
 
@@ -179,6 +184,16 @@
 
 - (void)copyToClipboard {
     [UIPasteboard generalPasteboard].string = [self getGameUrl];
+}
+
+- (void)createQRCode {
+    NSString * url = [[[[@"http://" stringByAppendingString:[Util getIPAddress]] stringByAppendingString:@":8080/"] stringByAppendingString:self.gameName] stringByAppendingString:@""];
+    
+    TGQRCodeViewController *qrCodeViewController = [[TGQRCodeViewController alloc] init];
+    qrCodeViewController.url = url;
+    
+    //[self.navigationController pushViewController:qrCodeViewController animated:YES];
+    [self presentViewController:qrCodeViewController animated:YES completion:nil];
 }
 
 @end

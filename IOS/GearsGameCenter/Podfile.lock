@@ -1,12 +1,14 @@
 PODS:
   - BLWebSocketsServer (0.1.0)
   - GCDWebServer (1.2.2)
-  - JSONModel (0.12.0)
+  - JSONModel (0.13.0)
+  - QR-Code-Encoder-for-Objective-C (1.0.0)
 
 DEPENDENCIES:
   - BLWebSocketsServer (from `https://github.com/Jian130/BLWebSocketsServer`)
   - GCDWebServer (~> 1.2.2)
   - JSONModel
+  - QR-Code-Encoder-for-Objective-C
 
 EXTERNAL SOURCES:
   BLWebSocketsServer:
@@ -15,6 +17,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   BLWebSocketsServer: 5ddfeb5df590a5a8ac1d44bde51d7839f961e55a
   GCDWebServer: d271fd9cf2a229e90416afbb04474c17afa123a7
-  JSONModel: f391da60a15e11f8fa8950fb980b8f799ae3453f
+  JSONModel: 1ce27c7d59de0ada0048e64f20006ce02e9ce73d
+  QR-Code-Encoder-for-Objective-C: 0ba86b1cca7befb53538e551c055a660b50ca226
 
-COCOAPODS: 0.29.0
+COCOAPODS: 0.32.1

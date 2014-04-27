@@ -1,7 +1,7 @@
 //
 //  JSONAPI.m
 //
-//  @version 0.12.0
+//  @version 0.13.0
 //  @author Marin Todorov, http://www.touch-code-magazine.com
 //
 
@@ -125,7 +125,7 @@ static long jsonRpcId = 0;
     
     [self __rpcRequestWithObject:@{
                                   //rpc 1.0
-                                  @"id": [NSNumber numberWithLong: ++jsonRpcId],
+                                  @"id": @(++jsonRpcId),
                                   @"params": args,
                                   @"method": method
      } completion:completeBlock];
@@ -139,7 +139,7 @@ static long jsonRpcId = 0;
     [self __rpcRequestWithObject:@{
                                   //rpc 2.0
                                   @"jsonrpc": @"2.0",
-                                  @"id": [NSNumber numberWithLong: ++jsonRpcId],
+                                  @"id": @(++jsonRpcId),
                                   @"params": params,
                                   @"method": method
      } completion:completeBlock];

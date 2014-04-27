@@ -57,7 +57,7 @@
             const char *propertyName = property_getName(property);
 
             const char *attrs = property_getAttributes(property);
-            NSString* propertyAttributes = [NSString stringWithUTF8String:attrs];
+            NSString* propertyAttributes = @(attrs);
             NSScanner* scanner = [NSScanner scannerWithString: propertyAttributes];
             NSString* propertyType = nil;
             [scanner scanUpToString:@"T" intoString: nil];
@@ -70,7 +70,7 @@
                                         intoString:&propertyType];
             }
             
-            moProperties[[NSString stringWithUTF8String:propertyName]] = NSClassFromString(propertyType);
+            moProperties[@(propertyName)] = NSClassFromString(propertyType);
         }
         
         free(properties);
@@ -92,15 +92,15 @@
     //copy values over
     for (NSString* key in [moProperties allKeys]) {
         id value = dictionary[key];
-        NSLog(@"class: %@", moProperties[key]);
+
         //exception classes - for core data should be NSDate by default
         if ([[moProperties[key]class] isEqual:[NSDate class]]) {
-            if ([self respondsToSelector:@selector(NSDateFromNSString:)]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+            SEL NSDateFromNSStringSelector = sel_registerName("NSDateFromNSString:");
+            if ([self respondsToSelector:NSDateFromNSStringSelector]) {
+                IMP methodImpl = [self methodForSelector:NSDateFromNSStringSelector];
+                NSDate * (*method)(id, SEL, NSString *) = (void *)methodImpl;
                 //transform the value
-                value = [self performSelector:@selector(NSDateFromNSString:) withObject:dictionary[key]];
-#pragma clang diagnostic pop
+                value = method(self, NSDateFromNSStringSelector, dictionary[key]);
             } else {
                 value = [self __NSDateFromNSString: dictionary[key]];
             }

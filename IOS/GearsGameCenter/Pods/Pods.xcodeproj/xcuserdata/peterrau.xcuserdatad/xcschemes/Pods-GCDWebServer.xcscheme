@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0500"
+   LastUpgradeVersion = "0510"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7EE73973A32B40B882156522"
+               BlueprintIdentifier = "11AF736736864CBBB1F322C2"
                BuildableName = "libPods-GCDWebServer.a"
                BlueprintName = "Pods-GCDWebServer"
                ReferencedContainer = "container:Pods.xcodeproj">
