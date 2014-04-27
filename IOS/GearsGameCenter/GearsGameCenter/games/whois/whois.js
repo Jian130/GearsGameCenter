@@ -11,6 +11,7 @@ var IS_READY = 1;
 var NOT_READY = 0;
 
 var UNDEFINED = -1;
+var questionIndex = 0;
 
 // on opening page, set state to GAME_ENTER
 var state = GAME_ENTER;

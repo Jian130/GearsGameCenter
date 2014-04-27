@@ -73,6 +73,19 @@
     }
 }
 
+- (void)enqueueMessageForOtherUsers:(NSData *)message fromUserId:(int)userId {
+	NSNumber *userIdNumber = [NSNumber numberWithInt:userId];
+    @synchronized(self) {
+        for (id key in self.usersMessageQueues) {
+            if (![((NSNumber *)key) isEqualToNumber:userIdNumber]) {
+                [[self.usersMessageQueues objectForKey:userIdNumber] enqueue:message];
+                self.messagesCount++;
+            }
+        }
+    }
+
+}
+
 - (NSData *)messageForUserWithId:(int)userId {
     NSData *message;
     @synchronized(self) {

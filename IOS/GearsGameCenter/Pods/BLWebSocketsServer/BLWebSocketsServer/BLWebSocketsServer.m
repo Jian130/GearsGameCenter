@@ -155,6 +155,11 @@ static BLWebSocketsServer *sharedInstance = nil;
     [self.asyncMessageQueue enqueueMessageForAllUsers:data];
 }
 
+- (void)pushToAllOther:(NSData *)data fromUserId:(int)userId {
+
+	[self.asyncMessageQueue enqueueMessageForOtherUsers:data fromUserId:userId];
+}
+
 //- (void)pushData:(NSData *)data toUser:(NSString *)sessionID withSocket:(struct libwebsocket *)wsi{
 //
 //}
@@ -182,6 +187,7 @@ static int callback_websockets(struct libwebsocket_context * this,
              struct libwebsocket *wsi,
              enum libwebsocket_callback_reasons reason,
              void *user, void *in, size_t len) {
+    
     int *session_id = (int *) user;
     switch (reason) {
         case LWS_CALLBACK_ESTABLISHED:
@@ -193,7 +199,7 @@ static int callback_websockets(struct libwebsocket_context * this,
             NSData *data = [NSData dataWithBytes:(const void *)in length:len];
             NSData *response = nil;
             if (sharedInstance.handleRequestBlock) {
-                response = sharedInstance.handleRequestBlock(data, [NSString stringWithFormat:@"%d", *session_id]);
+                response = sharedInstance.handleRequestBlock(data, *session_id);
             }
             write_data_websockets(response, wsi);
             break;
@@ -206,7 +212,7 @@ static int callback_websockets(struct libwebsocket_context * this,
         case LWS_CALLBACK_CLOSED:
         case LWS_CALLBACK_CLIENT_CONNECTION_ERROR:{
             if (sharedInstance.handleRequestBlock) {
-                sharedInstance.handleRequestBlock(NULL, [NSString stringWithFormat:@"%d", *session_id]);
+                sharedInstance.handleRequestBlock(NULL, *session_id);
             }
             [sharedInstance.asyncMessageQueue removeMessageQueueForUserWithId:*session_id];
             break;

@@ -13,10 +13,11 @@
 
 @interface TGMessage : NSObject
 
-@property (nonatomic, strong) NSString *action;
-@property (nonatomic, strong) NSDate *timestamp;
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) id body;
+@property (nonatomic, strong) NSString 	*action;
+@property (nonatomic, strong) NSDate 	*timestamp;
+@property (nonatomic, strong) NSString 	*name;
+@property (nonatomic) BOOL 				toSelf;
+@property (nonatomic, strong) id 		body;
 
 + (TGMessage*)messageFromJsonData:(NSData *)jsonData;
 + (NSData *)jsonDataFromMessage:(TGMessage *)message;

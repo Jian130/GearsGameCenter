@@ -9,17 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "JSONModel.h"
 
-@protocol TGUser
-@end
-
 @interface TGUser : NSObject
 
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *userID;
 @property (nonatomic, strong) NSString *isHost;
-@property (nonatomic, strong) NSString *sessionID;
-@property (nonatomic, strong) id property;
+@property (nonatomic, strong) id properties;
+@property (nonatomic) int sessionID;
 
-//+ (TGUser*)userFromJsonData:(NSData *)jsonData;
-//+ (NSData *)jsonDataFromUser:(TGUser *)message;
++ (TGUser*)userFromJsonData:(NSData *)jsonData;
++ (TGUser*)userFromObject:(id)object;
++ (NSData *)jsonDataFromUser:(TGUser *)user;
 
 @end

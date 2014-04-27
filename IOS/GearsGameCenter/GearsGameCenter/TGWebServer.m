@@ -46,8 +46,8 @@
                                       
                                       NSString *gameFolder = @"games";
                                       
-//                                      NSString *path = [request.path substringWithRange:NSMakeRange(1, request.path.length - 1)];
-//                                      path = [path lowercaseString];
+                                      //                                      NSString *path = [request.path substringWithRange:NSMakeRange(1, request.path.length - 1)];
+                                      //                                      path = [path lowercaseString];
                                       NSString *path = [[gameFolder stringByAppendingString:request.path] lowercaseString];
                                       NSString *ext = nil;
                                       NSRange range = [path rangeOfString:@"." options:NSBackwardsSearch];

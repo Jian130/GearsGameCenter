@@ -133,6 +133,12 @@ function GameCenter() {
 		sendMessage("get_shared_memory", name, null);
 	}
 
+	this.addUser = function(name, properties) {
+
+		var newUser = new user(name, properties);
+		sendMessage("add_user", name, newUser);
+	}
+
 	this.setUser = function(name, property) {
 
 		// var existingUser = 0;
