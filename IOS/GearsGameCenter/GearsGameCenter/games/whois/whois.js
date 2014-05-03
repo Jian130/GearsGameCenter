@@ -141,7 +141,7 @@ function startGame(){
 	//when sending the start game message
 	//host should broadcase a question
 	//i think we could usethe value:question
-	var dataobject={"type":"startGame", "questionIndex":questionIndex};
+	var dataobject={"type":"startGame", "questionIndex":questionIndex, "questionCount":questionCount};
     connect.broadcasting(dataobject);
 }
 
@@ -304,6 +304,7 @@ function recievedCallBack(object){
 			numGameAnswer = 0;
 			numExpectedGameAnswer = GameUserList.length;
 			questionIndex = object.questionIndex;
+			questionCount = object.questionCount;
 
 			nextState();
 			
@@ -330,7 +331,7 @@ function recievedCallBack(object){
 		}
 		*/
 		if(object.type=="answer"){
-			if(state==GAME_READY){
+			if(state!=GAME_ON && state!=GAME_WAIT){
 				return;
 			}
 			numGameAnswer = numGameAnswer+1;
