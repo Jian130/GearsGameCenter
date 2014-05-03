@@ -364,6 +364,9 @@ function recievedCallBack(object){
 }
 
 function GetQuestion(){
+	var num = numQuestion;
+	if(numQuestion==undefined)
+		num = "?";
 	
 	return (""+questionCount+"/"+numQuestion+" "+questions[questionIndex]);
 }
