@@ -40,7 +40,7 @@
     
     UIButton* closeButton = [[UIButton alloc] init];
     closeButton.translatesAutoresizingMaskIntoConstraints = NO;
-    closeButton.tintColor = [UIColor blackColor];
+    [closeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [closeButton addTarget:self action:@selector(closeButtonTapped)forControlEvents:UIControlEventTouchDown];
     [closeButton setTitle:@"Close" forState:UIControlStateNormal];
     [self.view addSubview:closeButton];

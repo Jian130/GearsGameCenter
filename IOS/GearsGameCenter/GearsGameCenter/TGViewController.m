@@ -49,7 +49,7 @@
                                                          delegate:self
                                                 cancelButtonTitle:@"Cancel"
                                            destructiveButtonTitle:nil
-                                                otherButtonTitles:@"SMS", @"Copy game link to Clipboard", @"QR Code", nil];
+                                                otherButtonTitles:@"SMS", @"QR Code", @"Copy game link to Clipboard", nil];
     }
     
     return _inviteOptionsList;
@@ -133,10 +133,10 @@
             [self showSMSView];
             break;
         case 1:
-            [self copyToClipboard];
+            [self createQRCode];
             break;
         case 2:
-            [self createQRCode];
+            [self copyToClipboard];
             break;
     }
 }
