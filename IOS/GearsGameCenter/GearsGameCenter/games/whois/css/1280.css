@@ -62,3 +62,17 @@ li.selected{
 	background-repeat: no-repeat;
 	background-image: url("../img/name_1280.png");
 }
+#numChooser select{
+	font-size: 80px;
+	border: 0;
+	background-color: transparent;
+	width: 160px;
+	text-indent: 20px;
+	display:inline-block;
+	color: #5c6d66;
+}
+#numChooser p{
+	font-size: 80px;
+	display:inline-block;
+	color: #5c6d66;
+}

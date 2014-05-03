@@ -16,6 +16,15 @@
 				
 				<input id="Username" type="text">
 			</div>
+			<div id="numChooser" hidden>
+				<select id="numQuestion">
+					<option value="1">01</option>
+					<option value="5">05</option>
+					<option value="10">10</option>
+					<option value="20">20</option>
+				</select>
+				<p name="numChooserHint"> questions to play.</p>
+			</div>
 			<p name="waitingMsg" hidden>Waiting for other players...</p>
 			<div class="UserListContainer">
 				<div class="UsersListHolder"> 
@@ -63,6 +72,8 @@
 			<button id="Result-ReadyButton" class="btn-center" onclick="ReadyButtonClick()" >Ready</button>
 
 			<button id="Result-StartButton" class="btn-center" onclick="StartButtonClick()" >Start</button>
+			
+			<button id="Result-RestartButton" class="btn-center" onclick="RestartButtonClick()" hidden>Restart</button>
 
 		</div>
 	</div>
@@ -119,6 +130,8 @@
 		}
 	}
 	function StartButtonClick(){
+		var numQuestion=document.getElementById("numQuestion").value;
+		SetNumQuestion(numQuestion);
 		startGame();
 		HideItemById("StartButton");
 		HideItemById("Result-StartButton");
@@ -131,7 +144,7 @@
 		document.getElementsByName("waitingMsg")[0].removeAttribute("hidden");
 		
 		var name=document.getElementById("Username").value;
-	
+		
 
 //		DeactivateButton("ReadyButton");
 //		DeactivateButton("Result-ReadyButton");
@@ -139,7 +152,6 @@
 		HideItemById("Result-ReadyButton");
 
 		UserIsReady(name);
-		
 		
 		
 	}
@@ -154,6 +166,12 @@
 	function DisableStartButton(){
 		HideItemById("StartButton");
 		HideItemById("Result-StartButton");
+	}
+	function EnableNumChooser(){
+		RevealItemById("numChooser");
+	}
+	function DisableNumChooser(){
+		HideItemById("numChooser");
 	}
 	function DisplayQuestion(){
 		var questionStr = GetQuestion();
@@ -203,8 +221,14 @@
 		//document.getElementsByTagName("button").setAttribute("disabled",true);
 
 		//ActivateButton("Result-StartButton");
-		ActivateButton("Result-ReadyButton");
-		RevealItemById("Result-ReadyButton");
+		if(gameIsRestart()==1){
+			//TODO
+			RevealItemById("Result-RestartButton");
+		}
+		else{
+			ActivateButton("Result-ReadyButton");
+			RevealItemById("Result-ReadyButton");
+		}
 
 		var userList = GetGameUsersList();
 		var Ulist= document.getElementById("UsersRankList");
@@ -224,6 +248,26 @@
 		ClearReadyList();
 
 	}
+	
+	function DisplayGameEntry(){
+		//TODO
+		//HideItemById("GameOn");
+		initState();
+		
+		ClearReadyList();
+		RevealItemById("GameEnter");
+		HideItemById("GameResult");
+		//HideItemById("waitingMsg");
+		
+		ActivateButton("ReadyButton");
+		RevealItemById("ReadyButton");
+	}
+	
+	function RestartButtonClick(){
+		HideItemById("Result-RestartButton");
+		DisplayGameEntry();
+	}
+	
 	/*
 	function ListItemClick(name){
 		answerQuestion(name);

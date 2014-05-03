@@ -24,7 +24,9 @@ var numGameUser;
 var numGameAnswer;
 var numExpectedGameAnswer;
 
-
+var numQuestion = undefined;
+var questionCount = 0;
+var questionCheckTable;
 var questionIndex = 0;
 var questions = [
 "Who is the most beautiful person?",
@@ -64,18 +66,27 @@ var questions = [
 //}
 var connect = new GameCenter();
 
+function initState(){
+	state = GAME_ENTER;
+	numQuestion = undefined;
+	questionCount = 0;
+}
 
 // to move State forward
 // 0 - 1 - 2 - 3 - 4 - 1
+// GAME_ENTER - GAME_READY - GAME_ON - GAME_WAIT - GAME_OVER - GAME_READY
 function nextState(){
 	state = state + 1;
 	if(state>NUMBER_OF_STATES){
 		state = state % NUMBER_OF_STATES;
 	}
 	
-	//
-	if(state == GAME_ON)
+	if(state == GAME_ON){
+		//update question count
+		questionCount++;
+		
 		DisplayQuestion();
+	}
 	if(state == GAME_OVER){
 		caculateRank();
 		DisplayResults();
@@ -109,21 +120,27 @@ function GetGameUsersList(){
 	return GameUserList;
 }
 
+function updateQuestionIndex(){
+	do{
+		questionIndex = Math.floor((Math.random() * questions.length));
+	} while(questionCheckTable[questionIndex]==1)
+	
+	questionCheckTable[questionIndex] = 1;
+	return questionIndex;
+}
 
 function startGame(){
 	// start the game
-	//TODO
-	//when sending the start game message
-	//host should broadcase a question
-	//i think we could usethe value:question
 
-	//TODO
 	//also we want to make sure that
 	//in one game no question appears twice
 	if(isHost) {
-    	questionIndex ++; //= Math.floor((Math.random() * questions.length));
+		questionIndex = updateQuestionIndex();
 	}
 	
+	//when sending the start game message
+	//host should broadcase a question
+	//i think we could usethe value:question
 	var dataobject={"type":"startGame", "questionIndex":questionIndex};
     connect.broadcasting(dataobject);
 }
@@ -217,9 +234,11 @@ function receivedUserlist(list){
 	}
 	if(isHost == 1 && state == GAME_READY){
 		EnableStartButton();
+		EnableNumChooser();
 	}
 	else{
 		DisableStartButton();
+		DisableNumChooser();
 	}
 }
 
@@ -336,9 +355,37 @@ function recievedCallBack(object){
 			mocked_UserList[object.value[0]] = object.value[1];
 			receivedUserlist(object.value);
 		}
+		
+		if(object.type=="numQuestion"){
+			console.log("set num question: "+object.value);
+			numQuestion = object.value;
+		}
 }
 
 function GetQuestion(){
 	
-	return questions[questionIndex];
+	return (""+questionCount+"/"+numQuestion+" "+questions[questionIndex]);
+}
+
+function SetNumQuestion(num){
+	console.log(num+","+numQuestion);
+	if(numQuestion != num){
+		numQuestion = num;
+		questionCount = 0;
+		questionCheckTable = new Array(questions.length);
+		for(var i=0; i<questionCheckTable.length; i++)
+			questionCheckTable[i] = 0;
+			
+		var dataobject={type:"numQuestion", value:numQuestion};
+    	connect.broadcasting(dataobject);
+	}
+}
+
+function gameIsRestart(){
+	if(numQuestion == questionCount){
+		return 1;
+	}
+	else{
+		return 0;
+	}
 }
