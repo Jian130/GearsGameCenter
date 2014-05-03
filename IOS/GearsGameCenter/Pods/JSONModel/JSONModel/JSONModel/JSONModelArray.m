@@ -1,7 +1,7 @@
 //
 //  JSONModelArray.m
 //
-//  @version 0.12.0
+//  @version 0.13.0
 //  @author Marin Todorov, http://www.touch-code-magazine.com
 //
 
@@ -34,22 +34,47 @@
     return self;
 }
 
--(id)objectAtIndex:(NSUInteger)index
+- (id)firstObject
 {
-    id obj = _storage[index];
-    if (![obj isMemberOfClass:_targetClass]) {
+    return [self objectAtIndex:0];
+}
+
+- (id)lastObject
+{
+    return [self objectAtIndex:_storage.count - 1];
+}
+
+- (id)objectAtIndex:(NSUInteger)index
+{
+	return [self objectAtIndexedSubscript:index];
+}
+
+- (id)objectAtIndexedSubscript:(NSUInteger)index
+{
+    id object = _storage[index];
+    if (![object isMemberOfClass:_targetClass]) {
         NSError* err = nil;
-        obj = [[_targetClass alloc] initWithDictionary:obj error:&err];
-        if (obj) {
-            _storage[index] = obj;
+        object = [[_targetClass alloc] initWithDictionary:object error:&err];
+        if (object) {
+            _storage[index] = object;
         }
     }
-    return obj;
+    return object;
 }
 
 - (void)forwardInvocation:(NSInvocation *)anInvocation
 {
     [anInvocation invokeWithTarget:_storage];
+}
+
+-(id)forwardingTargetForSelector:(SEL)selector
+{
+    static NSArray* overridenMethods = nil;
+    if (!overridenMethods) overridenMethods = @[@"initWithArray:modelClass:",@"objectAtIndex:",@"objectAtIndexedSubscript:", @"count",@"modelWithIndexValue:",@"description",@"mutableCopy",@"firstObject",@"lastObject"];
+    if ([overridenMethods containsObject:NSStringFromSelector(selector)]) {
+        return self;
+    }
+    return _storage;
 }
 
 - (NSUInteger)count
@@ -60,9 +85,9 @@
 -(id)modelWithIndexValue:(id)indexValue
 {
     if (self.count==0) return nil;
-    if (![self[0] indexPropertyName]) return nil;
+    if (![_storage[0] indexPropertyName]) return nil;
     
-    for (JSONModel* model in self) {
+    for (JSONModel* model in _storage) {
         if ([[model valueForKey:model.indexPropertyName] isEqual:indexValue]) {
             return model;
         }
@@ -81,7 +106,7 @@
 -(NSString*)description
 {
     NSMutableString* res = [NSMutableString stringWithFormat:@"<JSONModelArray[%@]>\n", [_targetClass description]];
-    for (id m in self) {
+    for (id m in _storage) {
         [res appendString: [m description]];
         [res appendString: @",\n"];
     }

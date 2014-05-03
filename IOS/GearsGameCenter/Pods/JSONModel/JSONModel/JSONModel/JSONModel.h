@@ -1,7 +1,7 @@
 //
 //  JSONModel.h
 //
-//  @version 0.12.0
+//  @version 0.13.0
 //  @author Marin Todorov, http://www.touch-code-magazine.com
 //
 
@@ -86,7 +86,7 @@ lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
  * A protocol describing an abstract JSONModel class
  * JSONModel conforms to this protocol, so it can use itself abstractly
  */
-@protocol AbstractJSONModelProtocol <NSObject>
+@protocol AbstractJSONModelProtocol <NSObject, NSCopying, NSCoding>
 
 @required
   /**
@@ -309,5 +309,13 @@ lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
  * @return a BOOL result indicating whether the property is ignored
  */
 +(BOOL)propertyIsIgnored:(NSString*)propertyName;
+
+/**
+ * Merges values from the given dictionary into the model instance.
+ * @param dict dictionary with values
+ * @param useKeyMapping if YES the method will use the model's key mapper and the global key mapper, if NO 
+ * it'll just try to match the dictionary keys to the model's properties
+ */
+-(void)mergeFromDictionary:(NSDictionary*)dict useKeyMapping:(BOOL)useKeyMapping;
 
 @end

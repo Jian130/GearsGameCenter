@@ -13,6 +13,7 @@
 		5217174E18F9C9BA0065A9B3 /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5217174C18F9C9BA0065A9B3 /* background@2x.png */; };
 		52493DF118B94B0000E0B215 /* util.m in Sources */ = {isa = PBXBuildFile; fileRef = 52493DEF18B94B0000E0B215 /* util.m */; };
 		525256D618B9251300E30880 /* games in Resources */ = {isa = PBXBuildFile; fileRef = 525256D518B9251300E30880 /* games */; };
+		529BE36A190C7517003DBD8F /* TGQRCodeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 529BE369190C7517003DBD8F /* TGQRCodeViewController.mm */; };
 		529DCF3C18E7652900410BED /* MMPDeepSleepPreventer.m in Sources */ = {isa = PBXBuildFile; fileRef = 529DCF3A18E7652900410BED /* MMPDeepSleepPreventer.m */; };
 		529DCF3D18E7652900410BED /* MMPSilence.wav in Resources */ = {isa = PBXBuildFile; fileRef = 529DCF3B18E7652900410BED /* MMPSilence.wav */; };
 		529DCF3F18E7655100410BED /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 529DCF3E18E7655100410BED /* AVFoundation.framework */; };
@@ -57,6 +58,8 @@
 		52493DEF18B94B0000E0B215 /* util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = util.m; sourceTree = "<group>"; };
 		52493DF018B94B0000E0B215 /* util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
 		525256D518B9251300E30880 /* games */ = {isa = PBXFileReference; lastKnownFileType = folder; path = games; sourceTree = "<group>"; };
+		529BE368190C7517003DBD8F /* TGQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TGQRCodeViewController.h; sourceTree = "<group>"; };
+		529BE369190C7517003DBD8F /* TGQRCodeViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TGQRCodeViewController.mm; sourceTree = "<group>"; };
 		529DCF3918E7652900410BED /* MMPDeepSleepPreventer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMPDeepSleepPreventer.h; sourceTree = "<group>"; };
 		529DCF3A18E7652900410BED /* MMPDeepSleepPreventer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMPDeepSleepPreventer.m; sourceTree = "<group>"; };
 		529DCF3B18E7652900410BED /* MMPSilence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = MMPSilence.wav; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 				2A40DE8418D445AA00BD441F /* TGMessage.m */,
 				8EFA1EFE18ED161B001AC9E7 /* TGUser.h */,
 				8EFA1EFF18ED161B001AC9E7 /* TGUser.m */,
+				529BE368190C7517003DBD8F /* TGQRCodeViewController.h */,
+				529BE369190C7517003DBD8F /* TGQRCodeViewController.mm */,
 			);
 			path = GearsGameCenter;
 			sourceTree = "<group>";
@@ -393,6 +398,7 @@
 				8EF262EE18B91A8000AEE044 /* TGAppDelegate.m in Sources */,
 				2A40DE8518D445AA00BD441F /* TGMessage.m in Sources */,
 				8E625DD318B9245400BB9BF9 /* TGCommunicationServer.m in Sources */,
+				529BE36A190C7517003DBD8F /* TGQRCodeViewController.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

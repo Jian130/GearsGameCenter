@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-QR-Code-Encoder-for-Objective-C.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,42 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>3EC912800B804D0C8778FBD1</key>
+		<key>11AF736736864CBBB1F322C2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>40236C60F4824BDAB42052EE</key>
+		<key>2BFC8ACFD96441CE8EA41E10</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>470DCD21F2E34DBEAFE0A8D3</key>
+		<key>313FA44126EB4F67AF61CBDB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>595E9AE29D624B94A73A29B4</key>
+		<key>7F750F09A4254E50BFC2FAF2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7EE73973A32B40B882156522</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C3648FEEF08048C3949CA1DE</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D2D8AE27D5034AEBB6060618</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E9A5AEE5299F481BAE909CF4</key>
+		<key>DEEA9E66A4584D14A5BA4AAD</key>
 		<dict>
 			<key>primary</key>
 			<true/>

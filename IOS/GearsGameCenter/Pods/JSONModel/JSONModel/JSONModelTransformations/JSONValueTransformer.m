@@ -1,7 +1,7 @@
 //
 //  JSONValueTransformer.m
 //
-//  @version 0.12.0
+//  @version 0.13.0
 //  @author Marin Todorov, http://www.touch-code-magazine.com
 //
 
@@ -35,7 +35,9 @@ extern BOOL isNull(id value)
         _primitivesNames = @{@"f":@"float", @"i":@"int", @"d":@"double", @"l":@"long", @"c":@"BOOL", @"s":@"short", @"q":@"long",
                              //and some famos aliases of primitive types
                              // BOOL is now "B" on iOS __LP64 builds
-                             @"I":@"NSInteger", @"B":@"BOOL"};
+                             @"I":@"NSInteger", @"Q":@"NSUInteger", @"B":@"BOOL",
+                             
+                             @"@?":@"Block"};
     }
     return self;
 }
@@ -87,6 +89,18 @@ extern BOOL isNull(id value)
     
     return [NSMutableArray arrayWithArray:array];
 }
+
+#pragma mark - NS(Mutable)Array <- JSONModelArray
+-(NSArray*)NSArrayFromJSONModelArray:(JSONModelArray*)array
+{
+    return (NSMutableArray*)array;
+}
+
+-(NSMutableArray*)NSMutableArrayFromJSONModelArray:(JSONModelArray*)array
+{
+    return (NSMutableArray*)array;
+}
+
 
 #pragma mark - NSMutableDictionary <-> NSDictionary
 -(NSMutableDictionary*)NSMutableDictionaryFromNSDictionary:(NSDictionary*)dict

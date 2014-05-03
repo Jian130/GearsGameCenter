@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0500"
+   LastUpgradeVersion = "0510"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "470DCD21F2E34DBEAFE0A8D3"
+               BlueprintIdentifier = "2BFC8ACFD96441CE8EA41E10"
                BuildableName = "libPods-BLWebSocketsServer.a"
                BlueprintName = "Pods-BLWebSocketsServer"
                ReferencedContainer = "container:Pods.xcodeproj">

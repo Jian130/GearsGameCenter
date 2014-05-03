@@ -4,3 +4,4 @@ pod 'BLWebSocketsServer', :git => 'https://github.com/Jian130/BLWebSocketsServer
 #pod 'BLWebSocketsServer'
 #pod 'JSONKit', '~> 1.5pre'
 pod 'JSONModel'
+pod 'QR-Code-Encoder-for-Objective-C'

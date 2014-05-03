@@ -11,11 +11,14 @@
 #import "TGAppDelegate.h"
 #import "TGWebServer.h"
 #import "util.h"
+#import <SystemConfiguration/CaptiveNetwork.h>
 
 @interface TGMainViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *ipAddress;
 @property (weak, nonatomic) IBOutlet UITextView *textInfoBox;
+@property (weak, nonatomic) IBOutlet UILabel *wifiLabel;
+@property (nonatomic) BOOL isWifiConnected;
 
 @end
 
@@ -30,9 +33,45 @@
     self.gameCell.backgroundColor = [UIColor colorWithRed:157.0/255 green:141.0/255 blue:70.0/255 alpha:1.0];
     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
     self.textInfoBox.backgroundColor = [UIColor clearColor];
-//    self.edgesForExtendedLayout=UIRectEdgeNone;
-//    self.extendedLayoutIncludesOpaqueBars=NO;
-//    self.automaticallyAdjustsScrollViewInsets=NO;
+    
+    if(&UIApplicationWillEnterForegroundNotification) {
+        NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter addObserver:self selector:@selector(enteredForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
+    }
+}
+
+- (void)enteredForeground:(NSNotification*) not
+{
+    [self updateWiFiLabel];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    //update 1. wifi label
+    [self updateWiFiLabel];
+}
+
+- (void)updateWiFiLabel {
+    CFArrayRef interfaceArray = CNCopySupportedInterfaces();
+    CFDictionaryRef interfaceDict = CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(interfaceArray, 0));
+    
+    @try {
+        if (interfaceDict) {
+            NSString *networkName = CFDictionaryGetValue(interfaceDict, kCNNetworkInfoKeySSID);
+            
+            self.wifiLabel.text = [[[@"Ask you friend to join the same Wi-Fi network " stringByAppendingString:@": ( "] stringByAppendingString:networkName] stringByAppendingString:@" )"];
+            self.wifiLabel.textColor = [UIColor colorWithRed:157.0f/255.0f green:141.0f/255.0f blue:70.0f/255.0f alpha:1.0f];
+            self.isWifiConnected = YES;
+        } else {
+            self.wifiLabel.text = @"Please connect to a Wi-Fi netweok.";
+            self.wifiLabel.textColor = [UIColor redColor];
+            self.isWifiConnected = NO;
+        }
+    }
+    @catch (NSException *exception) {
+        self.wifiLabel.text = @"Please connect to a Wi-Fi netweok.";
+        self.wifiLabel.textColor = [UIColor redColor];
+        self.isWifiConnected = NO;
+    }
 }
 
 - (void)startMazeGame {
