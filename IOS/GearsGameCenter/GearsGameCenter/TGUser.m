@@ -15,7 +15,7 @@ NSString* const KEY_USER_PROPERTIES 	= @"properties";
 
 @implementation TGUser
 
-+ (TGUser*)userFromJsonData:(NSData *)jsonData {
++ (TGUser*)userFromJsonData:(NSData *)jsonData withSessionID:(int)sessionID {
     
     NSError *error = nil;
     id object = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&error];
@@ -24,16 +24,17 @@ NSString* const KEY_USER_PROPERTIES 	= @"properties";
         NSLog(@"error: %@", error);
     }
     
-    return [self userFromObject:object];
+    return [self userFromObject:object withSessionID:sessionID];
 }
 
-+ (TGUser*)userFromObject:(id)object {
++ (TGUser*)userFromObject:(id)object withSessionID:(int)sessionID {
     
     TGUser *newUser = [[TGUser alloc] init];
     newUser.name 		= [object objectForKey:KEY_USER_NAME];
     newUser.userID		= [object objectForKey:KEY_USER_ID];
     newUser.isHost 		= [object objectForKey:KEY_USER_ISHOST];
     newUser.properties	= [object objectForKey:KEY_USER_PROPERTIES];
+    newUser.sessionID	= sessionID;
     
     return newUser;
 }

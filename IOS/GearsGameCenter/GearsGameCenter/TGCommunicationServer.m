@@ -33,6 +33,7 @@ NSString* const ACTION_SET_USER 			= @"set_user";
 @interface TGCommunicationServer()
 
 @property (strong, nonatomic) NSMutableDictionary *userList;
+//@property (strong, nonatomic) NSMutableArray *userList;
 @property (nonatomic, strong) NSMutableDictionary *sharedMemory;
 @property (nonatomic, strong) NSMutableArray *messageQueue;
 
@@ -58,6 +59,14 @@ NSString* const ACTION_SET_USER 			= @"set_user";
     
     return _userList;
 }
+
+//- (NSMutableArray *)userList {
+//	if (!_userList) {
+//        _userList = [[NSMutableArray alloc] init];
+//    }
+//    
+//    return _userList;
+//}
 
 - (NSMutableDictionary *)sharedMemory {
 	if (!_sharedMemory) {
@@ -123,12 +132,13 @@ NSString* const ACTION_SET_USER 			= @"set_user";
         if (message.toSelf) {
         	[self broadcastingMessage:message];
         } else {
-        	[self broadcastingMessage:message fromUserId:sessionID];
+        	[self broadcastingMessage:message fromSessionID:sessionID];
         }
     } else if ([message.action isEqualToString:ACTION_ADD_USER]) {
         
-        TGUser *newUser = [TGUser userFromObject:message.body];
-        
+        TGUser *newUser = [TGUser userFromObject:message.body withSessionID:sessionID];
+        [self addUser:newUser];
+        [self broadcastingUserListFromSessionID:sessionID];
     
     }else if ([message.action isEqualToString:ACTION_SET_USER]) {
         
@@ -136,7 +146,7 @@ NSString* const ACTION_SET_USER 			= @"set_user";
         TGUser *newUser = [[TGUser alloc] init];
         newUser.name = [message.body objectForKey:@"name"];
         newUser.sessionID = sessionID;
-        newUser.property = [message.body objectForKey:@"property"];
+        newUser.properties = [message.body objectForKey:@"property"];
         
 //        if (self.userList.count == 0) {
 //            newUser.isHost = @"1";
@@ -175,9 +185,40 @@ NSString* const ACTION_SET_USER 			= @"set_user";
     [[BLWebSocketsServer sharedInstance] pushToAll:jsonData];
 }
 
-- (void)broadcastingMessage:(TGMessage *)message fromUserId:(int)userId {
+- (void)broadcastingMessage:(TGMessage *)message fromSessionID:(int)sessionID {
 	NSData* jsonData = [TGMessage jsonDataFromMessage:message];
-    [[BLWebSocketsServer sharedInstance] pushToAllOther:jsonData fromUserId:userId];
+    [[BLWebSocketsServer sharedInstance] pushToAllOther:jsonData fromSessionID:sessionID];
+}
+
+- (void)broadcastingUserListFromSessionID:(int)sessionID {
+
+	TGMessage *newMessage = [[TGMessage alloc] init];
+    newMessage.action = ACTION_USER_LIST;
+    newMessage.timestamp = [NSDate date];
+    newMessage.name = ACTION_USER_LIST;
+    newMessage.body = [self.userList allValues];
+    
+    [self broadcastingMessage:newMessage fromSessionID:sessionID];
+}
+
+- (void)addUser:(TGUser *)user {
+	
+    BOOL needToAdd = false;
+    
+    if (!user.userID) {
+    	user.userID = [NSString stringWithFormat:@"%lu", [self.userList count] + 1];
+        needToAdd = true;
+    } else {
+        for (TGUser *user in self.userList) {
+            if ([user.userID isEqualToString:user.userID]) {
+            
+            }
+        }
+    }
+    
+    if (needToAdd) {
+        [self.userList setObject:user forKey:user.userID];
+    }
 }
 
 - (void)broadcastingUserList {

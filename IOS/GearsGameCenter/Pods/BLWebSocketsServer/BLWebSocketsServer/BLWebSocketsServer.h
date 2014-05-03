@@ -20,6 +20,6 @@ typedef NSData *(^BLWebSocketsHandleRequestBlock)(NSData * requestData, int sess
 - (void)stopWithCompletionBlock:(void(^)())completionBlock;
 - (void)setHandleRequestBlock:(BLWebSocketsHandleRequestBlock)handleRequestBlock;
 - (void)pushToAll:(NSData *)data;
-- (void)pushToAllOther:(NSData *)data fromUserId:(int)userId;
+- (void)pushToAllOther:(NSData *)data fromSessionID:(int)sessionID;
 
 @end

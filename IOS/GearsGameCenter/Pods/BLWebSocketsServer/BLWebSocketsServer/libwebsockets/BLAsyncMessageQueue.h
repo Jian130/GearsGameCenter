@@ -15,7 +15,7 @@
 - (void)addMessageQueueForUserWithId:(int)userId;
 - (void)removeMessageQueueForUserWithId:(int)userId;
 - (void)enqueueMessageForAllUsers:(NSData *)message;
-- (void)enqueueMessageForOtherUsers:(NSData *)message fromUserId:(int)userId;
+- (void)enqueueMessageForOtherUsers:(NSData *)message fromSessionID:(int)sessionID;
 - (NSData *)messageForUserWithId:(int)userId;
 - (void)reset;
 @end

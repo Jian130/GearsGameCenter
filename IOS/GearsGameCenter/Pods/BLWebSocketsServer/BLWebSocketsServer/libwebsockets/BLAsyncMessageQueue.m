@@ -73,8 +73,8 @@
     }
 }
 
-- (void)enqueueMessageForOtherUsers:(NSData *)message fromUserId:(int)userId {
-	NSNumber *userIdNumber = [NSNumber numberWithInt:userId];
+- (void)enqueueMessageForOtherUsers:(NSData *)message fromSessionID:(int)sessionID {
+	NSNumber *userIdNumber = [NSNumber numberWithInt:sessionID];
     @synchronized(self) {
         for (id key in self.usersMessageQueues) {
             if (![((NSNumber *)key) isEqualToNumber:userIdNumber]) {

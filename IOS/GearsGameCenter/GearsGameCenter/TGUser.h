@@ -16,9 +16,10 @@
 @property (nonatomic, strong) NSString *isHost;
 @property (nonatomic, strong) id properties;
 @property (nonatomic) int sessionID;
+@property (nonatomic) int status;
 
-+ (TGUser*)userFromJsonData:(NSData *)jsonData;
-+ (TGUser*)userFromObject:(id)object;
++ (TGUser*)userFromJsonData:(NSData *)jsonData withSessionID:(int)sessionID;
++ (TGUser*)userFromObject:(id)object withSessionID:(int)sessionID;
 + (NSData *)jsonDataFromUser:(TGUser *)user;
 
 @end
