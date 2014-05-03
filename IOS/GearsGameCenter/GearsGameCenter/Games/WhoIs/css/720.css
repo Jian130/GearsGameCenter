@@ -63,3 +63,17 @@ label{
 	width:100%;
 	padding-left: 250px;
 }
+#numChooser select{
+	font-size: 38px;
+	border: 0;
+	background-color: transparent;
+	width: 76px;
+	text-indent: 14px;
+	display:inline-block;
+	color: #5c6d66;
+}
+#numChooser p{
+	font-size: 38px;
+	display:inline-block;
+	color: #5c6d66;
+}
