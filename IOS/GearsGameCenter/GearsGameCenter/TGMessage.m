@@ -36,11 +36,17 @@ NSString* const KEY_MESSAGE_TOSELF 		= @"toSelf";
 
 + (NSData *)jsonDataFromMessage:(TGMessage *)message {
     NSError *error = nil;
+    
+    if ([message.body isKindOfClass:[TGUser class]]) {
+        message.body = [TGUser dictionaryFromUser:message.body];
+    }
+    
     NSDictionary *messageDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
                                        message.action, KEY_MESSAGE_ACTION,
                                        message.name, KEY_MESSAGE_NAME,
                                        message.timestamp, KEY_MESSAGE_TIMESTAMP,
                                        message.body, KEY_MESSAGE_BODY, nil];
+    
     
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:messageDictionary options:0 error:&error];
     

@@ -39,15 +39,21 @@ NSString* const KEY_USER_PROPERTIES 	= @"properties";
     return newUser;
 }
 
-+ (NSData *)jsonDataFromUser:(TGUser *)user {
-	NSError *error = nil;
-    NSDictionary *userDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
++ (NSDictionary *)dictionaryFromUser:(TGUser *)user {
+	NSDictionary *userDictionary = [[NSDictionary alloc] initWithObjectsAndKeys:
 									user.name, KEY_USER_NAME,
                                     user.userID, KEY_USER_ID,
                                     user.isHost, KEY_USER_ISHOST,
                                     user.properties, KEY_USER_PROPERTIES, nil];
+	return userDictionary;
+}
+
++ (NSData *)jsonDataFromUser:(TGUser *)user {
+	NSError *error = nil;
     
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:userDictionary options:0 error:&error];
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:[self dictionaryFromUser:user]
+                                                       options:0
+                                                         error:&error];
     
     if (error) {
     	NSLog(@"error: %@", error);

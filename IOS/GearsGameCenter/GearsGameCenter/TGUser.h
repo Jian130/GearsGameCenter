@@ -21,5 +21,5 @@
 + (TGUser*)userFromJsonData:(NSData *)jsonData withSessionID:(int)sessionID;
 + (TGUser*)userFromObject:(id)object withSessionID:(int)sessionID;
 + (NSData *)jsonDataFromUser:(TGUser *)user;
-
++ (NSDictionary *)dictionaryFromUser:(TGUser *)user;
 @end

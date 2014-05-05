@@ -95,11 +95,11 @@ function GameCenter() {
 		}
 	}
 
-	var user = function(name, property){
+	var user = function(name, properties){
 		this.name = name;
 		this.id = null;
 		this.isHost = null;
-		this.property = property
+		this.properties = properties
 	}
 
 	var sendMessage = function(action, name, body) {

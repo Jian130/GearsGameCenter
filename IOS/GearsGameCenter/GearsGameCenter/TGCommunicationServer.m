@@ -37,6 +37,8 @@ NSString* const ACTION_SET_USER 			= @"set_user";
 @property (nonatomic, strong) NSMutableDictionary *sharedMemory;
 @property (nonatomic, strong) NSMutableArray *messageQueue;
 
+@property (nonatomic, strong) NSDate *tempDate;
+
 @end
 
 @implementation TGCommunicationServer
@@ -137,6 +139,7 @@ NSString* const ACTION_SET_USER 			= @"set_user";
     } else if ([message.action isEqualToString:ACTION_ADD_USER]) {
         
         TGUser *newUser = [TGUser userFromObject:message.body withSessionID:sessionID];
+        self.tempDate = message.timestamp;
         [self addUser:newUser];
         [self broadcastingUserListFromSessionID:sessionID];
     
@@ -194,9 +197,9 @@ NSString* const ACTION_SET_USER 			= @"set_user";
 
 	TGMessage *newMessage = [[TGMessage alloc] init];
     newMessage.action = ACTION_USER_LIST;
-    newMessage.timestamp = [NSDate date];
+    newMessage.timestamp = self.tempDate;// [NSDate date];
     newMessage.name = ACTION_USER_LIST;
-    newMessage.body = [self.userList allValues];
+    newMessage.body = [self.userList allValues][0];
     
     [self broadcastingMessage:newMessage fromSessionID:sessionID];
 }
@@ -207,6 +210,7 @@ NSString* const ACTION_SET_USER 			= @"set_user";
     
     if (!user.userID) {
     	user.userID = [NSString stringWithFormat:@"%lu", [self.userList count] + 1];
+        user.isHost = @"1";
         needToAdd = true;
     } else {
         for (TGUser *user in self.userList) {
