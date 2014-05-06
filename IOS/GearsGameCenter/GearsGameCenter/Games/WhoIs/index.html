@@ -52,7 +52,7 @@
 				</ul>
 			</div>
 			<button id='SubmitVoteButton' class="btn-center" onclick="SubmitVoteButtonClick()" >Submit </button>
-
+			<div id="waitingHint" > </div>
 		</div>
 		<div id="GameResult" class="stage" hidden>
 			<div class="QuestionHolder">
@@ -121,6 +121,29 @@
 		};
 
 	}
+	function UpdateNotAnsweredList(){
+		//TODO
+		var message = "Still waiting for ";
+		var waitingHint=document.getElementsByName("waitingHint");
+		var userList = GameUserList;
+		var users = [];
+
+		for (var i = userList.length - 1; i >= 0; i--) {
+			var user=userList[i];
+			
+			if(user.AnswerStatus=="0"){
+				users[users.length] = user.Username;	
+			}
+		};
+		message += users.join(", ");
+		console.log(message);
+		
+		waitingHint.innerHTML = message;
+	}
+	function clearNotAnsweredList(){
+		var waitingHint=document.getElementsByName("waitingHint");
+		waitingHint.innerHTML = "";
+	}
 	function ClearReadyList(){
 		var readyLists=document.getElementsByName("ReadyUserList");
 		
@@ -183,6 +206,8 @@
 		// cleaer View
 		HideItemById("GameEnter");
 		HideItemById("GameResult");
+		
+		clearNotAnsweredList();
 
 		RevealItemById("SubmitVoteButton");
 
@@ -285,7 +310,6 @@
 		answerQuestion(username);
 		DeactivateButton("SubmitVoteButton");
 		HideItemById("SubmitVoteButton");
-
 	}
 
 

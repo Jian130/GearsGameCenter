@@ -350,6 +350,7 @@ function recievedCallBack(object){
 				//everyone finish the question
 				nextState();
 			}
+			UpdateNotAnsweredList();
 		}
 		//mock up
 		if(object.type == "mocked"){
