@@ -139,7 +139,7 @@ NSString* const ACTION_SET_USER 			= @"set_user";
     } else if ([message.action isEqualToString:ACTION_ADD_USER]) {
         
         TGUser *newUser = [TGUser userFromObject:message.body withSessionID:sessionID];
-        self.tempDate = message.timestamp;
+        //self.tempDate = message.timestamp;
         [self addUser:newUser];
         [self broadcastingUserListFromSessionID:sessionID];
     
@@ -195,9 +195,14 @@ NSString* const ACTION_SET_USER 			= @"set_user";
 
 - (void)broadcastingUserListFromSessionID:(int)sessionID {
 
+    NSDate *currentDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    NSString *localDateString = [dateFormatter stringFromDate:currentDate];
+    
 	TGMessage *newMessage = [[TGMessage alloc] init];
     newMessage.action = ACTION_USER_LIST;
-    newMessage.timestamp = self.tempDate;// [NSDate date];
+    newMessage.timestamp = localDateString;//self.tempDate;// [NSDate date];
     newMessage.name = ACTION_USER_LIST;
     newMessage.body = [self.userList allValues][0];
     
