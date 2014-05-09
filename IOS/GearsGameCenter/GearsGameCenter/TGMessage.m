@@ -25,7 +25,7 @@ NSString* const KEY_MESSAGE_TOSELF 		= @"toSelf";
     newMessage.action 		= [object objectForKey:KEY_MESSAGE_ACTION];
 	newMessage.name 		= [object objectForKey:KEY_MESSAGE_NAME];
 	newMessage.body 		= [object objectForKey:KEY_MESSAGE_BODY];
-    newMessage.toSelf		= [object objectForKey:KEY_MESSAGE_TOSELF];
+    newMessage.toSelf		= [[object objectForKey:KEY_MESSAGE_TOSELF] boolValue];
     
     if (error) {
         NSLog(@"error: %@", error);

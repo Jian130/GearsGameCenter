@@ -14,7 +14,7 @@
 @interface TGMessage : NSObject
 
 @property (nonatomic, strong) NSString 	*action;
-@property (nonatomic, strong) NSDate 	*timestamp;
+@property (nonatomic, strong) NSString 	*timestamp;
 @property (nonatomic, strong) NSString 	*name;
 @property (nonatomic) BOOL 				toSelf;
 @property (nonatomic, strong) id 		body;

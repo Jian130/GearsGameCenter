@@ -16,6 +16,8 @@
 
 NSString* const ACTION_BROADCASTING 		= @"broadcasting";
 NSString* const ACTION_ADD_USER				= @"add_user";
+NSString* const ACTION_DISCONNECT_USER      = @"disconnect_user";
+NSString* const ACTION_CONNECT_USER         = @"connect_user";
 NSString* const ACTION_SET_USER_PROPERTY 	= @"set_user_property";
 NSString* const ACTION_GET_USER_PROPERTY	= @"get_user_property";
 NSString* const ACTION_GET_USER_LIST		= @"get_user_list";
@@ -35,7 +37,7 @@ NSString* const ACTION_SET_USER 			= @"set_user";
 @property (strong, nonatomic) NSMutableDictionary *userList;
 //@property (strong, nonatomic) NSMutableArray *userList;
 @property (nonatomic, strong) NSMutableDictionary *sharedMemory;
-@property (nonatomic, strong) NSMutableArray *messageQueue;
+//@property (nonatomic, strong) NSMutableArray *messageQueue;
 
 @property (nonatomic, strong) NSDate *tempDate;
 
@@ -139,7 +141,6 @@ NSString* const ACTION_SET_USER 			= @"set_user";
     } else if ([message.action isEqualToString:ACTION_ADD_USER]) {
         
         TGUser *newUser = [TGUser userFromObject:message.body withSessionID:sessionID];
-        //self.tempDate = message.timestamp;
         [self addUser:newUser];
         [self broadcastingUserListFromSessionID:sessionID];
     
@@ -170,11 +171,11 @@ NSString* const ACTION_SET_USER 			= @"set_user";
         //prepare return message
         returnedMessage = [[TGMessage alloc] init];
         returnedMessage.action = @"user_list";
-        returnedMessage.timestamp = [NSDate date];
+        //returnedMessage.timestamp = [NSDate date];
         returnedMessage.name = @"user_list";
 //        returnedMessage.userList = [self.userList allValues];
-    }else if ([message.action isEqualToString:@"set_shared_memory"]) {
-		[self.messageQueue addObject:message];
+    }else if ([message.action isEqualToString:ACTION_SET_SHARED_MEMORY]) {
+//		[self.messageQueue addObject:message];
         [self writeSharedMemory:message];
     } else if ([message.action isEqualToString:@"get_shared_memory"]) {
     	returnedMessage = [self readSharedMemory:message];
@@ -195,14 +196,11 @@ NSString* const ACTION_SET_USER 			= @"set_user";
 
 - (void)broadcastingUserListFromSessionID:(int)sessionID {
 
-    NSDate *currentDate = [NSDate date];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
-    NSString *localDateString = [dateFormatter stringFromDate:currentDate];
+    
     
 	TGMessage *newMessage = [[TGMessage alloc] init];
     newMessage.action = ACTION_USER_LIST;
-    newMessage.timestamp = localDateString;//self.tempDate;// [NSDate date];
+    newMessage.timestamp = [self getCurrentTimestamp];
     newMessage.name = ACTION_USER_LIST;
     newMessage.body = [self.userList allValues][0];
     
@@ -214,7 +212,7 @@ NSString* const ACTION_SET_USER 			= @"set_user";
     BOOL needToAdd = false;
     
     if (!user.userID) {
-    	user.userID = [NSString stringWithFormat:@"%lu", [self.userList count] + 1];
+    	user.userID = [NSString stringWithFormat:@"%u", [self.userList count] + 1];
         user.isHost = @"1";
         needToAdd = true;
     } else {
@@ -233,7 +231,7 @@ NSString* const ACTION_SET_USER 			= @"set_user";
 - (void)broadcastingUserList {
 	TGMessage *broadcastMessage = [[TGMessage alloc] init];
     broadcastMessage.action = @"user_list";
-    broadcastMessage.timestamp = [NSDate date];
+    broadcastMessage.timestamp = [self getCurrentTimestamp];
     broadcastMessage.name = @"user_list";
 //    broadcastMessage.userList = [self.userList allValues];
     
@@ -257,14 +255,42 @@ NSString* const ACTION_SET_USER 			= @"set_user";
     {
         TGMessage *returnedMessage = nil;
         if ([self.sharedMemory objectForKey:message.name]) {
+            
             returnedMessage = [[TGMessage alloc] init];
             returnedMessage.action = ACTION_SHARED_MEMORY;
-            returnedMessage.timestamp = [NSDate date];
-            returnedMessage.body = [self.sharedMemory objectForKey:message.name];
+            returnedMessage.timestamp = [self getCurrentTimestamp];
+            returnedMessage.body = [self getObjectFromMemory:[self.sharedMemory objectForKey:message.name] forPath:message.body];
         }
         
         return returnedMessage;
     }
+}
+
+- (id)getObjectFromMemory:(id)memory forPath:(NSString *)path {
+    
+    NSError *error = nil;
+    NSString *pattern = @"\[(.*?)\\]";
+    NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+    NSTextCheckingResult *result = [expression firstMatchInString:path options:0 range:NSMakeRange(0, path.length)];
+    NSString *value = [path substringWithRange:[result range]];
+    NSUInteger index = [value integerValue];
+    
+    id object = nil;
+    
+    if ([memory isKindOfClass:[NSDictionary class]]) {
+        
+    } else if ([memory isKindOfClass:[NSArray class]]) {
+        object = [memory objectAtIndex:index];
+    }
+    
+    return object;
+}
+
+- (NSString *)getCurrentTimestamp {
+    NSDate *currentDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    return [dateFormatter stringFromDate:currentDate];
 }
 
 - (void)stopCommunicationServer {

@@ -96,6 +96,8 @@ function GameCenter() {
 	}
 
 	var user = function(name, properties){
+
+		// var 
 		this.name = name;
 		this.id = null;
 		this.isHost = null;
@@ -133,11 +135,20 @@ function GameCenter() {
 		sendMessage("get_shared_memory", name, null);
 	}
 
+	this.getSharedMemoryForPath = function(name, path) {
+		sendMessage("get_shared_memory", name, path);
+	}
+
 	this.addUser = function(name, properties) {
 
 		var newUser = new user(name, properties);
 		sendMessage("add_user", name, newUser);
 	}
+
+	// this.disconnectUser = function(userID) {
+
+		
+	// }
 
 	this.setUser = function(name, property) {
 
