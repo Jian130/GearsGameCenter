@@ -78,8 +78,9 @@
 		</div>
 	</div>
 	<audio hidden id="ding">
-  		<source src="./mp3/ding.mp3" type="audio/mpeg">
+  		<source id="dingsrc" src="" type="audio/mpeg">
 	</audio>
+	
 </body>
 <script type="text/javascript">
 	
@@ -164,6 +165,18 @@
 
 
 	}
+
+
+function playsound(){
+	var soundEffect = document.getElementById("ding");
+	//var dingsrouce = document.getElementById("dingsrc");
+		
+		soundEffect.load();
+		soundEffect.play();
+		soundEffect.pause();
+		soundEffect.play();
+		//soundEffect.oncanplay=alert("Can start playing video");
+}
 	function ReadyButtonClick(){
 		
 
@@ -178,14 +191,15 @@
 		HideItemById("Result-ReadyButton");
 
 		UserIsReady(name);
-		
-		var soundEffect = document.getElementById("ding");
-		soundEffect.src="./mp3/ding.mp3";
+		//eventFire(document.querySelector("#SoundPlayBackButton"),'click');
+		soundEffect = document.getElementById("ding");
+		var dingsrouce = document.getElementById("dingsrc");
+		dingsrouce.src="";
 		soundEffect.load();
 		soundEffect.play();
 		soundEffect.pause();
-		soundEffect.play();
-		soundEffect.oncanplay=alert("Can start playing video");
+		dingsrouce.src="./mp3/ding.mp3";
+		
 		
 	}
 	function EnableStartButton(){
@@ -281,14 +295,9 @@
 		}
 		ClearReadyList();
 		
-		
-		var soundEffect = document.getElementById("ding");
-		soundEffect.src="./mp3/ding.mp3";
-		soundEffect.load();
-		soundEffect.play();
-		soundEffect.pause();
-		soundEffect.play();
-		soundEffect.oncanplay=alert("Can start playing video");
+		//eventFire(document.querySelector("#SoundPlayBackButton"),'click');
+		playsound();
+
 		//
 		
 		//*
