@@ -269,22 +269,36 @@ NSString* const ACTION_SET_USER 			= @"set_user";
 - (id)getObjectFromMemory:(id)memory forPath:(NSString *)path {
     
     NSError *error = nil;
-    NSString *pattern = @"\[(.*?)\\]";
+    //NSString *pattern = @"\\[(.*)\\]";
+    NSString *pattern = @"\\[([0-9]*)\\]|(\\.[a-zA-Z]*)";//\[([0-9]*)\]|\.([a-zA-Z]*) //@"\\[([0-9]*)\\]";
     NSRegularExpression *expression = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
-    NSTextCheckingResult *result = [expression firstMatchInString:path options:0 range:NSMakeRange(0, path.length)];
-    NSString *value = [path substringWithRange:[result range]];
+//    NSTextCheckingResult *result = [expression firstMatchInString:path options:0 range:NSMakeRange(0, path.length)];
+    
+    NSArray *results = [expression matchesInString:path options:0 range:NSMakeRange(0, path.length)];
+    
+    NSString *value = [results firstObject];
     NSUInteger index = [value integerValue];
     
     id object = nil;
     
-    if ([memory isKindOfClass:[NSDictionary class]]) {
-        
-    } else if ([memory isKindOfClass:[NSArray class]]) {
-        object = [memory objectAtIndex:index];
-    }
     
     return object;
 }
+
+- (id)tryToGetObjectFrom:(id)Memory forKey:(NSString *)key withKeyArray:(NSArray *)keys{
+
+	if ([key rangeOfString:@"."].location) {
+        
+    } else if ([key rangeOfString:@"["].location) {
+    
+    }
+    
+    if ([keys count] > 0) {
+//        return self tryToGetObjectFrom: forKey:<#(NSString *)#> withKeyArray:<#(NSArray *)#>
+    }
+}
+
+
 
 - (NSString *)getCurrentTimestamp {
     NSDate *currentDate = [NSDate date];
