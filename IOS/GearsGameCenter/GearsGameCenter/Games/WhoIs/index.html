@@ -179,6 +179,13 @@
 
 		UserIsReady(name);
 		
+		var soundEffect = document.getElementById("ding");
+		soundEffect.src="./mp3/ding.mp3";
+		soundEffect.load();
+		soundEffect.play();
+		soundEffect.pause();
+		soundEffect.play();
+		soundEffect.oncanplay=alert("Can start playing video");
 		
 	}
 	function EnableStartButton(){
@@ -274,15 +281,19 @@
 		}
 		ClearReadyList();
 		
-		/*
+		
 		var soundEffect = document.getElementById("ding");
+		soundEffect.src="./mp3/ding.mp3";
 		soundEffect.load();
 		soundEffect.play();
-		//*/
+		soundEffect.pause();
+		soundEffect.play();
+		soundEffect.oncanplay=alert("Can start playing video");
+		//
 		
 		//*
-		var audio = new Audio('./mp3/ding.wav');
-		audio.play();
+		//var audio = new Audio('./mp3/ding.wav');
+		//audio.play();
 		//*/
 	}
 	
