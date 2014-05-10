@@ -35,7 +35,12 @@ public class GCCommunicationServer extends WebSocketServer {
 	@Override
 	public void onClose(WebSocket arg0, int arg1, String arg2, boolean arg3)
 	{
-
+		if (this.userList.containsKey(arg0))
+		{
+			this.userList.remove(arg0);
+		}
+		
+		this.broadcastUserList();
 	}
 
 	@Override
