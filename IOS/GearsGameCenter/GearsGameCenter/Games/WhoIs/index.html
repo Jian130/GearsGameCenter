@@ -273,11 +273,14 @@
 
 		}
 		ClearReadyList();
+		
 		/*
 		var soundEffect = document.getElementById("ding");
-		soundEffect.play();*/
-		var sound = new Audio("./mp3/ding.mp3");
-		sound.play();
+		soundEffect.load();
+		soundEffect.play();
+		*/
+		var audio = new Audio('./mp3/ding.mp3');
+		audio.play();
 	}
 	
 	function DisplayGameEntry(){
