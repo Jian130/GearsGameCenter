@@ -1,13 +1,14 @@
-/*
+
 // web server
 var connect = require('connect');
 connect.createServer(
     connect.static('public')
 ).listen(3000);
-*/
+
 
 // communication server
 // Scream server example: "hi" -> "HI!!!"
+/*
 var WebSocketServer = require('ws').Server
   , wss = new WebSocketServer({port: 8001});
 wss.broadcast = function(data,cws) {
@@ -76,4 +77,4 @@ wss.on('connection', function(ws) {
     });
 
     //ws.send('something');
-});
+});*/
